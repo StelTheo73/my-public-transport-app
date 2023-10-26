@@ -1,0 +1,26 @@
+header > div > div {
+    min-height: 4em;
+}
+
+header .header-nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+header .header-nav-link-logo {
+    max-width: fit-content;
+}
+
+header .dropdown-toggle {
+    height: 100%;
+}
+
+header i.bi-list {
+    font-size: 1.5em;
+    color: black;
+}
+
+/* header button {
+    max-width: 20vw;
+    max-height: 20vw;
+} */
