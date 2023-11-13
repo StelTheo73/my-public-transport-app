@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Home = () => {
+export const Home = (language, setLanguage) => {
   return (
     <main>
       <h1>Home</h1>

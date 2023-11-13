@@ -3,7 +3,7 @@
 
 :root {
     --default-box-shadow: 1px 4px 10px 1px var(--bs-gray-dark);
-    --header-height: 70px;
+    --header-height: 60px;
     --max-body-width: 1200px;
 }
 
@@ -15,6 +15,8 @@
 body {
     max-width: var(--max-body-width);
     margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: 0.1em;
     box-shadow: var(--default-box-shadow);
     border-radius: 1em;
 }
@@ -24,10 +26,23 @@ main {
     padding-right: 2em;
     padding-top: var(--header-height);
     width: 100%;
-    min-height: 99vh;
+    /* TODO(theofilo): Define minimum height */
+    /* min-height: 80vh; */
+    z-index: 0;
+}
+
+footer {
+    padding-left: 2em;
+    padding-right: 2em;
+    width: 100%;
     z-index: 0;
 }
 
 .hide {
     display: none;
+    visibility: hidden;
+}
+
+.main-wrapper {
+    width: 100%;
 }

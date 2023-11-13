@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const Contact = () => {
+export const Contact = ({language}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -9,7 +9,7 @@ export const Contact = () => {
 
   return (
     <main>
-      <div className="component">Contact</div>
+      <div>Contact</div>
       <button onClick={() => handleClick()}>Back To Home</button>
     </main>
   )
