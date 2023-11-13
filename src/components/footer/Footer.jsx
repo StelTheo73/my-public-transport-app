@@ -2,7 +2,7 @@ import { CreatorInfo } from "./CreatorInfo";
 
 import "./Footer.css";
 
-export const Footer = (language) => {
+export const Footer = ({language}) => {
   return (
     <footer>
         <hr></hr>

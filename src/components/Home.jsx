@@ -1,55 +1,173 @@
-import React from 'react';
+import { useState } from "react";
 
-export const Home = (language, setLanguage) => {
-  return (
-    <main>
-      <h1>Home</h1>
-      <p>Lorem ipsum dolor sit amet cons ectetur adipi scing elit. Quis quaeque doloremque, voluptatum, voluptatibus, voluptas, quibusdam, quos, quas, quia quidem repellat quod voluptate.
+import Select from "react-select";
 
-      The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+import "../static/css/Home.css";
+import textObject from "../assets/language/home.json";
+import Stations from "../database/stations.json";
 
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-      </p>
-
-      <p>Lorem ipsum dolor sit amet cons ectetur adipi scing elit. Quis quaeque doloremque, voluptatum, voluptatibus, voluptas, quibusdam, quos, quas, quia quidem repellat quod voluptate.
-
-      The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-      </p>
-
-      <p>Lorem ipsum dolor sit amet cons ectetur adipi scing elit. Quis quaeque doloremque, voluptatum, voluptatibus, voluptas, quibusdam, quos, quas, quia quidem repellat quod voluptate.
-
-      The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-      </p>
-
-      <p>Lorem ipsum dolor sit amet cons ectetur adipi scing elit. Quis quaeque doloremque, voluptatum, voluptatibus, voluptas, quibusdam, quos, quas, quia quidem repellat quod voluptate.
-
-      The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-      </p>
-
-      <p>Lorem ipsum dolor sit amet cons ectetur adipi scing elit. Quis quaeque doloremque, voluptatum, voluptatibus, voluptas, quibusdam, quos, quas, quia quidem repellat quod voluptate.
-
-The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-</p>
+import { removeTones } from "../utils/removeTones";
 
 
-    </main>
-  )
+function createOptions(station, language) {
+      const stationInEnglish = station["EN"];
+      return {
+            "value": station.id,
+            "label": station[language],
+            "english": stationInEnglish,
+      }
+}
+
+const filterOptions = (option, filter) => {
+      if (filter === undefined || filter === null) {
+            return true;
+      }
+
+      if (filter.trim().length === 0) {
+            return true;
+      }
+
+      const parsedFilter = removeTones(filter.trim()).toLowerCase().replace("ς", "σ");
+
+      const parsedLabel = removeTones(option.label).toLowerCase().replace("ς", "σ");
+      const stationInEnglish = option.data.english.toLowerCase();
+
+      if (parsedLabel.includes(parsedFilter)) {
+            return true;
+      }
+      else if (stationInEnglish.includes(parsedFilter)) {
+            return true;
+      }
+      else {
+            return false;
+      }
+}
+
+export const Home = ({language}) => {
+      const [start, setStart] = useState("");
+      const [destination, setDestination] = useState("");
+      const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+      const [tripType, setTripType] = useState({
+            "value": "one-way",
+            "label": textObject.oneWayTrip[language]
+      });
+
+      const stations = Stations["stations"];
+      const frequentStations = stations.filter(station => station.frequent === true);
+      const options = [
+            {
+                  "label": textObject.frequentStations[language],
+                  "options": frequentStations.map(station => createOptions(station, language))
+            },
+            {
+                  "label": textObject.allStations[language],
+                  "options": stations.map(station => createOptions(station, language))
+            }
+      ];
+
+      const tripOptions = [
+            {
+                  "options": [
+                        {
+                              "value": "one-way",
+                              "label": textObject.oneWayTrip[language]
+                        },
+                        {
+                              "value": "returning",
+                              "label": textObject.returningTrip[language]
+                        }
+                  ]
+            }
+      ];
+
+      return (
+            <main>
+                  <div className="container-fluid">
+                        <div className="container">
+                              <h3>Αναζήτηση Δρομολογίων</h3>
+                        </div>
+                        <div className="form-wrapper container justify-content-center my-3">
+                              {/* Form */}
+                              <form className="container">
+                                    {/* First row */}
+                                    <div className="row pt-3">
+                                          {/* Start select */}
+                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
+                                                <label htmlFor="start">{textObject.start[language]}</label>
+                                                <Select
+                                                      className="required"
+                                                      required
+                                                      name="start"
+                                                      isSearchable
+                                                      isClearable
+                                                      autoFocus
+                                                      placeholder="-"
+                                                      options={options}
+                                                      value={start}
+                                                      onChange={e => setStart(e)}
+                                                      filterOption={filterOptions}
+                                                />
+                                          </div>
+                                          {/* End start select */}
+                                          {/* Destination select */}
+                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
+                                                <label htmlFor="destination">{textObject.destination[language]}</label>
+                                                <Select
+                                                      className="required"
+                                                      required
+                                                      name="destination"
+                                                      isSearchable
+                                                      isClearable
+                                                      placeholder="-"
+                                                      options={options}
+                                                      value={destination}
+                                                      onChange={e => setDestination(e)}
+                                                      filterOption={filterOptions}
+                                                />
+                                          </div>
+                                          {/* End destination select */}
+                                    </div>
+                                    {/* End first row */}
+                                    {/* Second row */}
+                                    <div className="row">
+                                          {/* Date select */}
+                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
+                                                <label htmlFor="date">{textObject.date[language]}</label>
+                                                <input
+                                                      className="form-control required" type="date" name="date"
+                                                      required
+                                                      value={date}
+                                                      onChange={e => setDate(e.target.value)}
+                                                />
+                                          </div>
+                                          {/* End date select */}
+                                          {/* Trip type select */}
+                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
+                                                <label htmlFor="tripType">{textObject.tripType[language]}</label>
+                                                <Select
+                                                      className="required"
+                                                      required
+                                                      name="tripType"
+                                                      value={tripType}
+                                                      onChange={e => setTripType(e)}
+                                                      options={tripOptions}
+                                                >
+                                                </Select>
+                                          </div>
+                                          {/* End trip type select */}
+                                    </div>
+                                    {/* End second row */}
+                                    {/* Third row */}
+                                    <div className="row pb-3">
+                                          <div className="form-group d-flex justify-content-center flex-column my-2">
+                                                <input type="submit" className="btn btn-primary" value={textObject.search[language]} />
+                                          </div>
+                                    </div>
+                                    {/* End third row */}
+                              </form>
+                              {/* End form */}
+                        </div>
+                  </div>
+            </main>
+      )
 }

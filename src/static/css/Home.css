@@ -1,0 +1,13 @@
+main .form-wrapper {
+    max-width: calc(var(--max-body-width) / 2);
+    box-shadow: var(--default-box-shadow);
+    border-radius: 1em;
+}
+
+/* Style bootstrap form items as react-select */
+main form .form-control:focus,
+main form .form-select:focus
+{
+    border: 2px solid var(--bs-primary);
+    box-shadow: none;
+}

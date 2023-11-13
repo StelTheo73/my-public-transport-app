@@ -1,0 +1,38 @@
+{
+    "start": {
+        "EN": "Departing from",
+        "GR": "Αφετηρία"
+    },
+    "destination": {
+        "EN": "Going to",
+        "GR": "Προορισμός"
+    },
+    "date": {
+        "EN": "Date",
+        "GR": "Ημερομηνία"
+    },
+    "tripType": {
+        "EN": "Trip Type",
+        "GR": "Τύπος Ταξιδιού"
+    },
+    "oneWayTrip": {
+        "EN": "One Way Trip",
+        "GR": "Απλή Μετάβαση"
+    },
+    "returningTrip": {
+        "EN": "Returning Trip",
+        "GR": "Με επιστροφή"
+    },
+    "allStations": {
+        "EN": "All Stations",
+        "GR": "Όλοι οι σταθμοί"
+    },
+    "frequentStations": {
+        "EN": "Frequent Stations",
+        "GR": "Συχνοί Σταθμοί"
+    },
+    "search": {
+        "EN": "Search",
+        "GR": "Αναζήτηση"
+    }
+}
