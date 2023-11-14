@@ -8,8 +8,12 @@
         "GR": "Προορισμός"
     },
     "date": {
-        "EN": "Date",
-        "GR": "Ημερομηνία"
+        "EN": "Departure Date",
+        "GR": "Ημερομηνία Αναχώρησης"
+    },
+    "returnDate": {
+        "EN": "Date of Return",
+        "GR": "Ημερομηνία Επιστροφής"
     },
     "tripType": {
         "EN": "Trip Type",
@@ -34,5 +38,9 @@
     "search": {
         "EN": "Search",
         "GR": "Αναζήτηση"
+    },
+    "alternate": {
+        "EN": "Alternate Stations",
+        "GR": "Εναλλαγή Σταθμων"
     }
 }

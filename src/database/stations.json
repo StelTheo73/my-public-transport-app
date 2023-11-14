@@ -1,52 +1,52 @@
 {
-    "stations": [
-        {
+    "stations": {
+        "1": {
             "id": "1",
             "EN": "Aigio",
             "GR": "Αίγιο",
             "frequent": false
         },
-        {
+        "2": {
             "id": "2",
             "EN": "Athens",
             "GR": "Αθήνα",
             "frequent": true
         },
-        {
+        "3": {
             "id": "3",
             "EN": "Chalkida",
             "GR": "Χαλκίδα",
             "frequent": false
         },
-        {
+        "4": {
             "id": "4",
             "EN": "Kiaton",
             "GR": "Κιάτο",
             "frequent": false
         },
-        {
+        "5": {
             "id": "5",
             "EN": "Patras",
             "GR": "Πάτρα",
             "frequent": true
         },
-        {
+        "6": {
             "id": "6",
             "EN": "Thessaloniki",
             "GR": "Θεσσαλονίκη",
             "frequent": true
         },
-        {
+        "7": {
             "id": "7",
             "EN": "Volos",
             "GR": "Βόλος",
             "frequent": false
         },
-        {
+        "8": {
             "id": "8",
             "EN": "Xylokastro",
             "GR": "Ξυλόκαστρο",
             "frequent": false
         }
-    ]
+    }
 }
