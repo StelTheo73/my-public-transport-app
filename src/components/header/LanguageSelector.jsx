@@ -9,26 +9,15 @@ export const LanguageSelector = ({language, setLanguage}) => {
 
     return (
         <div className="emoji-flag-wrapper">
-            <span className="ms-2 px-1">
+            <span className="m-2 px-1">
                 <ReactCountryFlag
                 className="emoji-flag"
-                countryCode="GR"
-                aria-label="Greek"
-                title="Greek"
-                alt="Greek"
+                countryCode={language === "EN" ? "GR" : "GB"}
+                aria-label={language === "EN" ? "Greek" : "English"}
+                title={language === "EN" ? "Greek" : "English"}
+                alt={language === "EN" ? "Greek" : "English"}
                 svg
-                onClick={() => changeLanguage("GR")}
-                />
-            </span>
-            <span className="ms-2 px-1 me-2">
-                <ReactCountryFlag
-                className="emoji-flag"
-                countryCode="GB"
-                aria-label="English"
-                title="English"
-                alt="English"
-                svg
-                onClick={() => changeLanguage("EN")}
+                onClick={() => changeLanguage(language === "EN" ? "GR" : "EN")}
                 />
             </span>
         </div>
