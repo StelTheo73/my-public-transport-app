@@ -37,12 +37,12 @@ export const Footer = ({language}) => {
           />
         </div>
 
-        <hr></hr>
+        <hr/>
 
         <div className="row">
 
           <div className="col-12 d-flex justify-content-center">
-            <span>steltheo73 x myrong © 2023</span>
+            <span>myrong x steltheo73 © 2023</span>
           </div>
 
         </div>
