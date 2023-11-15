@@ -48,7 +48,6 @@ const filterOptions = (option, filter) => {
 
 export const Home = ({
       language,
-      setTrips,
       searchParameters, setSearchParameters,
       }) => {
 

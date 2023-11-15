@@ -1,4 +1,4 @@
-import { useEffect  } from "react";
+import { useEffect, useState  } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -10,8 +10,13 @@ import { Trip } from "./Trip.jsx";
 
 import "./Trips.css";
 
-export const Trips = ({ language, trips, searchParameters }) => {
+import { useFetch } from "../../../hooks/useFetch.jsx";
+
+export const Trips = ({ language, searchParameters }) => {
     const navigate = useNavigate();
+    const [url, setUrl] = useState("");
+    const { data: trips, loading, error } = useFetch(url);
+
     // const location = useLocation();
     // const searchParameters = new URLSearchParams(location.search);
 
@@ -23,14 +28,17 @@ export const Trips = ({ language, trips, searchParameters }) => {
         console.log(searchParameters)
         if (!searchParameters?.start || !searchParameters?.destination ||
             !searchParameters?.date || !searchParameters?.returnDate ||
-            !searchParameters?.tripType) {
-            console.log("False")
+            !searchParameters?.tripType ||
+            !searchParameters?.start.english || !searchParameters?.destination.english) {
+            // console.log("False")
             navigate("/");
+            return undefined;
         }
 
+        setUrl("/fetch/trips/" + searchParameters.start.english + searchParameters.destination.english);
 
 
-    }, [navigate, trips.searchPerformed, searchParameters]);
+    }, [navigate, searchParameters]);
 
     return (
         <main>
@@ -61,7 +69,17 @@ export const Trips = ({ language, trips, searchParameters }) => {
                         </div>
                     </div>
 
-                    <Trip language={language} trip={{}}/>
+                    {!error && !loading && trips && trips.map(trip => (
+                        <Trip
+                            key={trip.tripId}
+                            language={language}
+                            trip={trip}
+                        />
+                    ))}
+
+                        {/* <span key={trip.tripId}>{trip.tripId}</span> */}
+
+                    {/* <Trip language={language} trip={{}}/> */}
 
 
                     {/* <div

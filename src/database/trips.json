@@ -10,7 +10,7 @@
                 {
                     "trainId1": "T0001",
                     "trainId2": "B0001",
-                    "station": "Kiaton",
+                    "stationId": "4",
                     "time": "09:15"
                 }
             ]
@@ -25,7 +25,7 @@
                 {
                     "trainId1": "T0002",
                     "trainId2": "B0002",
-                    "station": "Kiaton",
+                    "stationId": "4",
                     "time": "10:15"
                 }
             ]
@@ -40,7 +40,7 @@
                 {
                     "trainId1": "T0003",
                     "trainId2": "B0003",
-                    "station": "Kiaton",
+                    "stationId": "4",
                     "time": "11:15"
                 }
             ]
@@ -57,7 +57,7 @@
                 {
                     "trainId1": "B0004",
                     "trainId2": "T0004",
-                    "station": "Kiaton",
+                    "stationId": "4",
                     "time": "09:15"
                 }
             ]
@@ -72,7 +72,7 @@
                 {
                     "trainId1": "B0005",
                     "trainId2": "T0005",
-                    "station": "Kiaton",
+                    "stationId": "4",
                     "time": "10:15"
                 }
             ]
@@ -87,7 +87,7 @@
                 {
                     "trainId1": "B0006",
                     "trainId2": "T0006",
-                    "station": "Kiaton",
+                    "stationId": "4",
                     "time": "11:15"
                 }
             ]
