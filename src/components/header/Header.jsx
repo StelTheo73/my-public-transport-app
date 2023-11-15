@@ -50,14 +50,14 @@ export const Header = ({showSidebar, setShowSidebar, language, setLanguage}) => 
 
 
         <div className="d-flex justify-content-end col-6">
-          <div className="d-flex align-items-center header-item-wrapper">
-              <LanguageSelector language={language} setLanguage={setLanguage}/>
-          </div>
           <div className="d-flex align-items-center px-sm-2 header-item-wrapper hide-small">
             <NavLink
               className="header-nav-link hide-small"
               onClick={() => setShowSidebar(false)}
               to="/contact">{textObject["contact"][language]}</NavLink>
+          </div>
+          <div className="d-flex align-items-center header-item-wrapper">
+              <LanguageSelector language={language} setLanguage={setLanguage}/>
           </div>
           <div className="d-flex align-items-center px-2 header-item-wrapper">
               <UserDropdown language={language} textObject={textObject} setShowSidebar={setShowSidebar}/>

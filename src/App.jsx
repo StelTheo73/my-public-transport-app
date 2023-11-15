@@ -9,6 +9,7 @@ import { Header } from "./components/header/Header.jsx";
 import { Home } from "./components/Home.jsx";
 import { Sidebar } from "./components/Sidebar";
 import { Trips } from "./components/pages/trips/Trips";
+import { Navigate } from "react-router-dom/dist/index.js";
 
 function App() {
   const [searchParameters, setSearchParameters] = useState({});
@@ -57,17 +58,17 @@ function App() {
                 searchParameters={searchParameters}
                 setSearchParameters={setSearchParameters}
                 />
-            }></Route>
+            } />
             <Route path="trips" element={
               <Trips
                 language={language}
                 searchParameters={searchParameters}
                 />
-            }>
-            </Route>
+            } />
             <Route path="contact" element={
                 <Contact language={language}/>
-            }></Route>
+            } />
+            <Route path="/*" element={<Navigate to='/' />} />
         </Routes>
         <Footer language={language}/>
       </div>
