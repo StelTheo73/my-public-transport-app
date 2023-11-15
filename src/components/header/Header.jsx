@@ -9,6 +9,7 @@ import Logo from "../../assets/images/logo.png";
 
 export const Header = ({showSidebar, setShowSidebar, language, setLanguage}) => {
   const handleSidebarToggle = () => {
+    console.log('CLICK');
       setShowSidebar(!showSidebar);
   }
 
@@ -20,7 +21,7 @@ export const Header = ({showSidebar, setShowSidebar, language, setLanguage}) => 
       <div className="row mx-1">
 
         <div className="d-flex justify-content-start col-6">
-          <div className="d-flex align-items-center px-1">
+          <div className="d-flex align-items-center p-1 gap-3">
             <div className="d-flex align-items-center">
               <NavLink
                     className="header-container-item header-nav-link header-nav-link-logo"
@@ -35,15 +36,13 @@ export const Header = ({showSidebar, setShowSidebar, language, setLanguage}) => 
                     />
                 </NavLink>
             </div>
-            <div
-                className="sidebar-toggle-btn d-flex align-items-center justify-content-center mx-2"
-                onClick={handleSidebarToggle}
-                >
-              {!showSidebar?
-                <i className="bi bi-list"></i>:
-                <i className="bi bi-x-square"></i>
-              }
-            </div>
+            <label className="burger" htmlFor="burger">
+              <input type="checkbox" id="burger" 
+                onClick={handleSidebarToggle}/>
+              <span/>
+              <span/>
+              <span/>
+            </label>
 
           </div>
         </div>
