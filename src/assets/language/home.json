@@ -1,4 +1,8 @@
 {
+    "header": {
+        "EN": "Trip Planner",
+        "GR": "Αναζήτηση Δρομολογίων"
+    },
     "start": {
         "EN": "Departing from",
         "GR": "Αφετηρία"

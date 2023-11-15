@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Select from "react-select";
 
@@ -43,7 +44,13 @@ const filterOptions = (option, filter) => {
       }
 }
 
-export const Home = ({language}) => {
+export const Home = ({
+      language,
+      setTrips
+      }) => {
+
+      const navigate = useNavigate();
+
       // Form state
       const [start, setStart] = useState("");
       const [destination, setDestination] = useState("");
@@ -155,10 +162,25 @@ export const Home = ({language}) => {
             }
             else {
                   console.log("Not all fields are filled");
-                  return;
             }
 
+            setTrips({
+                  "searchPerformed": true,
+                  "trips": [
+                        {
+                              "tripId": "1",
+                        },
+                        {
+                              "tripId": "2",
+                        },
+                        {
+                              "tripId": "3"
+                        }
+                  ]
+            })
+
             event.preventDefault();
+            navigate("/trips");
       }
 
 
@@ -175,8 +197,8 @@ export const Home = ({language}) => {
       return (
             <main>
                   <div className="container-fluid">
-                        <div className="container">
-                              <h3>Αναζήτηση Δρομολογίων</h3>
+                        <div className="container d-flex align-items-center justify-content-center">
+                              <h3>{textObject.header[language]}</h3>
                         </div>
                         <div className="form-wrapper container justify-content-center pt-3 my-3">
                               {/* Form */}
