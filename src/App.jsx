@@ -16,6 +16,7 @@ function App() {
       "searchPerformed": false,
       "trips": [],
     });
+  const [searchParameters, setSearchParameters] = useState({});
   const [showSidebar, setShowSidebar] = useState(false);
   const [language, setLanguage] = useState("GR");
 
@@ -58,12 +59,17 @@ function App() {
             <Route path="/" element={
                 <Home
                 language={language}
-                setTrips={setTrips}/>
+                setTrips={setTrips}
+                searchParameters={searchParameters}
+                setSearchParameters={setSearchParameters}
+                />
             }></Route>
             <Route path="trips" element={
               <Trips
                 language={language}
-                trips={trips}/>
+                trips={trips}
+                searchParameters={searchParameters}
+                />
             }>
             </Route>
             <Route path="contact" element={

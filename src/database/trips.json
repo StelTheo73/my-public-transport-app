@@ -1,0 +1,96 @@
+{
+    "AthensPatras" : [
+        {
+            "tripId": "1",
+            "startTime": "08:00",
+            "arrivalTime": "10:30",
+            "duration": "2h30'",
+            "basicCost": 18.5,
+            "interchanges": [
+                {
+                    "trainId1": "T0001",
+                    "trainId2": "B0001",
+                    "station": "Kiaton",
+                    "time": "09:15"
+                }
+            ]
+        },
+        {
+            "tripId": "2",
+            "startTime": "09:00",
+            "arrivalTime": "11:30",
+            "duration": "2h30'",
+            "basicCost": 18.5,
+            "interchanges": [
+                {
+                    "trainId1": "T0002",
+                    "trainId2": "B0002",
+                    "station": "Kiaton",
+                    "time": "10:15"
+                }
+            ]
+        },
+        {
+            "tripId": "3",
+            "startTime": "10:00",
+            "arrivalTime": "12:30",
+            "duration": "2h30'",
+            "basicCost": 18.5,
+            "interchanges": [
+                {
+                    "trainId1": "T0003",
+                    "trainId2": "B0003",
+                    "station": "Kiaton",
+                    "time": "11:15"
+                }
+            ]
+        }
+    ],
+    "PatrasAthens": [
+        {
+            "tripId": "4",
+            "startTime": "08:00",
+            "arrivalTime": "10:30",
+            "duration": "2h30'",
+            "basicCost": 18.5,
+            "interchanges": [
+                {
+                    "trainId1": "B0004",
+                    "trainId2": "T0004",
+                    "station": "Kiaton",
+                    "time": "09:15"
+                }
+            ]
+        },
+        {
+            "tripId": "5",
+            "startTime": "09:00",
+            "arrivalTime": "11:30",
+            "duration": "2h30'",
+            "basicCost": 18.5,
+            "interchanges": [
+                {
+                    "trainId1": "B0005",
+                    "trainId2": "T0005",
+                    "station": "Kiaton",
+                    "time": "10:15"
+                }
+            ]
+        },
+        {
+            "tripId": "6",
+            "startTime": "10:00",
+            "arrivalTime": "12:30",
+            "duration": "2h30'",
+            "basicCost": 18.5,
+            "interchanges": [
+                {
+                    "trainId1": "B0006",
+                    "trainId2": "T0006",
+                    "station": "Kiaton",
+                    "time": "11:15"
+                }
+            ]
+        }
+    ]
+}

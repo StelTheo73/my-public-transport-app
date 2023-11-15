@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useFetch } from "../hooks/useFetch.jsx";
+
 import Select from "react-select";
 
 import "../static/css/Home.css";
@@ -46,20 +48,28 @@ const filterOptions = (option, filter) => {
 
 export const Home = ({
       language,
-      setTrips
+      setTrips,
+      searchParameters, setSearchParameters,
       }) => {
 
       const navigate = useNavigate();
 
       // Form state
-      const [start, setStart] = useState("");
-      const [destination, setDestination] = useState("");
-      const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-      const [returnDate, setReturnDate] = useState(new Date().toISOString().slice(0, 10));
-      const [tripType, setTripType] = useState({
-            "value": "oneWayTrip",
-            "label": textObject.oneWayTrip[language]
-      });
+      const [start, setStart] =
+            useState(searchParameters.start || "");
+      const [destination, setDestination] =
+            useState(searchParameters.destination || "");
+      const [date, setDate] =
+            useState(searchParameters.date || new Date().toISOString().slice(0, 10));
+      const [returnDate, setReturnDate] =
+            useState(searchParameters.returnDate || new Date().toISOString().slice(0, 10));
+      const [tripType, setTripType] =
+            useState(searchParameters.tripType ||
+                  {
+                        "value": "oneWayTrip",
+                        "label": textObject.oneWayTrip[language]
+                  }
+            );
 
       // Create references to form elements
       const selectStartRef = useRef(null);
@@ -164,23 +174,35 @@ export const Home = ({
                   console.log("Not all fields are filled");
             }
 
-            setTrips({
-                  "searchPerformed": true,
-                  "trips": [
-                        {
-                              "tripId": "1",
-                        },
-                        {
-                              "tripId": "2",
-                        },
-                        {
-                              "tripId": "3"
-                        }
-                  ]
+            // setTrips({
+            //       "searchPerformed": true,
+            //       "trips": [
+            //             {
+            //                   "tripId": "1",
+            //             },
+            //             {
+            //                   "tripId": "2",
+            //             },
+            //             {
+            //                   "tripId": "3"
+            //             }
+            //       ]
+            // })
+
+            setSearchParameters({
+                  start: start.valueOf(),
+                  destination: destination.valueOf(),
+                  date: date.valueOf(),
+                  returnDate: returnDate.valueOf(),
+                  tripType: tripType.valueOf()
             })
 
             event.preventDefault();
-            navigate("/trips");
+
+            navigate("/trips", {
+                  language: language,
+                  searchParameters: searchParameters
+                });
       }
 
 
