@@ -14,7 +14,7 @@ export const Sidebar = ({showSidebar, setShowSidebar, language}) => {
             <div className="sidebar">
                 <div
                     className={`sidebar-content-wrapper bg-primary
-                     d-flex flex-column justify-content-between px-3
+                     d-flex flex-column justify-content-between px-3 mt-1
                      ${showSidebar ? "show" : "hidden"}`}
                     >
                     <Nav className="flex-column justify-content-between mt-5">
@@ -40,7 +40,7 @@ export const Sidebar = ({showSidebar, setShowSidebar, language}) => {
                 </div>
             </div>
             <div
-                className={`sidebar-overlay ${showSidebar ? "show" : "hidden"}`}
+                className={`sidebar-overlay mt-1 ${showSidebar ? "show" : "hidden"}`}
                 onClick={handleSidebarToggle}
             >
             </div>
