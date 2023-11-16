@@ -35,13 +35,13 @@ export const Header = ({showSidebar, setShowSidebar, language, setLanguage}) => 
                     />
                 </NavLink>
             </div>
-            <label className="burger" htmlFor="burger">
-              <input type="checkbox" id="burger" 
-                onClick={handleSidebarToggle}/>
-              <span/>
-              <span/>
-              <span/>
-            </label>
+            <div className={`burger ${showSidebar?'open':''}` } htmlFor="burger" 
+                onClick={handleSidebarToggle}>
+              {/* <input type="checkbox" id="burger"/> */}
+              <span className="burgerLine"/>
+              <span className="burgerLine"/>
+              <span className="burgerLine"/>
+            </div>
 
           </div>
         </div>

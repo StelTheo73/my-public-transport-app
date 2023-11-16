@@ -14,7 +14,7 @@ export const Sidebar = ({showSidebar, setShowSidebar, language}) => {
             <div className="sidebar">
                 <div
                     className={`sidebar-content-wrapper bg-primary
-                     d-flex flex-column justify-content-between align-items-center
+                     d-flex flex-column justify-content-between px-3
                      ${showSidebar ? "show" : "hidden"}`}
                     >
                     <Nav className="flex-column justify-content-between mt-5">
