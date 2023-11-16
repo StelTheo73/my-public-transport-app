@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import {
@@ -9,7 +10,9 @@ from "react-icons/fa";
 
 import "./Trip.css";
 
-export const Trip = ({language, trip, stations}) => {
+export const Trip = ({language, trip, stations, setSelectedTrip}) => {
+    const navigate = useNavigate();
+
     const toggleDetails = (targetId, event) => {
         const toggleElement = document.getElementById(targetId);
         toggleElement.classList.toggle("hide");
@@ -37,8 +40,10 @@ export const Trip = ({language, trip, stations}) => {
             return;
         }
 
-        const toggleElement = document.getElementById(targetId);
-        alert("Confirm trip?");
+        const selectedTrip = {tripId: "test"};
+
+        setSelectedTrip(selectedTrip);
+        navigate("/reservation");
     };
 
     return (
@@ -111,5 +116,6 @@ export const Trip = ({language, trip, stations}) => {
 Trip.propTypes = {
     language: PropTypes.string.isRequired,
     trip: PropTypes.object.isRequired,
-    stations: PropTypes.object.isRequired
+    stations: PropTypes.object.isRequired,
+    setSelectedTrip: PropTypes.func.isRequired
 }

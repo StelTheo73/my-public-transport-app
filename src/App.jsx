@@ -7,6 +7,7 @@ import { Contact } from "./components/pages/contact/Contact.jsx";
 import { Footer } from "./components/footer/Footer.jsx";
 import { Header } from "./components/header/Header.jsx";
 import { Home } from "./components/Home.jsx";
+import { Reservation } from "./components/pages/reservation/Reservation";
 import { Sidebar } from "./components/Sidebar";
 import { Trips } from "./components/pages/trips/Trips";
 import { Navigate } from "react-router-dom/dist/index.js";
@@ -16,6 +17,7 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [language, setLanguage] = useState("GR");
   const [stations, setStations] = useState({});
+  const [selectedTrip, setSelectedTrip] = useState({});
 
   const location = useLocation();
 
@@ -66,11 +68,19 @@ function App() {
                 language={language}
                 searchParameters={searchParameters}
                 stations={stations}
+                setSelectedTrip={setSelectedTrip}
+                />
+            } />
+            <Route path="reservation" element={
+              <Reservation
+                language={language}
+                selectedTrip={selectedTrip}
                 />
             } />
             <Route path="contact" element={
                 <Contact language={language}/>
             } />
+
             <Route path="/*" element={<Navigate to='/' />} />
         </Routes>
         <Footer language={language}/>

@@ -15,7 +15,7 @@ import "./Trips.css";
 import textObject from "../../../assets/language/trips.json";
 
 
-export const Trips = ({ language, searchParameters, stations }) => {
+export const Trips = ({ language, searchParameters, stations, setSelectedTrip }) => {
     const navigate = useNavigate();
     const [url, setUrl] = useState("");
     const { data: trips, loading, error } = useFetch(url);
@@ -78,6 +78,7 @@ export const Trips = ({ language, searchParameters, stations }) => {
                             language={language}
                             trip={trip}
                             stations={stations}
+                            setSelectedTrip={setSelectedTrip}
                         />
                     ))}
                 </div>
@@ -90,5 +91,6 @@ export const Trips = ({ language, searchParameters, stations }) => {
 Trips.propTypes = {
     language: PropTypes.string.isRequired,
     searchParameters: PropTypes.object.isRequired,
-    stations: PropTypes.object.isRequired
+    stations: PropTypes.object.isRequired,
+    setSelectedTrip: PropTypes.func.isRequired
 }
