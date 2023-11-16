@@ -2,6 +2,8 @@ import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import { FaChevronDown } from "react-icons/fa";
 
+import textObject from "../../../assets/language/trips.json";
+
 import "./Trip.css";
 
 export const Trip = ({language, trip}) => {
@@ -36,10 +38,10 @@ export const Trip = ({language, trip}) => {
         alert("Confirm trip?");
     };
 
-    console.log(trip)
-  return (
+    return (
         <>
             <div
+                key={trip.tripId}
                 className="row mt-3 trip-wrapper" id={`trip-wrapper-${trip.tripId}`}
                 onClick={() => confirmTrip(`trip-wrapper-1`)}
                 data-tooltip-id="trip-wrapper-1"
@@ -69,11 +71,13 @@ export const Trip = ({language, trip}) => {
                 </div>
             </div>
 
-            <div className="row mt-2 trip-info-wrapper hide" id={`trip-info-${trip.tripId}`}>
-                <div className="col-3">ID1</div>
-                <div className="col-3">Interchange Time</div>
-                <div className="col-3">Station</div>
-                <div className="col-3">ID2</div>
+            <div
+                key={trip.tripId + "info"}
+                className="row mt-2 trip-info-wrapper hide" id={`trip-info-${trip.tripId}`}>
+                <div className="col-3">{textObject.id1[language]}</div>
+                <div className="col-3">{textObject.interchangeTime[language]}</div>
+                <div className="col-3">{textObject.station[language]}</div>
+                <div className="col-3">{textObject.id2[language]}</div>
                 {trip.interchanges.map(interchange => (
                     <>
                         <div className="col-3">{interchange.trainId1}</div>
@@ -85,6 +89,5 @@ export const Trip = ({language, trip}) => {
                 ))}
             </div>
         </>
-
     )
 }

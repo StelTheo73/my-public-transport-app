@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import tripObject from '../database/trips.json';
+import stationsObject from '../database/stations.json';
 
 export const useFetch = (url, headers={}, _body={}) => {
     const [data, setData] = useState(null);
@@ -27,8 +28,17 @@ export const useFetch = (url, headers={}, _body={}) => {
 
                 // Mock fetch request and response object
                 const response = new Object();
-                if (url.includes("/fetch/trips/AthensPatras")) {
-                    console.log("AthensPatras");
+                if (url.includes("/fetch/stations")) {
+                    console.log("FetchStations");
+                    response.ok = true;
+                    response.json = () => {
+                        return new Promise((resolve, reject) => {
+                            resolve(stationsObject);
+                        })
+                    }
+                }
+                else if (url.includes("/fetch/trips/AthensPatras")) {
+                    console.log("FetchAthensPatras");
                     response.ok = true;
                     response.json = () => {
                         return new Promise((resolve, reject) => {
@@ -37,7 +47,7 @@ export const useFetch = (url, headers={}, _body={}) => {
                     }
                 }
                 else if (url.includes("/fetch/trips/PatrasAthens")) {
-                    console.log("PatrasAthens");
+                    console.log("FetchPatrasAthens");
                     response.ok = true;
                     response.json = () => {
                         return new Promise((resolve, reject) => {

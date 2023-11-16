@@ -1,0 +1,26 @@
+{
+    "header": {
+        "EN": "Trips",
+        "GR": "Δρομολόγια"
+    },
+    "returnToSearch": {
+        "EN": "Return to search",
+        "GR": "Επιστροφή στην αναζήτηση"
+    },
+    "id1": {
+        "EN": "ID1",
+        "GR": "Κωδικός Οχήματος"
+    },
+    "id2": {
+        "EN": "ID2",
+        "GR": "Κωδικός Οχήματος"
+    },
+    "interchangeTime": {
+        "EN": "Interchange Time",
+        "GR": "Ώρα μετεπιβίβασης"
+    },
+    "station": {
+        "EN": "Station",
+        "GR": "Σταθμός"
+    }
+}

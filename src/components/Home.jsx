@@ -1,13 +1,13 @@
+import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useFetch } from "../hooks/useFetch.jsx";
-
 import Select from "react-select";
+
+import { useFetch } from "../hooks/useFetch";
 
 import "../static/css/Home.css";
 import textObject from "../assets/language/home.json";
-import Stations from "../database/stations.json";
 
 import { removeTones } from "../utils/removeTones";
 
@@ -49,21 +49,35 @@ const filterOptions = (option, filter) => {
 export const Home = ({
       language,
       searchParameters, setSearchParameters,
+      setStations
       }) => {
 
       const navigate = useNavigate();
 
+      // Fetch stations
+      const [url, setUrl] = useState("");
+      const { data: Stations, loading, error } = useFetch(url);
+
+      useEffect(() => {
+            setUrl("/fetch/stations");
+      }, [navigate])
+
+      useEffect(() => {
+            setStations(Stations);
+      }, [Stations])
+      // End fetch stations
+
       // Form state
       const [start, setStart] =
-            useState(searchParameters.start || "");
+            useState(searchParameters?.start || "");
       const [destination, setDestination] =
-            useState(searchParameters.destination || "");
+            useState(searchParameters?.destination || "");
       const [date, setDate] =
-            useState(searchParameters.date || new Date().toISOString().slice(0, 10));
+            useState(searchParameters?.date || new Date().toISOString().slice(0, 10));
       const [returnDate, setReturnDate] =
-            useState(searchParameters.returnDate || new Date().toISOString().slice(0, 10));
+            useState(searchParameters?.returnDate || new Date().toISOString().slice(0, 10));
       const [tripType, setTripType] =
-            useState(searchParameters.tripType ||
+            useState(searchParameters?.tripType ||
                   {
                         "value": "oneWayTrip",
                         "label": textObject.oneWayTrip[language]
@@ -76,8 +90,8 @@ export const Home = ({
       const selectTripTypeRef = useRef(null);
       const divReturnDateRef = useRef(null);
 
-      // Station option
-      const stations = Object.values(Stations.stations);
+      // Station options
+      const stations = Stations?.stations ? Object.values(Stations.stations) : [];
       const frequentStations = stations.filter(station => station.frequent === true);
       const options = [
             {
@@ -112,7 +126,7 @@ export const Home = ({
             const destinationValue = selectDestinationRef.current.valueOf().props.value;
             const tripTypeValue = selectTripTypeRef.current.valueOf().props.value;
 
-            if (startValue?.value) {
+            if (startValue?.value && Stations?.stations) {
                   setStart({
                         "value": startValue.value,
                         "label": Stations.stations[startValue.value][language],
@@ -120,7 +134,7 @@ export const Home = ({
                   });
             }
 
-            if (destinationValue?.value) {
+            if (destinationValue?.value && Stations?.stations) {
                   setDestination({
                         "value": destinationValue.value,
                         "label": Stations.stations[destinationValue.value][language],
@@ -150,6 +164,7 @@ export const Home = ({
 
       }, [tripType])
 
+      // Alternate start and destination stations
       const alternateStartDestination = (event) => {
             const temp = start;
             setStart(destination);
@@ -172,21 +187,6 @@ export const Home = ({
             else {
                   console.log("Not all fields are filled");
             }
-
-            // setTrips({
-            //       "searchPerformed": true,
-            //       "trips": [
-            //             {
-            //                   "tripId": "1",
-            //             },
-            //             {
-            //                   "tripId": "2",
-            //             },
-            //             {
-            //                   "tripId": "3"
-            //             }
-            //       ]
-            // })
 
             setSearchParameters({
                   start: start.valueOf(),
@@ -350,4 +350,11 @@ export const Home = ({
                   </div>
             </main>
       )
+}
+
+Home.propTypes = {
+      language: PropTypes.string.isRequired,
+      searchParameters: PropTypes.object.isRequired,
+      setSearchParameters: PropTypes.func.isRequired,
+      setStations: PropTypes.func.isRequired
 }

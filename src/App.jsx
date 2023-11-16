@@ -15,6 +15,7 @@ function App() {
   const [searchParameters, setSearchParameters] = useState({});
   const [showSidebar, setShowSidebar] = useState(false);
   const [language, setLanguage] = useState("GR");
+  const [stations, setStations] = useState({});
 
   const location = useLocation();
 
@@ -57,12 +58,14 @@ function App() {
                 language={language}
                 searchParameters={searchParameters}
                 setSearchParameters={setSearchParameters}
+                setStations={setStations}
                 />
             } />
             <Route path="trips" element={
               <Trips
                 language={language}
                 searchParameters={searchParameters}
+                stations={stations}
                 />
             } />
             <Route path="contact" element={

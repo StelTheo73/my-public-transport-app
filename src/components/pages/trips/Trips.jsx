@@ -1,6 +1,5 @@
 import { useEffect, useState  } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
     FaTrain, FaFlagCheckered, FaArrowRight,
     FaRegClock, FaEuroSign, FaInfoCircle,
@@ -8,11 +7,14 @@ import {
 
 import { Trip } from "./Trip.jsx";
 
-import "./Trips.css";
-
 import { useFetch } from "../../../hooks/useFetch.jsx";
 
-export const Trips = ({ language, searchParameters }) => {
+import "./Trips.css";
+
+import textObject from "../../../assets/language/trips.json";
+
+
+export const Trips = ({ language, searchParameters, stations }) => {
     const navigate = useNavigate();
     const [url, setUrl] = useState("");
     const { data: trips, loading, error } = useFetch(url);
@@ -23,7 +25,6 @@ export const Trips = ({ language, searchParameters }) => {
             !searchParameters?.date || !searchParameters?.returnDate ||
             !searchParameters?.tripType ||
             !searchParameters?.start.english || !searchParameters?.destination.english) {
-            // console.log("False")
             navigate("/");
             return undefined;
         }
@@ -40,13 +41,13 @@ export const Trips = ({ language, searchParameters }) => {
                     <button
                         className="btn btn-warning"
                         onClick={() => navigate("/")}
-                    >Return to search
+                    >{textObject.returnToSearch[language]}
                     </button>
                 </div>
 
 
                 <div className="container d-flex align-items-center justify-content-center mt-3">
-                    <h3>Trips</h3>
+                    <h3>{textObject.header[language]}</h3>
                 </div>
 
                 <div className="d-flex flex-column align-items-center">
