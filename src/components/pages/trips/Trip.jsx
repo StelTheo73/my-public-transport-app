@@ -35,14 +35,8 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
         tooltipElement.setAttribute("data-tooltip-content", "Click to select trip");
     };
 
-    const confirmTrip = (targetId) => {
-        if (!targetId.includes("trip-wrapper")) {
-            return;
-        }
-
-        const selectedTrip = {tripId: "test"};
-
-        setSelectedTrip(selectedTrip);
+    const confirmTrip = () => {
+        setSelectedTrip(trip);
         navigate("/reservation");
     };
 
@@ -51,8 +45,8 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
             <div
                 key={"trip-" + trip.tripId}
                 className="row mt-3 trip-wrapper" id={`trip-wrapper-${trip.tripId}`}
-                onClick={() => confirmTrip(`trip-wrapper-1`)}
-                data-tooltip-id="trip-wrapper-1"
+                onClick={() => confirmTrip()}
+                data-tooltip-id={`trip-wrapper-${trip.tripId}`}
                 data-tooltip-content="Click to select trip"
                 data-tooltip-float
             >
