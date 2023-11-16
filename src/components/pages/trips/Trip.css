@@ -1,8 +1,5 @@
 main .trip-wrapper {
     width: 100%;
-}
-
-main .trip-wrapper {
     height: 4em;
     border: 2px solid var(--bs-primary);
     border-radius: 1em;
@@ -13,11 +10,12 @@ main .trip-wrapper:hover {
     cursor: pointer;
 }
 
-main .trip-wrapper > div,
-main .trip-info-wrapper > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+main .trip-info-header-wrapper > div,
+main .trip-info-content-wrapper > div
+{
+    font-size: small;
+    min-height: 2em;
+    border: 1px solid var(--bs-gray);
 }
 
 main .btn-link {
@@ -36,38 +34,35 @@ main .btn-link:hover {
     }
 }
 
-main .trip-info-wrapper {
+main .trip-info-wrapper
+{
     width: 90%;
     box-shadow: var(--default-box-shadow);
     border-radius: 0.5em;
 }
 
-/* Border radius of corner elements */
-main .trip-info-wrapper > div {
-    font-size: small;
-    min-height: 2em;
-    border: 1px solid var(--bs-gray);
-}
-
 @media only screen and (max-width: 767px) {
-    main .trip-info-wrapper > div {
+    main .trip-info-header-wrapper,
+    main .trip-info-content-wrapper
+    {
       font-size: x-small;
     }
-  }
+}
 
-main .trip-info-wrapper > div:nth-child(1) {
+/* Border radius of corner elements */
+main .trip-info-header-wrapper > div:nth-of-type(1) {
     border-top-left-radius: 0.5em;
 }
 
-main .trip-info-wrapper > div:nth-child(4) {
+main .trip-info-header-wrapper > div:nth-of-type(4) {
     border-top-right-radius: 0.5em;
 }
 
-main .trip-info-wrapper > div:nth-last-child(4) {
+main .trip-info-content-wrapper > div:nth-last-of-type(4) {
     border-bottom-left-radius: 0.5em;
 }
 
-main .trip-info-wrapper > div:nth-last-child(1) {
+main .trip-info-content-wrapper > div:nth-last-of-type(1) {
     border-bottom-right-radius: 0.5em;
 }
 /* End border radius of corner elements */

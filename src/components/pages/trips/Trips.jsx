@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState  } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,7 +21,6 @@ export const Trips = ({ language, searchParameters, stations }) => {
     const { data: trips, loading, error } = useFetch(url);
     // Navigate to home page is search has not been performed
     useEffect(() => {
-        console.log(searchParameters)
         if (!searchParameters?.start || !searchParameters?.destination ||
             !searchParameters?.date || !searchParameters?.returnDate ||
             !searchParameters?.tripType ||
@@ -50,7 +50,7 @@ export const Trips = ({ language, searchParameters, stations }) => {
                     <h3>{textObject.header[language]}</h3>
                 </div>
 
-                <div className="d-flex flex-column align-items-center">
+                <div className="d-flex flex-column align-items-center justify-content-center">
                     <div className="trip-header pb-2 row">
                         <div className="col-2 px-1 px-sm-2">
                             <FaTrain/>
@@ -77,6 +77,7 @@ export const Trips = ({ language, searchParameters, stations }) => {
                             key={trip.tripId}
                             language={language}
                             trip={trip}
+                            stations={stations}
                         />
                     ))}
                 </div>
@@ -85,3 +86,9 @@ export const Trips = ({ language, searchParameters, stations }) => {
         </main>
     );
 };
+
+Trips.propTypes = {
+    language: PropTypes.string.isRequired,
+    searchParameters: PropTypes.object.isRequired,
+    stations: PropTypes.object.isRequired
+}
