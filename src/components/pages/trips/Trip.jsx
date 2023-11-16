@@ -1,6 +1,8 @@
+import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import { FaChevronDown } from "react-icons/fa";
 
+import "./Trip.css";
 
 export const Trip = ({language, trip}) => {
     const toggleDetails = (targetId, event) => {
@@ -11,11 +13,16 @@ export const Trip = ({language, trip}) => {
 
     const removeTooltip = (targetId) => {
         const tooltipElement = document.getElementById(targetId);
+        tooltipElement.removeAttribute("data-tooltip-content");
+    };
+
+    const setInfoTooltip = (targetId) => {
+        const tooltipElement = document.getElementById(targetId);
         tooltipElement.setAttribute("data-tooltip-content", "Click to show trip info");
 
     };
 
-    const addTooltip = (targetId) => {
+    const resetTooltip = (targetId) => {
         const tooltipElement = document.getElementById(targetId);
         tooltipElement.setAttribute("data-tooltip-content", "Click to select trip");
     };
@@ -39,7 +46,10 @@ export const Trip = ({language, trip}) => {
                 data-tooltip-content="Click to select trip"
                 data-tooltip-float
             >
-                <Tooltip id={`trip-wrapper-${trip.tripId}`}/>
+
+                <BrowserView>
+                    <Tooltip id={`trip-wrapper-${trip.tripId}`}/>
+                </BrowserView>
                 <div className="col-2 px-1 px-sm-2">{trip.startTime || "unknown"}</div>
                 <div className="col-2 px-1 px-sm-2">{trip.arrivalTime || "unknown"}</div>
                 <div className="col-2 px-1 px-sm-2">{trip.interchanges.length || "unknown"}</div>
@@ -47,9 +57,12 @@ export const Trip = ({language, trip}) => {
                 <div className="col-2 px-1 px-sm-2">{trip.basicCost || "unknown"}</div>
                 <div className="col-2 px-1 px-sm-2">
                     <button className="btn btn-link"
-                        onClick={(event) => toggleDetails("trip-info-" + trip.tripId, event)}
-                        onMouseEnter={() => removeTooltip("trip-wrapper-" + trip.tripId)}
-                        onMouseLeave={() => addTooltip("trip-wrapper-" + trip.tripId)}
+                        onClick={(event) => {
+                            removeTooltip("trip-wrapper-" + trip.tripId);
+                            toggleDetails("trip-info-" + trip.tripId, event);
+                        }}
+                        onMouseEnter={() => setInfoTooltip("trip-wrapper-" + trip.tripId)}
+                        onMouseLeave={() => resetTooltip("trip-wrapper-" + trip.tripId)}
                     >
                         <FaChevronDown/>
                     </button>
