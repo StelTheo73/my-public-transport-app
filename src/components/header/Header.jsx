@@ -9,7 +9,6 @@ import Logo from "../../assets/images/logo.png";
 
 export const Header = ({showSidebar, setShowSidebar, language, setLanguage}) => {
   const handleSidebarToggle = () => {
-    console.log('CLICK');
       setShowSidebar(!showSidebar);
   }
 
