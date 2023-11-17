@@ -4,12 +4,12 @@
         "GR": "Δρομολόγια"
     },
     "returnToSearch": {
-        "EN": "Back to search",
-        "GR": "Επιστροφή στην αναζήτηση"
+        "EN": "Search",
+        "GR": "Αναζήτηση"
     },
     "reservation": {
-        "EN": "Reserve seats",
-        "GR": "Κράτηση θέσεων"
+        "EN": "Seats",
+        "GR": "Θέσεις"
     },
     "id1": {
         "EN": "ID1",

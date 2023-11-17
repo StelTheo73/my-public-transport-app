@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { FaTrain } from "react-icons/fa";
 
 import textObject from "../../../assets/language/reservation.json";
 
@@ -17,13 +19,32 @@ export const Reservation = ({language, selectedTrip}) => {
 
   return (
     <main>
-        <div className="container-fluid">
-            <div className="container d-flex align-items-center justify-content-end">
-                <button
-                    className="btn btn-warning"
-                    onClick={() => navigate("/trips")}
-                >{textObject.returnToTrips[language]}
-                </button>
+        <div className="container-fluid mt-2">
+            <div className="row">
+                <div className="col-12 col-sm-6 d-flex justify-content-start">
+                    <button
+                        className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
+                        onClick={() => {
+                            navigate("/trips")
+                        }}
+                    >
+                        <FaTrain className="me-2"/>
+                            Δρομολόγια
+                            {/* {textObject.returnToSearch[language]} */}
+                    </button>
+                </div>
+                <div className="col-12 col-sm-6 d-flex justify-content-end">
+                    <button
+                        id="reservation-btn"
+                        className="btn btn-success mt-2 mt-sm-1 full-width-xs"
+                        onClick={() => {
+                            console.log("NAVIGATE TO PAY")
+                            // navigate("/pay")
+                        }}
+                    >Πληρωμή
+                        {/* {textObject.reservation[language]} */}
+                    </button>
+                </div>
             </div>
         </div>
 

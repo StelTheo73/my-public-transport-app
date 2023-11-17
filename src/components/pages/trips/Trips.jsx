@@ -6,6 +6,7 @@ import {
     FaRegClock, FaEuroSign, FaInfoCircle,
     FaSearch
 } from "react-icons/fa";
+import { MdAirlineSeatReclineExtra } from "react-icons/md";
 
 import { Trip } from "./Trip.jsx";
 
@@ -88,9 +89,9 @@ export const Trips = ({
             <div className="container-fluid">
                 <div className="container-fluid mt-2">
                     <div className="row">
-                        <div className="col-6 d-flex justify-content-start">
+                        <div className="col-12 col-sm-6 d-flex justify-content-start">
                             <button
-                                className="btn btn-warning"
+                                className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
                                 onClick={() => {
                                     // Reset trips to avoid showing previous trips
                                     setSelectedTrip({});
@@ -98,16 +99,16 @@ export const Trips = ({
                                     navigate("/")
                                 }}
                             >
-                                <FaSearch className="mx-1 mx-md-2"/>
-                                <span className="hide-medium">
+                                <FaSearch className="me-2"/>
+                                <span>
                                     {textObject.returnToSearch[language]}
                                 </span>
                             </button>
                         </div>
-                        <div className="col-6 d-flex justify-content-end">
+                        <div className="col-12 col-sm-6 d-flex justify-content-end">
                             <button
                                 id="reservation-btn"
-                                className="btn btn-success"
+                                className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                                 onClick={() => {
                                     if ((selectedTrip?.tripId
                                             && searchParameters?.tripType?.value === "oneWayTrip"
@@ -118,10 +119,13 @@ export const Trips = ({
                                         navigate("/reservation")
                                     }
                                 }}
-                            >{textObject.reservation[language]}
+                            >
+                            <MdAirlineSeatReclineExtra className="me-2"/>
+                            <span>
+                                {textObject.reservation[language]}
+                            </span>
                             </button>
                         </div>
-
                     </div>
                 </div>
 

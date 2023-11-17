@@ -64,3 +64,9 @@ footer {
 .main-wrapper {
     width: 100%;
 }
+
+@media only screen and (max-width: 576px) {
+    main .full-width-xs {
+        width: 100%;
+    }
+}
