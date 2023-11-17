@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
     FaTrain, FaFlagCheckered, FaArrowRight,
     FaRegClock, FaEuroSign, FaInfoCircle,
+    FaSearch
 } from "react-icons/fa";
 
 import { Trip } from "./Trip.jsx";
@@ -92,7 +93,7 @@ export const Trips = ({
     return (
         <main>
             <div className="container-fluid">
-                <div className="container-fluid">
+                <div className="container-fluid mt-2">
                     <div className="row">
                         <div className="col-6 d-flex justify-content-start">
                             <button
@@ -103,7 +104,11 @@ export const Trips = ({
                                     setSelectedReturnTrip({});
                                     navigate("/")
                                 }}
-                            >{textObject.returnToSearch[language]}
+                            >
+                                <FaSearch className="mx-1 mx-md-2"/>
+                                <span className="hide-medium">
+                                    {textObject.returnToSearch[language]}
+                                </span>
                             </button>
                         </div>
                         <div className="col-6 d-flex justify-content-end">

@@ -35,6 +35,18 @@ function App() {
           element.classList.remove("hide");
         })
       }
+
+      if (window.innerWidth <= 768) {
+        document.querySelectorAll(".hide-medium").forEach((element) => {
+          element.classList.add("hide");
+        })
+      }
+      else {
+        document.querySelectorAll(".hide-medium").forEach((element) => {
+          element.classList.remove("hide");
+        })
+      }
+
     };
 
     handleResize();
