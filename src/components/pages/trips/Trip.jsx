@@ -10,6 +10,8 @@ from "react-icons/fa";
 
 import "./Trip.css";
 
+import textObject from "../../../assets/language/trips.json";
+
 export const Trip = ({language, trip, stations, setSelectedTrip}) => {
     const navigate = useNavigate();
 
@@ -26,13 +28,15 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
 
     const setInfoTooltip = (targetId) => {
         const tooltipElement = document.getElementById(targetId);
-        tooltipElement.setAttribute("data-tooltip-content", "Click to show trip info");
+        tooltipElement.setAttribute("data-tooltip-content",
+            textObject.tooltipInfo[language]);
 
     };
 
     const resetTooltip = (targetId) => {
         const tooltipElement = document.getElementById(targetId);
-        tooltipElement.setAttribute("data-tooltip-content", "Click to select trip");
+        tooltipElement.setAttribute("data-tooltip-content",
+            textObject.tooltipSelect[language]);
     };
 
     const confirmTrip = () => {
@@ -47,16 +51,26 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
                 className="row mt-3 trip-wrapper" id={`trip-wrapper-${trip.tripId}`}
                 onClick={() => confirmTrip()}
                 data-tooltip-id={`trip-wrapper-${trip.tripId}`}
-                data-tooltip-content="Click to select trip"
+                data-tooltip-content={textObject.tooltipSelect[language]}
                 data-tooltip-float
             >
 
                 <BrowserView className="BrowserView"><Tooltip id={`trip-wrapper-${trip.tripId}`}/></BrowserView>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">{trip.startTime || "unknown"}</div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">{trip.arrivalTime || "unknown"}</div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">{trip.interchanges.length || "unknown"}</div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">{trip.duration || "unknown"}</div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">{trip.basicCost || "unknown"}</div>
+                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    {trip.startTime || "unknown"}
+                </div>
+                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    {trip.arrivalTime || "unknown"}
+                </div>
+                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    {trip.interchanges.length || "unknown"}
+                </div>
+                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    {trip.duration || "unknown"}
+                </div>
+                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    {trip.basicCost || "unknown"}
+                </div>
                 <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
                     <button className="btn btn-link"
                         onClick={(event) => {

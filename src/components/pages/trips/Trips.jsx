@@ -15,10 +15,22 @@ import "./Trips.css";
 import textObject from "../../../assets/language/trips.json";
 
 
-export const Trips = ({ language, searchParameters, stations, setSelectedTrip }) => {
+const TRANSITION_TIMEOUT = 300;
+
+export const Trips = ({
+        language, searchParameters, stations,
+        selectedTrip, setSelectedTrip,
+        selectedReturnTrip, setSelectedReturnTrip
+    }) => {
     const navigate = useNavigate();
     const [url, setUrl] = useState("");
+    const [returnUrl, setReturnUrl] = useState("");
+    const [hide, setHide] = useState(false);
+    const [showReturnTrips, setShowReturnTrips] = useState(false);
     const { data: trips, loading, error } = useFetch(url);
+    const { data: returnTrips, loading: returnLoading, error: returnError } = useFetch(returnUrl);
+
+
     // Navigate to home page is search has not been performed
     useEffect(() => {
         if (!searchParameters?.start || !searchParameters?.destination ||
@@ -31,8 +43,28 @@ export const Trips = ({ language, searchParameters, stations, setSelectedTrip })
 
         setUrl("/fetch/trips/" + searchParameters.start.english + searchParameters.destination.english);
 
+        if (searchParameters?.tripType?.value === "returningTrip") {
+            setReturnUrl("/fetch/trips/" + searchParameters.destination.english + searchParameters.start.english);
+        }
 
     }, [navigate, searchParameters]);
+
+    const tripsTransition = (tripsToShow) => {
+        if (tripsToShow === "trips" && showReturnTrips === true) {
+            setHide(true);
+            setShowReturnTrips(false);
+            setTimeout(() => {
+                setHide(false);
+            }, TRANSITION_TIMEOUT);
+        }
+        else if (tripsToShow === "returnTrips" && showReturnTrips === false) {
+            setHide(true);
+            setShowReturnTrips(true);
+            setTimeout(() => {
+                setHide(false);
+            }, TRANSITION_TIMEOUT);
+        }
+    }
 
     return (
         <main>
@@ -50,7 +82,22 @@ export const Trips = ({ language, searchParameters, stations, setSelectedTrip })
                     <h3>{textObject.header[language]}</h3>
                 </div>
 
-                <div className="d-flex flex-column align-items-center justify-content-center">
+                {searchParameters?.tripType?.value === "returningTrip" &&
+                    <div className="container d-flex align-items-center justify-content-center mt-3">
+                        <button
+                            className={`btn mx-1 ${!showReturnTrips ? "btn-primary" : "btn-outline-primary"}`}
+                            onClick={() => tripsTransition("trips")}
+                        >{textObject.outward[language]}
+                        </button>
+                        <button
+                            className={`btn mx-1 ${showReturnTrips ? "btn-primary" : "btn-outline-primary"}`}
+                            onClick={() => tripsTransition("returnTrips")}
+                        >{textObject.return[language]}
+                        </button>
+                    </div>
+                }
+
+                <div className="d-flex flex-column align-items-center justify-content-center mt-3">
                     <div className="trip-header pb-2 row">
                         <div className="col-2 px-1 px-sm-2">
                             <FaTrain/>
@@ -72,7 +119,15 @@ export const Trips = ({ language, searchParameters, stations, setSelectedTrip })
                         </div>
                     </div>
 
-                    {!error && !loading && trips && trips.map(trip => (
+                    {(hide || loading || returnLoading) &&
+                        <div className="spinner-border text-primary mt-3">
+                            <output></output>
+                            {/* <span className="visually-hidden">Loading...</span> */}
+                        </div>
+                    }
+
+                    {!error && !loading && !showReturnTrips && !hide &&
+                        trips && trips.map(trip => (
                         <Trip
                             key={trip.tripId}
                             language={language}
@@ -81,6 +136,29 @@ export const Trips = ({ language, searchParameters, stations, setSelectedTrip })
                             setSelectedTrip={setSelectedTrip}
                         />
                     ))}
+
+                    {!returnError && !returnLoading && showReturnTrips && !hide &&
+                        returnTrips && returnTrips.map(trip => (
+                        <Trip
+                            key={trip.tripId}
+                            language={language}
+                            trip={trip}
+                            stations={stations}
+                            setSelectedTrip={setSelectedTrip}
+                        />
+                    ))}
+
+                    {(!error && !loading && !showReturnTrips && !hide &&
+                    (trips?.length === 0)) &&
+                        <div className="mt-3 display-6">{textObject.noTripsFound[language]}</div>
+                    }
+
+                    {!returnError && !returnLoading && showReturnTrips && !hide &&
+                    (returnTrips?.length === 0) &&
+                            <div className="mt-3 display-6">{textObject.noTripsFound[language]}</div>
+                    }
+
+
                 </div>
 
             </div>
@@ -92,5 +170,8 @@ Trips.propTypes = {
     language: PropTypes.string.isRequired,
     searchParameters: PropTypes.object.isRequired,
     stations: PropTypes.object.isRequired,
-    setSelectedTrip: PropTypes.func.isRequired
+    selectedTrip: PropTypes.array.isRequired,
+    setSelectedTrip: PropTypes.func.isRequired,
+    selectedReturnTrip: PropTypes.array.isRequired,
+    setSelectedReturnTrip: PropTypes.func.isRequired
 }

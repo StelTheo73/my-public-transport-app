@@ -4,7 +4,7 @@
         "GR": "Δρομολόγια"
     },
     "returnToSearch": {
-        "EN": "Return to search",
+        "EN": "Back to search",
         "GR": "Επιστροφή στην αναζήτηση"
     },
     "id1": {
@@ -22,5 +22,26 @@
     "station": {
         "EN": "Station",
         "GR": "Σταθμός"
+    },
+    "outward": {
+        "EN": "Outward",
+        "GR": "Μετάβαση"
+    },
+    "return": {
+        "EN": "Return",
+        "GR": "Επιστροφή"
+    },
+    "tooltipSelect": {
+        "EN": "Click to select trip",
+        "GR": "Πατήστε για επιλογή"
+    },
+    "tooltipInfo": {
+        "EN": "Click to show trip info",
+        "GR": "Πατήστε για πληρ. ταξιδιού"
+
+    },
+    "noTripsFound": {
+        "EN": "No trips found...",
+        "GR": "Δε βρέθηκαν δρομολόγια..."
     }
 }

@@ -35,11 +35,25 @@ export const Reservation = ({language, selectedTrip}) => {
             <div>{selectedTrip?.duration}</div>
             <div>{selectedTrip?.basicCost}</div>
         </div>
+
+        <div className="container">
+            <div className="row">
+                <div className="col-12 col-md-4">
+                    <div>Trains</div>
+                </div>
+                <div className="col-12 col-md-4">
+                    <div>Seat reservation</div>
+                </div>
+                <div className="col-12 col-md-4">
+                    <div>Passengers</div>
+                </div>
+            </div>
+        </div>
         </main>
   )
 }
 
 Reservation.propTypes = {
-    language: PropTypes.string,
-    selectedTrip: PropTypes.object
+    language: PropTypes.string.isRequired,
+    selectedTrip: PropTypes.array.isRequired
 }

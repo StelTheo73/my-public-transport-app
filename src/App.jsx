@@ -17,7 +17,8 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [language, setLanguage] = useState("GR");
   const [stations, setStations] = useState({});
-  const [selectedTrip, setSelectedTrip] = useState({});
+  const [selectedTrip, setSelectedTrip] = useState([]);
+  const [selectedReturnTrip, setSelectedReturnTrip] = useState([])
 
   const location = useLocation();
 
@@ -68,7 +69,10 @@ function App() {
                 language={language}
                 searchParameters={searchParameters}
                 stations={stations}
+                selectedTrip={selectedTrip}
                 setSelectedTrip={setSelectedTrip}
+                selectedReturnTrip={selectedReturnTrip}
+                setSelectedReturnTrip={setSelectedReturnTrip}
                 />
             } />
             <Route path="reservation" element={

@@ -12,11 +12,12 @@ export const useFetch = (url, headers={}, _body={}) => {
     const body = useRef(_body);
 
     useEffect(() => {
-        const controller = new AbortController()
+        // const controller = new AbortController()
 
         const fetchData = async () => {
             setLoading(true);
-            console.log("FETCHING DATA")
+            // console.log("FETCHING DATA")
+            console.log(url)
             try {
 
                 // This should be the actual fetch request
@@ -27,9 +28,14 @@ export const useFetch = (url, headers={}, _body={}) => {
                 // );
 
                 // Mock fetch request and response object
-                const response = new Object();
+                const response = {};
+                await new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, 500);
+                });
                 if (url.includes("/fetch/stations")) {
-                    console.log("FetchStations");
+                    // console.log("FetchStations");
                     response.ok = true;
                     response.json = () => {
                         return new Promise((resolve, reject) => {
@@ -38,7 +44,7 @@ export const useFetch = (url, headers={}, _body={}) => {
                     }
                 }
                 else if (url.includes("/fetch/trips/AthensPatras")) {
-                    console.log("FetchAthensPatras");
+                    // console.log("FetchAthensPatras");
                     response.ok = true;
                     response.json = () => {
                         return new Promise((resolve, reject) => {
@@ -47,11 +53,19 @@ export const useFetch = (url, headers={}, _body={}) => {
                     }
                 }
                 else if (url.includes("/fetch/trips/PatrasAthens")) {
-                    console.log("FetchPatrasAthens");
+                    // console.log("FetchPatrasAthens");
                     response.ok = true;
                     response.json = () => {
                         return new Promise((resolve, reject) => {
                             resolve(tripObject.PatrasAthens);
+                        })
+                    }
+                }
+                else if (url.includes("/fetch/trips/")) {
+                    response.ok = true;
+                    response.json = () => {
+                        return new Promise((resolve, reject) => {
+                            resolve([]);
                         })
                     }
                 }
@@ -77,11 +91,11 @@ export const useFetch = (url, headers={}, _body={}) => {
                 setError(error.message);
             }
 
-        console.log("FETCH FINISHED")
+        // console.log("FETCH FINISHED")
 
         }
         fetchData();
-        console.log("FETCH FINISHED2")
+        // console.log("FETCH FINISHED2")
 
         // return () => controller.abort();
     }, [url, body]);

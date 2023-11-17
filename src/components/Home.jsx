@@ -17,7 +17,7 @@ function createOptions(station, language) {
       return {
             "value": station.id,
             "label": station[language],
-            "english": stationInEnglish,
+            "english": stationInEnglish
       }
 }
 
@@ -64,10 +64,11 @@ export const Home = ({
 
       useEffect(() => {
             setStations(Stations);
-      }, [Stations])
+      }, [Stations, setStations])
       // End fetch stations
 
       // Form state
+      console.log(searchParameters?.start)
       const [start, setStart] =
             useState(searchParameters?.start || "");
       const [destination, setDestination] =
@@ -120,7 +121,7 @@ export const Home = ({
             }
       ];
 
-      // Change language of selected options when language changes
+      // Change language of selected options when language changes or when navigating back to home page
       useEffect(() => {
             const startValue = selectStartRef.current.valueOf().props.value;
             const destinationValue = selectDestinationRef.current.valueOf().props.value;
@@ -149,7 +150,7 @@ export const Home = ({
                   });
             }
 
-      }, [language])
+      }, [language, Stations?.stations, navigate])
 
       // Hide return date selector when trip type is one way trip
       useEffect(() => {
