@@ -13,49 +13,9 @@ import "./Trip.css";
 import textObject from "../../../assets/language/trips.json";
 import { useEffect } from "react";
 
-const hideElement = (elementId) => {
-    const element = document.getElementById(elementId);
-    element.classList.add("hide");
-}
-
-const showElement = (elementId) => {
-    const element = document.getElementById(elementId);
-    element.classList.remove("hide");
-}
-
-const removeTooltip = (targetId) => {
-    const tooltipElement = document.getElementById(targetId);
-    tooltipElement.removeAttribute("data-tooltip-content");
-};
-
-
-const setInfoTooltip = (targetId, language) => {
-    const tooltipElement = document.getElementById(targetId);
-    tooltipElement.setAttribute("data-tooltip-content",
-        textObject.tooltipInfo[language]);
-
-};
-
-const resetTooltip = (targetId, language) => {
-    const tooltipElement = document.getElementById(targetId);
-    tooltipElement.setAttribute("data-tooltip-content",
-        textObject.tooltipSelect[language]);
-};
-
-const markSelectedTrip = (tripWrapperId) => {
-    const otherTripWrappers = document.querySelectorAll(".trip-wrapper");
-    otherTripWrappers.forEach((tripWrapper) => {
-        tripWrapper.classList.remove("trip-selected");
-        // tripWrapper.classList.remove("alert-success");
-        // tripWrapper.classList.remove("alert");
-    });
-
-    const tripWrapper = document.getElementById(tripWrapperId);
-    tripWrapper.classList.add("trip-selected");
-    // tripWrapper.classList.add("alert-success");
-    // tripWrapper.classList.add("alert");
-
-};
+import {
+    removeTooltip, setTooltipContent, markSelectedTrip
+} from "../../../utils/commonFunctionsDOM.js";
 
 
 export const Trip = ({language, trip, stations,
@@ -195,8 +155,10 @@ export const Trip = ({language, trip, stations,
                             removeTooltip("trip-wrapper-" + trip.tripId);
                             toggleDetails("trip-info-" + trip.tripId, event);
                         }}
-                        onMouseEnter={() => setInfoTooltip("trip-wrapper-" + trip.tripId, language)}
-                        onMouseLeave={() => resetTooltip("trip-wrapper-" + trip.tripId, language)}
+                        onMouseEnter={() => setTooltipContent(
+                            "trip-wrapper-" + trip.tripId, textObject.tooltipInfo[language])}
+                        onMouseLeave={() => setTooltipContent(
+                            "trip-wrapper-" + trip.tripId, textObject.tooltipSelect[language])}
                     >
                         <FaChevronDown/>
                     </button>

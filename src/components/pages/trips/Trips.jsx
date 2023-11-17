@@ -15,16 +15,9 @@ import "./Trips.css";
 
 import textObject from "../../../assets/language/trips.json";
 
+import { disableElement, enableElement } from "../../../utils/commonFunctionsDOM.js";
 
 const TRANSITION_TIMEOUT = 300;
-
-const disableElement = (elementId) => {
-    document.getElementById(elementId).classList.add("disabled");
-}
-
-const enableElement = (elementId) => {
-    document.getElementById(elementId).classList.remove("disabled");
-}
 
 export const Trips = ({
         language, searchParameters, stations,
