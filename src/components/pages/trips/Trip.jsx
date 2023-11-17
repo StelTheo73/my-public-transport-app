@@ -11,8 +11,59 @@ from "react-icons/fa";
 import "./Trip.css";
 
 import textObject from "../../../assets/language/trips.json";
+import { useEffect } from "react";
 
-export const Trip = ({language, trip, stations, setSelectedTrip}) => {
+const hideElement = (elementId) => {
+    const element = document.getElementById(elementId);
+    element.classList.add("hide");
+}
+
+const showElement = (elementId) => {
+    const element = document.getElementById(elementId);
+    element.classList.remove("hide");
+}
+
+const removeTooltip = (targetId) => {
+    const tooltipElement = document.getElementById(targetId);
+    tooltipElement.removeAttribute("data-tooltip-content");
+};
+
+
+const setInfoTooltip = (targetId, language) => {
+    const tooltipElement = document.getElementById(targetId);
+    tooltipElement.setAttribute("data-tooltip-content",
+        textObject.tooltipInfo[language]);
+
+};
+
+const resetTooltip = (targetId, language) => {
+    const tooltipElement = document.getElementById(targetId);
+    tooltipElement.setAttribute("data-tooltip-content",
+        textObject.tooltipSelect[language]);
+};
+
+const markSelectedTrip = (tripWrapperId) => {
+    const otherTripWrappers = document.querySelectorAll(".trip-wrapper");
+    otherTripWrappers.forEach((tripWrapper) => {
+        tripWrapper.classList.remove("trip-selected");
+        // tripWrapper.classList.remove("alert-success");
+        // tripWrapper.classList.remove("alert");
+    });
+
+    const tripWrapper = document.getElementById(tripWrapperId);
+    tripWrapper.classList.add("trip-selected");
+    // tripWrapper.classList.add("alert-success");
+    // tripWrapper.classList.add("alert");
+
+};
+
+
+export const Trip = ({language, trip, stations,
+    tripsTransition, tripType,
+    selectedTrip, setSelectedTrip,
+    selectedReturnTrip, setSelectedReturnTrip,
+    isReturningTrip
+}) => {
     const navigate = useNavigate();
 
     const toggleDetails = (targetId, event) => {
@@ -21,35 +72,102 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
         event.stopPropagation();
     };
 
-    const removeTooltip = (targetId) => {
-        const tooltipElement = document.getElementById(targetId);
-        tooltipElement.removeAttribute("data-tooltip-content");
-    };
-
-    const setInfoTooltip = (targetId) => {
-        const tooltipElement = document.getElementById(targetId);
-        tooltipElement.setAttribute("data-tooltip-content",
-            textObject.tooltipInfo[language]);
-
-    };
-
-    const resetTooltip = (targetId) => {
-        const tooltipElement = document.getElementById(targetId);
-        tooltipElement.setAttribute("data-tooltip-content",
-            textObject.tooltipSelect[language]);
-    };
-
-    const confirmTrip = () => {
+    const handleOneWayTrip = (tripWrapperId) => {
         setSelectedTrip(trip);
-        navigate("/reservation");
+        // navigate("/reservation");
+    }
+
+    const handleReturningTrip = (tripWrapperId) => {
+        console.log("handleReturningTrip")
+        console.log(selectedTrip);
+        console.log(selectedReturnTrip);
+        console.log(trip);
+
+        // hideElement("successful-message");
+        // hideElement("warning-message");
+
+        if (isReturningTrip) {
+            // Case: user clicked a returning trp
+            setSelectedReturnTrip(trip);
+            // markSelectedTrip(tripWrapperId);
+            if (selectedTrip?.tripId) {
+                // Case: user clicked a returning trip
+                //       and has already selected an onward trip
+                // showElement("successful-message");
+                console.log("READY TO PROCEED")
+            }
+            else {
+                // Case: user clicked a returning trip
+                //       but has not selected an onward trip
+                console.log("NEED TO SET SELECTED_TRIP")
+                // showElement("warning-message");
+            }
+        }
+        else {
+            // Case: user clicked an onward trip
+            setSelectedTrip(trip)
+            // markSelectedTrip(tripWrapperId);
+            if (selectedReturnTrip?.tripId) {
+                // Case: user clicked an onward trip
+                //       and has already selected a returning trip
+                console.log("READY TO PROCEED")
+                // showElement("successful-message");
+            }
+            else {
+                // Case: user clicked an onward trip
+                //       but has not selected a returning trip
+                console.log("NEED TO SET SELECT_RETURN_TRIP");
+                // showElement("warning-message");
+            }
+        }
+
+    }
+
+    const confirmTrip = (tripWrapperId) => {
+        if (tripType === "oneWayTrip") {
+            handleOneWayTrip(tripWrapperId);
+        }
+        else if (tripType === "returningTrip") {
+            handleReturningTrip(tripWrapperId);
+        }
     };
+
+    useEffect(() => {
+        if (selectedTrip?.tripId === trip?.tripId) {
+            markSelectedTrip("trip-wrapper-" + trip.tripId);
+        }
+        if (selectedReturnTrip?.tripId === trip?.tripId) {
+            markSelectedTrip("trip-wrapper-" + trip.tripId);
+        }
+
+    }, [trip, selectedTrip, selectedReturnTrip]);
 
     return (
         <>
+            {/* <div className="position-fixed top-50 hide" id="successful-message">
+                <div className="alert alert-success alert-dismissible" role="alert">
+                    <strong>Success!</strong>
+                    <button
+                        className="btn-close" aria-label="Close"
+                        onClick={() => hideElement("successful-message")}>
+                    </button>
+                </div>
+            </div>
+            <div className="position-fixed top-50 hide" id="warning-message">
+                <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Warning!</strong>
+                    <button
+                        className="btn-close" aria-label="Close"
+                        onClick={() => hideElement("warning-message")}
+                        >
+                    </button>
+                </div>
+            </div> */}
+
             <div
                 key={"trip-" + trip.tripId}
                 className="row mt-3 trip-wrapper" id={`trip-wrapper-${trip.tripId}`}
-                onClick={() => confirmTrip()}
+                onClick={() => confirmTrip(`trip-wrapper-${trip.tripId}`)}
                 data-tooltip-id={`trip-wrapper-${trip.tripId}`}
                 data-tooltip-content={textObject.tooltipSelect[language]}
                 data-tooltip-float
@@ -77,8 +195,8 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
                             removeTooltip("trip-wrapper-" + trip.tripId);
                             toggleDetails("trip-info-" + trip.tripId, event);
                         }}
-                        onMouseEnter={() => setInfoTooltip("trip-wrapper-" + trip.tripId)}
-                        onMouseLeave={() => resetTooltip("trip-wrapper-" + trip.tripId)}
+                        onMouseEnter={() => setInfoTooltip("trip-wrapper-" + trip.tripId, language)}
+                        onMouseLeave={() => resetTooltip("trip-wrapper-" + trip.tripId, language)}
                     >
                         <FaChevronDown/>
                     </button>
@@ -122,8 +240,22 @@ export const Trip = ({language, trip, stations, setSelectedTrip}) => {
 }
 
 Trip.propTypes = {
+    // The selected language
     language: PropTypes.string.isRequired,
     trip: PropTypes.object.isRequired,
+    // The trip type specified by user (oneWay/returning)
+    tripType: PropTypes.string.isRequired,
+    // The stations
     stations: PropTypes.object.isRequired,
-    setSelectedTrip: PropTypes.func.isRequired
+    // Selected onward Trip
+    selectedTrip: PropTypes.object.isRequired,
+    setSelectedTrip: PropTypes.func.isRequired,
+    // Selected returning Trip
+    selectedReturnTrip: PropTypes.object.isRequired,
+    setSelectedReturnTrip: PropTypes.func.isRequired,
+    // The function that triggers the transition effect between
+    tripsTransition: PropTypes.func.isRequired,
+    // If true, this Trip is the returning Trip,
+    // Else, this Trip is the onward Trip
+    isReturningTrip: PropTypes.bool.isRequired
 }

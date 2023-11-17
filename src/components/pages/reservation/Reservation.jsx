@@ -55,5 +55,5 @@ export const Reservation = ({language, selectedTrip}) => {
 
 Reservation.propTypes = {
     language: PropTypes.string.isRequired,
-    selectedTrip: PropTypes.array.isRequired
+    selectedTrip: PropTypes.object.isRequired
 }

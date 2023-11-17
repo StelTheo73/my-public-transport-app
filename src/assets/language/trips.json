@@ -7,6 +7,10 @@
         "EN": "Back to search",
         "GR": "Επιστροφή στην αναζήτηση"
     },
+    "reservation": {
+        "EN": "Reserve seats",
+        "GR": "Κράτηση θέσεων"
+    },
     "id1": {
         "EN": "ID1",
         "GR": "Κωδικός Οχήματος"

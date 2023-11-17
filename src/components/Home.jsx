@@ -68,7 +68,6 @@ export const Home = ({
       // End fetch stations
 
       // Form state
-      console.log(searchParameters?.start)
       const [start, setStart] =
             useState(searchParameters?.start || "");
       const [destination, setDestination] =

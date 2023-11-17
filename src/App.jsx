@@ -17,8 +17,8 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [language, setLanguage] = useState("GR");
   const [stations, setStations] = useState({});
-  const [selectedTrip, setSelectedTrip] = useState([]);
-  const [selectedReturnTrip, setSelectedReturnTrip] = useState([])
+  const [selectedTrip, setSelectedTrip] = useState({});
+  const [selectedReturnTrip, setSelectedReturnTrip] = useState({})
 
   const location = useLocation();
 

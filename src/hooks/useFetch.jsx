@@ -17,7 +17,7 @@ export const useFetch = (url, headers={}, _body={}) => {
         const fetchData = async () => {
             setLoading(true);
             // console.log("FETCHING DATA")
-            console.log(url)
+            // console.log(url)
             try {
 
                 // This should be the actual fetch request

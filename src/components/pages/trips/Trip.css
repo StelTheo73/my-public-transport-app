@@ -66,3 +66,8 @@ main .trip-info-content-wrapper > div:nth-last-of-type(1) {
     border-bottom-right-radius: 0.5em;
 }
 /* End border radius of corner elements */
+
+main .trip-selected {
+    background-color: var(--confirmation-color);
+    box-shadow: var(--default-box-shadow);
+}

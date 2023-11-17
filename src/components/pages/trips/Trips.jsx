@@ -17,6 +17,14 @@ import textObject from "../../../assets/language/trips.json";
 
 const TRANSITION_TIMEOUT = 300;
 
+const disableElement = (elementId) => {
+    document.getElementById(elementId).classList.add("disabled");
+}
+
+const enableElement = (elementId) => {
+    document.getElementById(elementId).classList.remove("disabled");
+}
+
 export const Trips = ({
         language, searchParameters, stations,
         selectedTrip, setSelectedTrip,
@@ -41,6 +49,7 @@ export const Trips = ({
             return undefined;
         }
 
+
         setUrl("/fetch/trips/" + searchParameters.start.english + searchParameters.destination.english);
 
         if (searchParameters?.tripType?.value === "returningTrip") {
@@ -48,6 +57,20 @@ export const Trips = ({
         }
 
     }, [navigate, searchParameters]);
+
+    useEffect(() => {
+        if (!selectedTrip?.tripId) {
+            disableElement("reservation-btn");
+        }
+        else if (!selectedReturnTrip?.tripId && searchParameters?.tripType?.value === "returningTrip") {
+            disableElement("reservation-btn");
+        }
+        else {
+            enableElement("reservation-btn");
+        }
+
+
+    }, [selectedTrip, selectedReturnTrip])
 
     const tripsTransition = (tripsToShow) => {
         if (tripsToShow === "trips" && showReturnTrips === true) {
@@ -69,12 +92,39 @@ export const Trips = ({
     return (
         <main>
             <div className="container-fluid">
-                <div className="container d-flex align-items-center justify-content-end">
-                    <button
-                        className="btn btn-warning"
-                        onClick={() => navigate("/")}
-                    >{textObject.returnToSearch[language]}
-                    </button>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-6 d-flex justify-content-start">
+                            <button
+                                className="btn btn-warning"
+                                onClick={() => {
+                                    // Reset trips to avoid showing previous trips
+                                    setSelectedTrip({});
+                                    setSelectedReturnTrip({});
+                                    navigate("/")
+                                }}
+                            >{textObject.returnToSearch[language]}
+                            </button>
+                        </div>
+                        <div className="col-6 d-flex justify-content-end">
+                            <button
+                                id="reservation-btn"
+                                className="btn btn-success"
+                                onClick={() => {
+                                    if ((selectedTrip?.tripId
+                                            && searchParameters?.tripType?.value === "oneWayTrip"
+                                        ) ||
+                                        (selectedTrip?.tripId && selectedReturnTrip?.tripId
+                                            && searchParameters?.tripType?.value === "returningTrip"
+                                        )) {
+                                        navigate("/reservation")
+                                    }
+                                }}
+                            >{textObject.reservation[language]}
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
 
 
@@ -122,7 +172,7 @@ export const Trips = ({
                     {(hide || loading || returnLoading) &&
                         <div className="spinner-border text-primary mt-3">
                             <output></output>
-                            {/* <span className="visually-hidden">Loading...</span> */}
+                            <span className="visually-hidden display-6">Loading...</span>
                         </div>
                     }
 
@@ -132,8 +182,14 @@ export const Trips = ({
                             key={trip.tripId}
                             language={language}
                             trip={trip}
+                            tripType={searchParameters?.tripType?.value}
+                            tripsTransition={tripsTransition}
                             stations={stations}
+                            selectedTrip={selectedTrip}
                             setSelectedTrip={setSelectedTrip}
+                            selectedReturnTrip={selectedReturnTrip}
+                            setSelectedReturnTrip={setSelectedReturnTrip}
+                            isReturningTrip={false}
                         />
                     ))}
 
@@ -143,8 +199,14 @@ export const Trips = ({
                             key={trip.tripId}
                             language={language}
                             trip={trip}
+                            tripType={searchParameters?.tripType?.value}
+                            tripsTransition={tripsTransition}
                             stations={stations}
+                            selectedTrip={selectedTrip}
                             setSelectedTrip={setSelectedTrip}
+                            selectedReturnTrip={selectedReturnTrip}
+                            setSelectedReturnTrip={setSelectedReturnTrip}
+                            isReturningTrip={true}
                         />
                     ))}
 
@@ -170,8 +232,8 @@ Trips.propTypes = {
     language: PropTypes.string.isRequired,
     searchParameters: PropTypes.object.isRequired,
     stations: PropTypes.object.isRequired,
-    selectedTrip: PropTypes.array.isRequired,
+    selectedTrip: PropTypes.object.isRequired,
     setSelectedTrip: PropTypes.func.isRequired,
-    selectedReturnTrip: PropTypes.array.isRequired,
+    selectedReturnTrip: PropTypes.object.isRequired,
     setSelectedReturnTrip: PropTypes.func.isRequired
 }

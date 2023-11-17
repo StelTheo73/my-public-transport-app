@@ -5,6 +5,7 @@
     --default-box-shadow: 1px 4px 10px 1px var(--bs-gray-dark);
     --header-height: 60px;
     --max-body-width: 1200px;
+    --confirmation-color: rgb(144, 238, 144)
 }
 
 * {
@@ -62,4 +63,8 @@ footer {
 
 .main-wrapper {
     width: 100%;
+}
+
+main .disabled:hover {
+    cursor: pointer;
 }
