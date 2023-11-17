@@ -90,7 +90,9 @@ function App() {
             <Route path="reservation" element={
               <Reservation
                 language={language}
+                searchParameters={searchParameters}
                 selectedTrip={selectedTrip}
+                selectedReturnTrip={selectedReturnTrip}
                 />
             } />
             <Route path="contact" element={

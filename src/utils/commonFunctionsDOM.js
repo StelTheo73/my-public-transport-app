@@ -1,9 +1,15 @@
 export function disableElement(elementId) {
-    document.getElementById(elementId).classList.add("disabled");
+    const element = document.getElementById(elementId);
+    element.style.filter = "blur(0.1em)";
+    element.style.cursor = "not-allowed";
+    element.setAttribute("tabindex", "-1");
 }
 
 export function enableElement(elementId) {
-    document.getElementById(elementId).classList.remove("disabled");
+    const element = document.getElementById(elementId);
+    element.style.filter = "";
+    element.style.cursor = "pointer";
+element.setAttribute("tabindex", "0");
 }
 
 export function hideElement(elementId){

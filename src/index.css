@@ -64,7 +64,3 @@ footer {
 .main-wrapper {
     width: 100%;
 }
-
-main .disabled:hover {
-    cursor: pointer;
-}

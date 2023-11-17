@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import {
@@ -19,12 +18,11 @@ import {
 
 
 export const Trip = ({language, trip, stations,
-    tripsTransition, tripType,
+    tripType,
     selectedTrip, setSelectedTrip,
     selectedReturnTrip, setSelectedReturnTrip,
     isReturningTrip
 }) => {
-    const navigate = useNavigate();
 
     const toggleDetails = (targetId, event) => {
         const toggleElement = document.getElementById(targetId);
@@ -34,53 +32,33 @@ export const Trip = ({language, trip, stations,
 
     const handleOneWayTrip = (tripWrapperId) => {
         setSelectedTrip(trip);
-        // navigate("/reservation");
     }
 
     const handleReturningTrip = (tripWrapperId) => {
-        console.log("handleReturningTrip")
-        console.log(selectedTrip);
-        console.log(selectedReturnTrip);
-        console.log(trip);
-
-        // hideElement("successful-message");
-        // hideElement("warning-message");
-
         if (isReturningTrip) {
             // Case: user clicked a returning trp
             setSelectedReturnTrip(trip);
-            // markSelectedTrip(tripWrapperId);
-            if (selectedTrip?.tripId) {
+            // if (selectedTrip?.tripId) {
                 // Case: user clicked a returning trip
                 //       and has already selected an onward trip
-                // showElement("successful-message");
-                console.log("READY TO PROCEED")
-            }
-            else {
+            // }
+            // else {
                 // Case: user clicked a returning trip
                 //       but has not selected an onward trip
-                console.log("NEED TO SET SELECTED_TRIP")
-                // showElement("warning-message");
-            }
+            // }
         }
         else {
             // Case: user clicked an onward trip
             setSelectedTrip(trip)
-            // markSelectedTrip(tripWrapperId);
-            if (selectedReturnTrip?.tripId) {
+            // if (selectedReturnTrip?.tripId) {
                 // Case: user clicked an onward trip
                 //       and has already selected a returning trip
-                console.log("READY TO PROCEED")
-                // showElement("successful-message");
-            }
-            else {
+            // }
+            // else {
                 // Case: user clicked an onward trip
                 //       but has not selected a returning trip
-                console.log("NEED TO SET SELECT_RETURN_TRIP");
-                // showElement("warning-message");
-            }
+            // }
         }
-
     }
 
     const confirmTrip = (tripWrapperId) => {
