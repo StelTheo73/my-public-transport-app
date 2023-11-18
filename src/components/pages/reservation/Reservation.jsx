@@ -3,11 +3,75 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FaTrain, FaArrowRight, FaArrowLeft, FaMoneyCheck } from "react-icons/fa";
-import { MdPayment } from "react-icons/md";
 
 import textObject from "../../../assets/language/reservation.json";
 
-export const Reservation = ({language, selectedTrip}) => {
+const fetchSeats = (trainId) => {
+    if (trainId.startsWith("T")) {
+        return {}
+    }
+
+    return {
+        "1": "selected",
+        "2": "selected",
+        "3": "free",
+        "4": "free",
+        "5:": "reserved",
+        "6": " free",
+        "7": "selected",
+        "8": "selected",
+        "9": "free",
+        "10": "reserved"
+    }
+}
+
+const constructSubTrips = (selectedTrip, stations) => {
+    const startStation = stations[selectedTrip.startStationId];
+    const arrivalStation = stations[selectedTrip.arrivalStationId];
+    const interchanges = selectedTrip.interchanges;
+
+    let subTrips = [];
+    let previousSubTrip = {};
+    let previousStation = startStation;
+    let currentStation = {};
+
+    // Case: Train from start station
+    previousSubTrip = {
+        trainId: selectedTrip.trainId,
+        startStation: previousStation,
+        seats: fetchSeats(selectedTrip.trainId)
+    }
+
+    for (let subTrip of interchanges) {
+        // Get current station
+        currentStation = stations[subTrip.stationId];
+        // Set arrival station for previous sub trip
+        previousSubTrip.arrivalStation = currentStation;
+        // Push previous sub trip to sub trips array
+        subTrips.push(previousSubTrip);
+
+        // Fetch seats for current sub trip and get train id
+        const trainId = subTrip.trainId2;
+        const seats = fetchSeats(trainId);
+
+        // Create new sub trip
+        // Do not push to subTrips, as we do not know the arrival station yet
+        previousSubTrip = {
+            trainId: trainId,
+            startStation: currentStation,
+            seats: seats
+        }
+    }
+
+    // Set arrival station for last sub trip and push it to sub trips array
+    previousSubTrip.arrivalStation = arrivalStation;
+    subTrips.push(previousSubTrip);
+
+    return subTrips;
+}
+
+
+export const Reservation = ({language, selectedTrip, stations}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,8 +79,13 @@ export const Reservation = ({language, selectedTrip}) => {
             navigate("/");
             return undefined;
         }
-    });
+    }, [navigate, selectedTrip]);
 
+    useEffect(() => {
+        if (selectedTrip?.tripId) {
+            console.log(constructSubTrips(selectedTrip, stations.stations))
+        }
+    }, [selectedTrip]);
 
   return (
     <main>
@@ -83,5 +152,6 @@ export const Reservation = ({language, selectedTrip}) => {
 
 Reservation.propTypes = {
     language: PropTypes.string.isRequired,
-    selectedTrip: PropTypes.object.isRequired
+    selectedTrip: PropTypes.object.isRequired,
+    stations: PropTypes.object.isRequired
 }

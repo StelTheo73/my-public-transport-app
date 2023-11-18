@@ -91,6 +91,7 @@ function App() {
               <Reservation
                 language={language}
                 searchParameters={searchParameters}
+                stations={stations}
                 selectedTrip={selectedTrip}
                 selectedReturnTrip={selectedReturnTrip}
                 />

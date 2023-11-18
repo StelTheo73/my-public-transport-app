@@ -1,0 +1,12 @@
+{
+    "1": [
+        {
+            "subTripId": 1,
+            "trainId": "T0001",
+            "startStationId": "2",
+            "endStationId": "4",
+            "startTime": "08.00",
+            "arrivalTime": "09.10"
+        }
+    ]
+}
