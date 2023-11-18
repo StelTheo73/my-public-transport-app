@@ -65,7 +65,7 @@ export const Trips = ({
         }
 
 
-    }, [selectedTrip, selectedReturnTrip])
+    }, [selectedTrip, selectedReturnTrip, searchParameters?.tripType?.value])
 
     const tripsTransition = (tripsToShow) => {
         if (tripsToShow === "trips" && showReturnTrips === true) {
@@ -184,14 +184,9 @@ export const Trips = ({
                             key={trip.tripId}
                             language={language}
                             trip={trip}
-                            tripType={searchParameters?.tripType?.value}
-                            tripsTransition={tripsTransition}
                             stations={stations}
-                            selectedTrip={selectedTrip}
-                            setSelectedTrip={setSelectedTrip}
-                            selectedReturnTrip={selectedReturnTrip}
-                            setSelectedReturnTrip={setSelectedReturnTrip}
-                            isReturningTrip={false}
+                            _selectedTrip={selectedTrip}
+                            _setSelectedTrip={setSelectedTrip}
                         />
                     ))}
 
@@ -201,14 +196,9 @@ export const Trips = ({
                             key={trip.tripId}
                             language={language}
                             trip={trip}
-                            tripType={searchParameters?.tripType?.value}
-                            tripsTransition={tripsTransition}
                             stations={stations}
-                            selectedTrip={selectedTrip}
-                            setSelectedTrip={setSelectedTrip}
-                            selectedReturnTrip={selectedReturnTrip}
-                            setSelectedReturnTrip={setSelectedReturnTrip}
-                            isReturningTrip={true}
+                            _selectedTrip={selectedReturnTrip}
+                            _setSelectedTrip={setSelectedReturnTrip}
                         />
                     ))}
 

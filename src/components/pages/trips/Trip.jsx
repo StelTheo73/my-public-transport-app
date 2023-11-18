@@ -18,10 +18,7 @@ import {
 
 
 export const Trip = ({language, trip, stations,
-    tripType,
-    selectedTrip, setSelectedTrip,
-    selectedReturnTrip, setSelectedReturnTrip,
-    isReturningTrip
+    _selectedTrip, _setSelectedTrip
 }) => {
 
     const toggleDetails = (targetId, event) => {
@@ -30,55 +27,15 @@ export const Trip = ({language, trip, stations,
         event.stopPropagation();
     };
 
-    const handleOneWayTrip = (tripWrapperId) => {
-        setSelectedTrip(trip);
-    }
-
-    const handleReturningTrip = (tripWrapperId) => {
-        if (isReturningTrip) {
-            // Case: user clicked a returning trp
-            setSelectedReturnTrip(trip);
-            // if (selectedTrip?.tripId) {
-                // Case: user clicked a returning trip
-                //       and has already selected an onward trip
-            // }
-            // else {
-                // Case: user clicked a returning trip
-                //       but has not selected an onward trip
-            // }
-        }
-        else {
-            // Case: user clicked an onward trip
-            setSelectedTrip(trip)
-            // if (selectedReturnTrip?.tripId) {
-                // Case: user clicked an onward trip
-                //       and has already selected a returning trip
-            // }
-            // else {
-                // Case: user clicked an onward trip
-                //       but has not selected a returning trip
-            // }
-        }
-    }
-
-    const confirmTrip = (tripWrapperId) => {
-        if (tripType === "oneWayTrip") {
-            handleOneWayTrip(tripWrapperId);
-        }
-        else if (tripType === "returningTrip") {
-            handleReturningTrip(tripWrapperId);
-        }
+    const confirmTrip = () => {
+        _setSelectedTrip(trip);
     };
 
     useEffect(() => {
-        if (selectedTrip?.tripId === trip?.tripId) {
+        if (_selectedTrip?.tripId === trip?.tripId) {
             markSelectedTrip("trip-wrapper-" + trip.tripId);
         }
-        if (selectedReturnTrip?.tripId === trip?.tripId) {
-            markSelectedTrip("trip-wrapper-" + trip.tripId);
-        }
-
-    }, [trip, selectedTrip, selectedReturnTrip]);
+    }, [trip, _selectedTrip])
 
     return (
         <>
@@ -187,15 +144,8 @@ Trip.propTypes = {
     tripType: PropTypes.string.isRequired,
     // The stations
     stations: PropTypes.object.isRequired,
-    // Selected onward Trip
-    selectedTrip: PropTypes.object.isRequired,
-    setSelectedTrip: PropTypes.func.isRequired,
-    // Selected returning Trip
-    selectedReturnTrip: PropTypes.object.isRequired,
-    setSelectedReturnTrip: PropTypes.func.isRequired,
-    // The function that triggers the transition effect between
-    tripsTransition: PropTypes.func.isRequired,
-    // If true, this Trip is the returning Trip,
-    // Else, this Trip is the onward Trip
-    isReturningTrip: PropTypes.bool.isRequired
+    // Selected trip
+    _selectedTrip: PropTypes.object.isRequired,
+    // Set selected trip
+    _setSelectedTrip: PropTypes.func.isRequired
 }
