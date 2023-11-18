@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { useEffect, useState  } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    FaTrain, FaFlagCheckered, FaArrowRight,
+    FaTrain, FaFlagCheckered, FaSearch,
+    FaArrowRight, FaArrowLeft,
     FaRegClock, FaEuroSign, FaInfoCircle,
-    FaSearch
 } from "react-icons/fa";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 
@@ -99,10 +99,11 @@ export const Trips = ({
                                     navigate("/")
                                 }}
                             >
-                                <FaSearch className="me-2"/>
+                                <FaArrowLeft className="me-2"/>
                                 <span>
                                     {textObject.returnToSearch[language]}
                                 </span>
+                                <FaSearch className="ms-2"/>
                             </button>
                         </div>
                         <div className="col-12 col-sm-6 d-flex justify-content-end">
@@ -120,10 +121,11 @@ export const Trips = ({
                                     }
                                 }}
                             >
-                            <MdAirlineSeatReclineExtra className="me-2"/>
+                            <MdAirlineSeatReclineExtra className="mb-1 me-2"/>
                             <span>
                                 {textObject.reservation[language]}
                             </span>
+                            <FaArrowRight className="ms-2"/>
                             </button>
                         </div>
                     </div>

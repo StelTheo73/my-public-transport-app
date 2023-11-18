@@ -1,6 +1,14 @@
 {
+    "header": {
+        "EN": "Seat reservation",
+        "GR": "Κράτηση θέσεων"
+    },
     "returnToTrips": {
-        "EN": "Back to trips",
-        "GR": "Επιστροφή στα δρομολόγια"
+        "EN": "Trips",
+        "GR": "Δρομολόγια"
+    },
+    "payment": {
+        "EN": "Payment",
+        "GR": "Πληρωμή"
     }
 }

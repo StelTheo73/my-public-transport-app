@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { FaTrain } from "react-icons/fa";
+import { FaTrain, FaArrowRight, FaArrowLeft, FaMoneyCheck } from "react-icons/fa";
+import { MdPayment } from "react-icons/md";
 
 import textObject from "../../../assets/language/reservation.json";
 
@@ -28,9 +29,11 @@ export const Reservation = ({language, selectedTrip}) => {
                             navigate("/trips")
                         }}
                     >
-                        <FaTrain className="me-2"/>
-                            Δρομολόγια
-                            {/* {textObject.returnToSearch[language]} */}
+                        <FaArrowLeft className="me-2"/>
+                        <span>
+                            {textObject.returnToTrips[language]}
+                        </span>
+                        <FaTrain className="ms-2"/>
                     </button>
                 </div>
                 <div className="col-12 col-sm-6 d-flex justify-content-end">
@@ -41,8 +44,12 @@ export const Reservation = ({language, selectedTrip}) => {
                             console.log("NAVIGATE TO PAY")
                             // navigate("/pay")
                         }}
-                    >Πληρωμή
-                        {/* {textObject.reservation[language]} */}
+                    >
+                        <FaMoneyCheck className="mb-1 me-2"/>
+                        <span>
+                            {textObject.payment[language]}
+                        </span>
+                        <FaArrowRight className="ms-2"/>
                     </button>
                 </div>
             </div>

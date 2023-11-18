@@ -140,8 +140,6 @@ Trip.propTypes = {
     // The selected language
     language: PropTypes.string.isRequired,
     trip: PropTypes.object.isRequired,
-    // The trip type specified by user (oneWay/returning)
-    tripType: PropTypes.string.isRequired,
     // The stations
     stations: PropTypes.object.isRequired,
     // Selected trip
