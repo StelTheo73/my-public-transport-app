@@ -120,7 +120,7 @@ export const Trip = ({language, trip, stations,
                     return (
                         <div
                             className="row trip-info-content-wrapper"
-                            key={"interchange-" + trip.tripId + interchange}
+                            key={"interchange-" + trip.tripId + interchange.interchangeId}
                         >
                             <div className="col-3 d-flex align-items-center justify-content-center">{interchange.trainId1}</div>
                             <div className="col-3 d-flex align-items-center justify-content-center">{interchange.time}</div>

@@ -268,5 +268,336 @@
                 }
             ]
         }
+    ],
+    "AthensKiaton": [
+        {
+            "tripId": "15",
+            "startTime": "08:00",
+            "arrivalTime": "09:5",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0001",
+            "interchanges": []
+        },
+        {
+            "tripId": "16",
+            "startTime": "09:00",
+            "arrivalTime": "10:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0002",
+            "interchanges": []
+        },
+        {
+            "tripId": "17",
+            "startTime": "10:00",
+            "arrivalTime": "11:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0003",
+            "interchanges": []
+        },
+        {
+            "tripId": "18",
+            "startTime": "11:00",
+            "arrivalTime": "12:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0004",
+            "interchanges": []
+        },
+        {
+            "tripId": "19",
+            "startTime": "12:00",
+            "arrivalTime": "13:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0005",
+            "interchanges": []
+        },
+        {
+            "tripId": "20",
+            "startTime": "13:00",
+            "arrivalTime": "14:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0006",
+            "interchanges": []
+        },
+        {
+            "tripId": "21",
+            "startTime": "14:00",
+            "arrivalTime": "15:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "2",
+            "arrivalStationId": "3",
+            "trainId": "T0007",
+            "interchanges": []
+        }
+    ],
+    "KiatonAthens": [
+        {
+            "tripId": "22",
+            "startTime": "08:00",
+            "arrivalTime": "09:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "3",
+            "arrivalStationId": "2",
+            "trainId": "T0001",
+            "interchanges": []
+        },
+        {
+            "tripId": "23",
+            "startTime": "09:00",
+            "arrivalTime": "10:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "3",
+            "arrivalStationId": "2",
+            "trainId": "T0002",
+            "interchanges": []
+        },
+        {
+            "tripId": "24",
+            "startTime": "10:00",
+            "arrivalTime": "11:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "3",
+            "arrivalStationId": "2",
+            "trainId": "T0003",
+            "interchanges": []
+        },
+        {
+            "tripId": "25",
+            "startTime": "11:00",
+            "arrivalTime": "12:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "3",
+            "arrivalStationId": "2",
+            "trainId": "T0004",
+            "interchanges": []
+        },
+        {
+            "tripId": "26",
+            "startTime": "12:00",
+            "arrivalTime": "13:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "3",
+            "arrivalStationId": "2",
+            "trainId": "T0005",
+            "interchanges": []
+        },
+        {
+            "tripId": "27",
+            "startTime": "13:00",
+            "arrivalTime": "14:15",
+            "duration": "1h15'",
+            "basicCost": 18.5,
+            "startStationId": "3",
+            "arrivalStationId": "2",
+            "trainId": "T0006",
+            "interchanges": []
+        }
+    ],
+    "PatrasThessaloniki": [
+        {
+            "tripId": "28",
+            "startTime": "08:00",
+            "arrivalTime": "17:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0001",
+            "interchanges": [
+                {
+                    "interchangeId": "15",
+                    "trainId1": "B0004",
+                    "trainId2": "T0004",
+                    "stationId": "4",
+                    "time": "09:15"
+                },
+                {
+                    "interchangeId": "16",
+                    "trainId1": "T0004",
+                    "trainId2": "I0010",
+                    "stationId": "2",
+                    "time": "10:30"
+                }
+            ]
+        },
+        {
+            "tripId": "29",
+            "startTime": "09:00",
+            "arrivalTime": "18:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0002",
+            "interchanges": [
+                {
+                    "interchangeId": "17",
+                    "trainId1": "B0005",
+                    "trainId2": "T0005",
+                    "stationId": "4",
+                    "time": "10:15"
+                },
+                {
+                    "interchangeId": "18",
+                    "trainId1": "T0005",
+                    "trainId2": "I0011",
+                    "stationId": "2",
+                    "time": "11:30"
+                }
+            ]
+        },
+        {
+            "tripId": "30",
+            "startTime": "10:00",
+            "arrivalTime": "19:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0003",
+            "interchanges": [
+                {
+                    "interchangeId": "19",
+                    "trainId1": "B0006",
+                    "trainId2": "T0006",
+                    "stationId": "4",
+                    "time": "11:15"
+                },
+                {
+                    "interchangeId": "20",
+                    "trainId1": "T0006",
+                    "trainId2": "I0012",
+                    "stationId": "2",
+                    "time": "12:30"
+                }
+            ]
+        },
+        {
+            "tripId": "31",
+            "startTime": "11:00",
+            "arrivalTime": "20:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0004",
+            "interchanges": [
+                {
+                    "interchangeId": "21",
+                    "trainId1": "B0007",
+                    "trainId2": "T0007",
+                    "stationId": "4",
+                    "time": "12:15"
+                },
+                {
+                    "interchangeId": "22",
+                    "trainId1": "T0007",
+                    "trainId2": "I0013",
+                    "stationId": "2",
+                    "time": "13:30"
+                }
+            ]
+        },
+        {
+            "tripId": "32",
+            "startTime": "12:00",
+            "arrivalTime": "21:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0005",
+            "interchanges": [
+                {
+                    "interchangeId": "23",
+                    "trainId1": "B0008",
+                    "trainId2": "T0008",
+                    "stationId": "4",
+                    "time": "13:15"
+                },
+                {
+                    "interchangeId": "24",
+                    "trainId1": "T0008",
+                    "trainId2": "I0014",
+                    "stationId": "2",
+                    "time": "14:30"
+                }
+            ]
+        },
+        {
+            "tripId": "33",
+            "startTime": "13:00",
+            "arrivalTime": "22:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0006",
+            "interchanges": [
+                {
+                    "interchangeId": "25",
+                    "trainId1": "B0009",
+                    "trainId2": "T0009",
+                    "stationId": "4",
+                    "time": "14:15"
+                },
+                {
+                    "interchangeId": "26",
+                    "trainId1": "T0009",
+                    "trainId2": "I0015",
+                    "stationId": "2",
+                    "time": "15:30"
+                }
+            ]
+        },
+        {
+            "tripId": "34",
+            "startTime": "14:00",
+            "arrivalTime": "23:30",
+            "duration": "9h30'",
+            "basicCost": 50,
+            "startStationId": "5",
+            "arrivalStationId": "6",
+            "trainId": "B0007",
+            "interchanges": [
+                {
+                    "interchangeId": "27",
+                    "trainId1": "B0010",
+                    "trainId2": "T0010",
+                    "stationId": "4",
+                    "time": "15:15"
+                },
+                {
+                    "interchangeId": "28",
+                    "trainId1": "T0010",
+                    "trainId2": "I0016",
+                    "stationId": "2",
+                    "time": "16:30"
+                }
+            ]
+        }
     ]
 }

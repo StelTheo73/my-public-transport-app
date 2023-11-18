@@ -43,29 +43,16 @@ export const useFetch = (url, headers={}, _body={}) => {
                         })
                     }
                 }
-                else if (url.includes("/fetch/trips/AthensPatras")) {
-                    // console.log("FetchAthensPatras");
-                    response.ok = true;
-                    response.json = () => {
-                        return new Promise((resolve, reject) => {
-                            resolve(tripObject.AthensPatras);
-                        })
-                    }
-                }
-                else if (url.includes("/fetch/trips/PatrasAthens")) {
-                    // console.log("FetchPatrasAthens");
-                    response.ok = true;
-                    response.json = () => {
-                        return new Promise((resolve, reject) => {
-                            resolve(tripObject.PatrasAthens);
-                        })
-                    }
-                }
                 else if (url.includes("/fetch/trips/")) {
                     response.ok = true;
                     response.json = () => {
                         return new Promise((resolve, reject) => {
-                            resolve([]);
+                            const trips = tripObject[url.split("/fetch/trips/")[1]];
+                            // console.log(trips);
+                            if (trips === undefined) {
+                                resolve([]);
+                            }
+                            resolve(trips);
                         })
                     }
                 }
