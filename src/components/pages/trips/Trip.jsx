@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import {
-    FaChevronDown, FaRegClock,
-    FaHashtag, FaSign
+    FaChevronDown, FaArrowRight,
+    FaRegClock,
+    FaHashtag, FaSign,
 }
 from "react-icons/fa";
 
@@ -76,7 +77,7 @@ export const Trip = ({language, trip, stations,
                     {trip.arrivalTime || "unknown"}
                 </div>
                 <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.interchanges.length || "unknown"}
+                    {trip.interchanges.length || "0"}
                 </div>
                 <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
                     {trip.duration || "unknown"}
@@ -105,7 +106,46 @@ export const Trip = ({language, trip, stations,
                 className="container mt-2 trip-info-wrapper hide"
                 id={`trip-info-${trip.tripId}`}
             >
-                <div
+                {trip.subTrips.map((subTrip) => (
+                    <div
+                        key={`${subTrip.tripId}-${subTrip.trainId}`}
+                        className="row m-2 border">
+
+
+                        <div className="col-2">
+                            {subTrip.trainId}
+                        </div>
+                        <div className="col-4 d-flex align-items-center justify-content-center">
+                            {stations.stations[subTrip.startStationId][language]}<br></br>({subTrip.startTime})
+                        </div>
+                        <div className="col-2 d-flex align-items-center justify-content-center"><FaArrowRight/></div>
+                        <div className="col-4 d-flex align-items-center justify-content-center">
+                            {stations.stations[subTrip.arrivalStationId][language]}<br></br>({subTrip.arrivalTime})
+                        </div>
+
+
+
+                        {/* <div className="col-2"></div>
+                        <div className="col-4 d-flex justify-content-center">({subTrip.startTime})</div>
+                        <div className="col-2"></div>
+                        <div className="col-4 d-flex justify-content-center">({subTrip.arrivalTime})</div>
+                        <div className="col-2"></div> */}
+
+{/*
+                        {subTrip.trainId}<br></br>
+                        {subTrip.startTime}<br></br>
+                        {subTrip.startTime} - {subTrip.arrivalTime}<br></br> */}
+                    </div>
+                ))}
+
+
+
+
+
+
+
+
+                {/* <div
                     key={"info-" + trip.tripId}
                     className="row trip-info-header-wrapper">
                     <div className="col-3 d-flex align-items-center justify-content-center"><FaHashtag/></div>
@@ -128,8 +168,7 @@ export const Trip = ({language, trip, stations,
                             <div className="col-3 d-flex align-items-center justify-content-center">{interchange.trainId2}</div>
                         </div>
                     )
-                }
-                )}
+                })} */}
             </div>
 
         </>

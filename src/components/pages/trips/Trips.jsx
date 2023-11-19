@@ -20,8 +20,6 @@ import { disableElement, enableElement } from "../../../utils/commonFunctionsDOM
 
 import { DEFAULT_TRANSITION_TIMEOUT } from "../../../env/constants.js";
 
-const TRANSITION_TIMEOUT = 300;
-
 export const Trips = ({
         language, searchParameters, stations,
         selectedTrip, setSelectedTrip,
