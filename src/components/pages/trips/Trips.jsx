@@ -15,8 +15,10 @@ import { useFetch } from "../../../hooks/useFetch.jsx";
 import "./Trips.css";
 
 import textObject from "../../../assets/language/trips.json";
+import errorText from "../../../assets/language/error.json";
 
 import { disableElement, enableElement } from "../../../utils/commonFunctionsDOM.js";
+import { ErrorAlert } from "../../ErrorAlert.jsx";
 
 const TRANSITION_TIMEOUT = 300;
 
@@ -33,6 +35,7 @@ export const Trips = ({
     const { data: trips, loading, error } = useFetch(url);
     const { data: returnTrips, loading: returnLoading, error: returnError } = useFetch(returnUrl);
 
+    const [alert, setAlert] = useState(false);
 
     // Navigate to home page is search has not been performed
     useEffect(() => {
@@ -89,6 +92,7 @@ export const Trips = ({
             <div className="container-fluid">
                 <div className="container-fluid mt-2">
                     <div className="row">
+                        <ErrorAlert show={alert} error={alert}/>
                         <div className="col-12 col-sm-6 d-flex justify-content-start">
                             <button
                                 className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
@@ -111,6 +115,7 @@ export const Trips = ({
                                 id="reservation-btn"
                                 className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                                 onClick={() => {
+                                    console.log(searchParameters);
                                     if ((selectedTrip?.tripId
                                             && searchParameters?.tripType?.value === "oneWayTrip"
                                         ) ||
@@ -118,6 +123,9 @@ export const Trips = ({
                                             && searchParameters?.tripType?.value === "returningTrip"
                                         )) {
                                         navigate("/reservation")
+                                    }
+                                    else {
+                                        setAlert(errorText.seats[language]);
                                     }
                                 }}
                             >

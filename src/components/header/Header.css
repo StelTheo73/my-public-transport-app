@@ -74,24 +74,20 @@ header .header-nav-link {
 
 .burger {
     position: relative;
-    width: 40px;
-    height: 30px;
-    background: transparent;
+    --burger-width: 38px;
+    width: var(--burger-width);
+    height: calc(0.7 * var(--burger-width)); /*width * 1/sqrt(2)*/
     cursor: pointer;
-    display: block;
   }
 
   .burger .burgerLine {
-    display: block;
     position: absolute;
-    height: 4px;
+    left: 0;
+    height: 3px;
     width: 100%;
     background: black;
     border-radius: 9px;
-    opacity: 1;
-    left: 0;
     transform-origin: left center;
-    transform: rotate(0deg);
     transition: .25s ease-in-out;
   }
 
@@ -120,6 +116,5 @@ header .header-nav-link {
 
   .burger.open .burgerLine:nth-of-type(3) {
     transform: rotate(-45deg);
-    top: 28px;
     left: 5px;
   }

@@ -8,8 +8,10 @@ import { useFetch } from "../hooks/useFetch";
 
 import "../static/css/Home.css";
 import textObject from "../assets/language/home.json";
+import errorText from "../assets/language/error.json";
 
 import { removeTones } from "../utils/removeTones";
+import { ErrorAlert } from "./ErrorAlert";
 
 
 function createOptions(station, language) {
@@ -178,16 +180,20 @@ export const Home = ({
             }
       }
 
+      const [alert, setAlert] = useState(false);
       // Handle form submission
       const handleSubmit = (event) => {
+            event.preventDefault();
 
-            if (start?.value && destination?.value && date && returnDate && tripType?.value) {
-                  console.log("All fields are filled");
+            if (start?.value === destination?.value) {
+                  setAlert(errorText.sameTown[language]);
+                  return;
             }
-            else {
-                  console.log("Not all fields are filled");
+            if (new Date(date) > new Date(returnDate)){
+                  setAlert(errorText.dates[language]);
+                  return;
             }
-
+            
             setSearchParameters({
                   start: start.valueOf(),
                   destination: destination.valueOf(),
@@ -195,8 +201,6 @@ export const Home = ({
                   returnDate: returnDate.valueOf(),
                   tripType: tripType.valueOf()
             })
-
-            event.preventDefault();
 
             navigate("/trips", {
                   language: language,
@@ -222,6 +226,7 @@ export const Home = ({
                               <h3>{textObject.header[language]}</h3>
                         </div>
                         <div className="form-wrapper container justify-content-center pt-3 my-3">
+                              <ErrorAlert show={alert} error={alert} />
                               {/* Form */}
                               <form
                                     className="container"
@@ -230,26 +235,6 @@ export const Home = ({
                                     onSubmit={(event) => handleSubmit(event)}>
 
                                     {/* First row */}
-                                    <div className="row">
-                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
-                                                <label htmlFor="tripType">{textObject.tripType[language]}</label>
-                                                <Select
-                                                      className="required"
-                                                      required
-                                                      isSearchable={false}
-                                                      name="tripType"
-                                                      id="tripType"
-                                                      value={tripType}
-                                                      onChange={e => setTripType(e)}
-                                                      options={tripOptions}
-                                                      ref={selectTripTypeRef}
-                                                >
-                                                </Select>
-                                          </div>
-
-                                    </div>
-                                    {/* End first row */}
-                                    {/* Second row */}
                                     <div className="row">
                                           {/* Start select */}
                                           <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
@@ -289,6 +274,25 @@ export const Home = ({
                                                 />
                                           </div>
                                           {/* End destination select */}
+                                    </div>
+                                    {/* End first row */}
+                                    {/* Second row */}
+                                    <div className="row">
+                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
+                                                <label htmlFor="tripType">{textObject.tripType[language]}</label>
+                                                <Select
+                                                      className="required"
+                                                      required
+                                                      isSearchable={false}
+                                                      name="tripType"
+                                                      id="tripType"
+                                                      value={tripType}
+                                                      onChange={e => setTripType(e)}
+                                                      options={tripOptions}
+                                                      ref={selectTripTypeRef}
+                                                >
+                                                </Select>
+                                          </div>
                                     </div>
                                     {/* End second row */}
                                     {/* Third row */}
