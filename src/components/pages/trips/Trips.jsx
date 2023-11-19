@@ -20,6 +20,8 @@ import errorText from "../../../assets/language/error.json";
 import { disableElement, enableElement } from "../../../utils/commonFunctionsDOM.js";
 import { ErrorAlert } from "../../ErrorAlert.jsx";
 
+import { DEFAULT_TRANSITION_TIMEOUT } from "../../../env/constants.js";
+
 const TRANSITION_TIMEOUT = 300;
 
 export const Trips = ({
@@ -48,10 +50,12 @@ export const Trips = ({
         }
 
 
-        setUrl("/fetch/trips/" + searchParameters.start.english + searchParameters.destination.english);
+        setUrl("/fetch/trips/" +
+            searchParameters.start.english + searchParameters.destination.english);
 
         if (searchParameters?.tripType?.value === "returningTrip") {
-            setReturnUrl("/fetch/trips/" + searchParameters.destination.english + searchParameters.start.english);
+            setReturnUrl("/fetch/trips/" +
+                searchParameters.destination.english + searchParameters.start.english);
         }
 
     }, [navigate, searchParameters]);
@@ -60,7 +64,8 @@ export const Trips = ({
         if (!selectedTrip?.tripId) {
             disableElement("reservation-btn");
         }
-        else if (!selectedReturnTrip?.tripId && searchParameters?.tripType?.value === "returningTrip") {
+        else if (!selectedReturnTrip?.tripId &&
+                searchParameters?.tripType?.value === "returningTrip") {
             disableElement("reservation-btn");
         }
         else {
@@ -76,14 +81,14 @@ export const Trips = ({
             setShowReturnTrips(false);
             setTimeout(() => {
                 setHide(false);
-            }, TRANSITION_TIMEOUT);
+            }, DEFAULT_TRANSITION_TIMEOUT);
         }
         else if (tripsToShow === "returnTrips" && showReturnTrips === false) {
             setHide(true);
             setShowReturnTrips(true);
             setTimeout(() => {
                 setHide(false);
-            }, TRANSITION_TIMEOUT);
+            }, DEFAULT_TRANSITION_TIMEOUT);
         }
     }
 
