@@ -5,11 +5,10 @@ export async function fetchData(url) {
 
         // Mock fetch request and response object
         const response = {};
-        if (url.incudes("/fetch/seats/")) {
+        if (url.includes("/fetch/seats/")) {
             response.ok = true;
             response.json = () => {
                 return new Promise((resolve, reject) => {
-                    console.log("FetchSeats");
                     resolve([]);
                 })
             }
@@ -26,9 +25,15 @@ export async function fetchData(url) {
 
         const data = await response.json();
 
-        return (data, undefined);
+        return {
+            data: data,
+            error: undefined
+        };
     }
     catch (error) {
-      return (undefined, error.message)
+        return {
+            data: undefined,
+            error: error.message
+        };
     }
   }

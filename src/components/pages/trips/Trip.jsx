@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import {
-    FaChevronDown, FaRegClock,
-    FaHashtag, FaSign
+    FaChevronDown, FaArrowRight,
 }
 from "react-icons/fa";
 
@@ -76,7 +75,7 @@ export const Trip = ({language, trip, stations,
                     {trip.arrivalTime || "unknown"}
                 </div>
                 <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.interchanges.length || "unknown"}
+                    {trip.interchanges.length || "0"}
                 </div>
                 <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
                     {trip.duration || "unknown"}
@@ -102,34 +101,41 @@ export const Trip = ({language, trip, stations,
             </div>
 
             <div
-                className="container mt-2 trip-info-wrapper hide"
+                className="container mt-2 px-1 trip-info-wrapper hide"
                 id={`trip-info-${trip.tripId}`}
             >
-                <div
-                    key={"info-" + trip.tripId}
-                    className="row trip-info-header-wrapper">
-                    <div className="col-3 d-flex align-items-center justify-content-center"><FaHashtag/></div>
-                    <div className="col-3 d-flex align-items-center justify-content-center"><FaRegClock/></div>
-                    <div className="col-3 d-flex align-items-center justify-content-center"><FaSign/></div>
-                    <div className="col-3 d-flex align-items-center justify-content-center"><FaHashtag/></div>
-                </div>
-                {trip.interchanges.map((interchange) => {
-                    const stationId = interchange.stationId;
-                    const stationName = stations?.stations ?
-                    stations.stations[stationId][language] : "-";
-                    return (
-                        <div
-                            className="row trip-info-content-wrapper"
-                            key={"interchange-" + trip.tripId + interchange.interchangeId}
-                        >
-                            <div className="col-3 d-flex align-items-center justify-content-center">{interchange.trainId1}</div>
-                            <div className="col-3 d-flex align-items-center justify-content-center">{interchange.time}</div>
-                            <div className="col-3 d-flex align-items-center justify-content-center">{stationName}</div>
-                            <div className="col-3 d-flex align-items-center justify-content-center">{interchange.trainId2}</div>
+                {trip.subTrips.map((subTrip) => (
+                    <div
+                        key={`${subTrip.tripId}-${subTrip.trainId}`}
+                        className="row my-2 mx-1 py-1 d-flex align-items-center justify-content-center">
+                        <div className="col-12 col-sm-2 d-flex flex-column align-items-center">
+                            <span>
+                                {subTrip.trainId}
+                            </span>
+                            <span>
+                                ({subTrip.trainId[0] === "B" ? textObject.bus[language] : textObject.train[language]})
+                            </span>
                         </div>
-                    )
-                }
-                )}
+                        <div className="col-4 d-flex flex-column align-items-center justify-content-center">
+                            <span>
+                                {stations.stations[subTrip.startStationId][language]}
+                            </span>
+                            <span>
+                                ({subTrip.startTime})
+                            </span>
+                        </div>
+                        <div className="col-4 col-sm-2 d-flex align-items-center justify-content-center"><FaArrowRight/></div>
+                        <div className="col-4 d-flex flex-column align-items-center justify-content-center">
+                            <span>
+                                {stations.stations[subTrip.arrivalStationId][language]}
+                            </span>
+                            <span>
+                                ({subTrip.arrivalTime})
+                            </span>
+                        </div>
+                    </div>
+                ))}
+
             </div>
 
         </>
