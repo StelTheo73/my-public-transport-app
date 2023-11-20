@@ -47,5 +47,13 @@
     "noTripsFound": {
         "EN": "No trips found...",
         "GR": "Δε βρέθηκαν δρομολόγια..."
+    },
+    "train": {
+        "EN": "Train",
+        "GR": "Τρένο"
+    },
+    "bus": {
+        "EN": "Bus",
+        "GR": "Λεωφορείο"
     }
 }

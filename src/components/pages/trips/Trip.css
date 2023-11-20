@@ -10,14 +10,6 @@ main .trip-wrapper:hover {
     cursor: pointer;
 }
 
-main .trip-info-header-wrapper > div,
-main .trip-info-content-wrapper > div
-{
-    font-size: small;
-    min-height: 2em;
-    border: 1px solid var(--bs-gray);
-}
-
 main .btn-link {
     border: 1px solid var(--bs-primary)
 }
@@ -41,31 +33,17 @@ main .trip-info-wrapper
     border-radius: 0.5em;
 }
 
+main .trip-info-wrapper > div {
+    border: 1px solid gray;
+}
+
 @media only screen and (max-width: 767px) {
-    main .trip-info-header-wrapper,
-    main .trip-info-content-wrapper
+    main .trip-info-wrapper .row > div > span
     {
       font-size: x-small;
     }
-}
 
-/* Border radius of corner elements */
-/* main .trip-info-header-wrapper > div:nth-of-type(1) {
-    border-top-left-radius: 0.5em;
 }
-
-main .trip-info-header-wrapper > div:nth-of-type(4) {
-    border-top-right-radius: 0.5em;
-}
-
-main .trip-info-content-wrapper:nth-last-of-type(1) > div:nth-last-of-type(4) {
-    border-bottom-left-radius: 0.5em;
-}
-
-main .trip-info-content-wrapper:nth-last-of-type(1) > div:nth-last-of-type(1) {
-    border-bottom-right-radius: 0.5em;
-} */
-/* End border radius of corner elements */
 
 main .trip-selected {
     background-color: var(--confirmation-color);
