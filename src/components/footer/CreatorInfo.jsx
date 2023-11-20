@@ -18,7 +18,7 @@ export const CreatorInfo = ({
         </div>
         <div className="">
         <Link className="creator-info-link creator-info-media-link"
-                to={`${githubLink}}`} target="_blank"
+                to={`${githubLink}`} target="_blank"
                 title={`${githubLink}}`}>
             <i className="bi bi-github"></i>
         </Link>
