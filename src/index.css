@@ -43,7 +43,7 @@ main {
     padding-top: var(--header-height);
     width: 100%;
     /* TODO(theofilo): Define minimum height */
-    min-height: 80vh;
+    min-height: 90vh;
     z-index: 0;
     background-color: white;
     opacity: 0.95;
@@ -76,6 +76,6 @@ footer {
 }
 
 .rotate {
-    transform: rotate(180deg);
+    transform: rotate(-180deg);
     transition: transform 0.5s;
 }

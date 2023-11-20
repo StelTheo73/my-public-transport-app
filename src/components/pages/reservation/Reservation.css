@@ -1,3 +1,19 @@
+main .reservation-items-container {
+    box-shadow: var(--default-box-shadow);
+    border-radius: 1em;
+}
+
+main .reservation-items-container span[id^="chevron-"] {
+    border-radius: 0.5em;
+    border: 1px solid var(--bs-primary);
+    color: var(--bs-primary);
+    padding: 0.5em;
+}
+
+main .reservation-items-container span[id^="chevron-"]:hover {
+    cursor: pointer;
+}
+
 main .trip-selector-wrapper {
     border: 2px solid var(--bs-primary);
     border-radius: 0.5em;
@@ -14,6 +30,5 @@ main .trip-selector-wrapper div {
 
 main .trip-selector-wrapper.trip-selected {
     box-shadow: var(--default-box-shadow);
-    /* background-color: var(--bs-primary); */
     background-color: var(--confirmation-color);
 }

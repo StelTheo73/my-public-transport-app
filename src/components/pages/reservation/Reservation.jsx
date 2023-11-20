@@ -18,6 +18,26 @@ import textObject from "../../../assets/language/reservation.json";
 
 import "./Reservation.css";
 
+const constructSubTrips = async (_selectedTrip, stations) => {
+    const subTrips = [];
+
+    for (const subTrip of _selectedTrip.subTrips) {
+        const seats = await fetchData(`/fetch/seats/${_selectedTrip.tripId}/${subTrip.trainId}`);
+
+        subTrips.push({
+            tripId: subTrip.tripId,
+            trainId: subTrip.trainId,
+            startStation: stations[subTrip.startStationId],
+            arrivalStation: stations[subTrip.arrivalStationId],
+            seats: seats.data,
+            startTime: subTrip.startTime,
+            arrivalTime: subTrip.arrivalTime
+        });
+    }
+
+    return subTrips;
+}
+
 // const fetchSeats = (trainId) => {
 //     if (trainId.startsWith("T")) {
 //         return {}
@@ -49,26 +69,6 @@ export const Reservation = ({
     const [error, setError] = useState("");
     const [returnError, setReturnError] = useState("");
 
-    const constructSubTrips = async (_selectedTrip) => {
-        const subTrips = [];
-
-        for (const subTrip of _selectedTrip.subTrips) {
-            const seats = await fetchData(`/fetch/seats/${_selectedTrip.tripId}/${subTrip.trainId}`);
-
-            subTrips.push({
-                tripId: subTrip.tripId,
-                trainId: subTrip.trainId,
-                startStation: stations.stations[subTrip.startStationId],
-                arrivalStation: stations.stations[subTrip.arrivalStationId],
-                seats: seats.data,
-                startTime: subTrip.startTime,
-                arrivalTime: subTrip.arrivalTime
-            });
-        }
-
-        return subTrips;
-    }
-
     useEffect(() => {
         // Navigate to home page is search has not been performed
         if (!searchParameters?.tripType || !selectedTrip?.tripId || !stations?.stations ||
@@ -77,17 +77,16 @@ export const Reservation = ({
             return undefined;
         }
 
-        constructSubTrips(selectedTrip).then((_subTrips, error) => {
+        constructSubTrips(selectedTrip, stations.stations).then((_subTrips, error) => {
             if (_subTrips === undefined) {
                 setError(error);
             }
-            console.log(_subTrips);
             setSubTrips(_subTrips);
             setLoading(false);
         })
 
         if (searchParameters?.tripType.value === "returningTrip") {
-            constructSubTrips(selectedReturnTrip).then((_subTrips, error) => {
+            constructSubTrips(selectedReturnTrip, stations.stations).then((_subTrips, error) => {
                 if (_subTrips === undefined) {
                     setReturnError(error);
                 }
@@ -103,6 +102,8 @@ export const Reservation = ({
 
   return (
     <main>
+
+        {/* Navigation buttons */}
         <div className="container-fluid mt-2">
             <div className="row">
                 <div className="col-12 col-sm-6 d-flex justify-content-start">
@@ -137,125 +138,164 @@ export const Reservation = ({
                 </div>
             </div>
         </div>
+        {/* End navigation buttons */}
 
+        {/* Header */}
         <div className="container d-flex align-items-center justify-content-center mt-3">
             <h3>{textObject.header[language]}</h3>
         </div>
+        {/* End header */}
 
-        <div
-            className="container border"
-            >
+        {/* Trip selector */}
+        <div className="container border p-3 reservation-items-container">
 
-
-                <div className="row d-flex justify-content-center">
-                    <div className="col-12 d-flex">
-                        <span className="flex-fill">
-                            Επιλέξτε ένα όχημα για να εμφανιστούν οι διαθέσιμες θέσεις
-                        </span>
-                        <span
-                            id="chevron-1-span"
+            {/* Trip selector header */}
+            <div className="row d-flex justify-content-center">
+                <div className="col-12 d-flex">
+                    <span className="flex-fill">
+                        Επιλέξτε ένα όχημα για να εμφανιστούν οι διαθέσιμες θέσεις
+                    </span>
+                    <span
+                        id="chevron-1-span"
+                        className="rotate-transition d-flex align-items-center justify-content-center"
+                        onClick={() => {
+                            rotateElement("chevron-1");
+                            toggleElementVisibility("onward-trip-selector-wrapper", true);
+                            toggleElementVisibility("return-trip-selector-wrapper", true);
+                        }}
+                        >
+                        <FaChevronUp
+                            id="chevron-1"
                             className="rotate-transition"
-                            >
-                            <FaChevronUp
-                                id="chevron-1"
-                                className="rotate-transition"
-                                onClick={() => {
-                                    rotateElement("chevron-1");
-                                    toggleElementVisibility("onward-trip-selector-wrapper", true);
-                                    toggleElementVisibility("return-trip-selector-wrapper", true);
-                                }}
-                                />
-                        </span>
+                            />
+                    </span>
+                </div>
+            </div>
+            {/* End trip selector header */}
+
+            {/* Onward trip selector */}
+            <div
+                className="row d-flex justify-content-start mt-2"
+                id="onward-trip-selector-wrapper"
+            >
+                <div className="col-12 my-2">Ταξίδι Μετάβασης</div>
+
+                {!loading && !error && subTrips && subTrips.map((subTrip) => (
+                    <div
+                        key={subTrip.trainId}
+                        className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
+                        id={`trip-selector-wrapper-${subTrip.tripId}`}
+                        onClick={() =>
+                            markSelectedTrip(`trip-selector-wrapper-${subTrip.tripId}`,
+                                            "trip-selector-wrapper"
+                        )}
+                    >
+                        <div className="d-flex flex-column">
+                            <div className="text-start">
+                                {subTrip.startStation[language]}&nbsp;
+                                ({subTrip.startTime})
+                                <FaArrowRight className="ms-1"/>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column">
+                            <div className="text-start">
+                                {subTrip.arrivalStation[language]}&nbsp;
+                                ({subTrip.arrivalTime})
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div
-                    className="row d-flex justify-content-start mt-2"
-                    id="onward-trip-selector-wrapper"
-                >
-                    <div className="col-12 my-2">Ταξίδι Μετάβασης</div>
 
-                    {!loading && !error && subTrips && subTrips.map((subTrip) => (
-                        <div
-                            key={subTrip.trainId}
-                            className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
-                            id={`trip-selector-wrapper-${subTrip.tripId}`}
-                            onClick={() =>
-                                markSelectedTrip(`trip-selector-wrapper-${subTrip.tripId}`,
-                                                "trip-selector-wrapper"
-                            )}
-                        >
-                            <div className="d-flex flex-column">
-                                <div className="text-start">
-                                    {subTrip.startStation[language]}&nbsp;
-                                    ({subTrip.startTime})
-                                    <FaArrowRight className="ms-1"/>
-                                </div>
+
+                ))}
+
+            </div>
+            {/* End onward trip selector */}
+
+            {/* Return trip selector */}
+            <div
+                className="row d-flex justify-content-start mt-2"
+                id="return-trip-selector-wrapper"
+            >
+                <div className="col-12 my-2">Ταξίδι Επιστροφής</div>
+
+                {!returnLoading && !returnError && returnSubTrips && returnSubTrips.map((subTrip) => (
+                    <div
+                        key={subTrip.trainId}
+                        className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
+                        id={`trip-selector-wrapper-${subTrip.tripId}`}
+                        onClick={() =>
+                            markSelectedTrip(`trip-selector-wrapper-${subTrip.tripId}`,
+                                            "trip-selector-wrapper"
+                        )}
+                    >
+                        <div className="d-flex flex-column">
+                            <div className="text-start">
+                                {subTrip.startStation[language]}&nbsp;
+                                ({subTrip.startTime})
+                                <FaArrowRight className="ms-1"/>
                             </div>
-                            <div className="d-flex flex-column">
-                                <div className="text-start">
-                                    {subTrip.arrivalStation[language]}&nbsp;
-                                    ({subTrip.arrivalTime})
-                                </div>
+                        </div>
+                        <div className="d-flex flex-column">
+                            <div className="text-start">
+                                {subTrip.arrivalStation[language]}&nbsp;
+                                ({subTrip.arrivalTime})
                             </div>
-
                         </div>
 
+                    </div>
 
 
-                    ))}
 
-                </div>
+                ))}
 
-                <div
-                    className="row d-flex justify-content-start mt-2"
-                    id="return-trip-selector-wrapper"
-                >
-                    <div className="col-12 my-2">Ταξίδι Μετάβασης</div>
+            </div>
+            {/* End return trip selector */}
 
-                    {!returnLoading && !returnError && returnSubTrips && returnSubTrips.map((subTrip) => (
-                        <div
-                            key={subTrip.trainId}
-                            className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
-                            id={`trip-selector-wrapper-${subTrip.tripId}`}
-                            onClick={() =>
-                                markSelectedTrip(`trip-selector-wrapper-${subTrip.tripId}`,
-                                                "trip-selector-wrapper"
-                            )}
+        </div>
+        {/* End trip selector */}
+
+        {/* Seat selector */}
+        <div className="container border my-2 p-3 reservation-items-container">
+
+
+            {/* Seat selector header */}
+            <div className="row d-flex justify-content-center">
+                <div className="col-12 d-flex">
+                    <span className="flex-fill">
+                        Επιλέξτε τις επιθυμητές θέσεις
+                    </span>
+                    <span
+                        id="chevron-2-span"
+                        className="rotate-transition d-flex align-items-center justify-content-center"
+                        onClick={() => {
+                            rotateElement("chevron-2");
+                            toggleElementVisibility("seat-selector-wrapper", true);
+                        }}
                         >
-                            <div className="d-flex flex-column">
-                                <div className="text-start">
-                                    {subTrip.startStation[language]}&nbsp;
-                                    ({subTrip.startTime})
-                                    <FaArrowRight className="ms-1"/>
-                                </div>
-                            </div>
-                            <div className="d-flex flex-column">
-                                <div className="text-start">
-                                    {subTrip.arrivalStation[language]}&nbsp;
-                                    ({subTrip.arrivalTime})
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-                    ))}
-
+                        <FaChevronUp
+                            id="chevron-2"
+                            className="rotate-transition"
+                            />
+                    </span>
                 </div>
-
-
             </div>
+            {/* End seat selector header */}
 
-
-            <div className="container w-75 border my-2">
-                <div>Seat reservation</div>
+            <div
+                className="d-flex"
+                id="seat-selector-wrapper">
+                test seats
             </div>
+        </div>
+        {/* End seat selector */}
 
-            <div className="container w-75 border my-2">
-                <div>Passengers</div>
-            </div>
+        {/* Passengers selector */}
+        <div className="container border my-2 p-3 reservation-items-container">
+            <div>Passengers</div>
+        </div>
+        {/* End passengers selector */}
 
     </main>
   )
