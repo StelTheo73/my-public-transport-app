@@ -70,3 +70,12 @@ footer {
         width: 100%;
     }
 }
+
+.rotate-transition {
+    transition: transform 0.5s;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.5s;
+}

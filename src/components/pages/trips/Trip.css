@@ -45,7 +45,7 @@ main .trip-info-wrapper > div {
 
 }
 
-main .trip-selected {
+main .trip-wrapper.trip-selected {
     background-color: var(--confirmation-color);
     box-shadow: var(--default-box-shadow);
 }

@@ -1,3 +1,19 @@
+main .trip-selector-wrapper {
+    border: 2px solid var(--bs-primary);
+    border-radius: 0.5em;
+}
+
+main .trip-selector-wrapper:hover  {
+    box-shadow: var(--default-box-shadow);
+    cursor: pointer;
+}
+
 main .trip-selector-wrapper div {
     font-size: small;
+}
+
+main .trip-selector-wrapper.trip-selected {
+    box-shadow: var(--default-box-shadow);
+    /* background-color: var(--bs-primary); */
+    background-color: var(--confirmation-color);
 }

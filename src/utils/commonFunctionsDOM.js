@@ -12,6 +12,24 @@ export function enableElement(elementId) {
 element.setAttribute("tabindex", "0");
 }
 
+export function toggleElementVisibility(elementId, isDFlex=false) {
+    const element = document.getElementById(elementId);
+    if (element.classList.contains("hide")) {
+        element.classList.remove("hide");
+
+        if (isDFlex) {
+            element.classList.add("d-flex");
+        }
+    }
+    else {
+        element.classList.add("hide");
+
+        if (isDFlex) {
+            element.classList.remove("d-flex");
+        }
+    }
+}
+
 export function hideElement(elementId){
     const element = document.getElementById(elementId);
     element.classList.add("hide");
@@ -32,8 +50,8 @@ export function setTooltipContent(targetId, text){
     tooltipElement.setAttribute("data-tooltip-content", text);
 };
 
-export function markSelectedTrip(tripWrapperId){
-    const otherTripWrappers = document.querySelectorAll(".trip-wrapper");
+export function markSelectedTrip(tripWrapperId, className="trip-wrapper"){
+    const otherTripWrappers = document.querySelectorAll("." + className);
     otherTripWrappers.forEach((tripWrapper) => {
         tripWrapper.classList.remove("trip-selected");
     });
@@ -41,3 +59,12 @@ export function markSelectedTrip(tripWrapperId){
     const tripWrapper = document.getElementById(tripWrapperId);
     tripWrapper.classList.add("trip-selected");
 };
+
+export function rotateElement(elementId) {
+    const element = document.getElementById(elementId);
+
+    element.classList.contains("rotate") ?
+        element.classList.remove("rotate") : element.classList.add("rotate");
+}
+
+// export function =
