@@ -24,45 +24,66 @@ export const BusSeats = ({tripId, wagonId, seats}) => {
         return (
             <div
             key={`${tripId}-${wagonId}-${seatNo}`}
-            className="d-flex mt-2"
+            className="d-flex mt-2 justify-content-between"
             style={{border: "1px solid red"}}
         >
             <div
                 className="px-0 d-flex justify-content-between"
                 style={{border: "1px solid green"}}
             >
-                <span className={`seat-span text-center mx-1 ${getSeatClass(seats[seatNo])}`}>
+                <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatNo])}`}>
                     {seatNo}
                 </span>
-                <span className={`seat-span text-center mx-1 ${getSeatClass(seats[seatNo+1])}`}>
+                <span className={`seat-span text-center ${getSeatClass(seats[seatNo+1])}`}>
                     {seatNo+1}
                 </span>
             </div>
-            <div className="px-1">&nbsp;</div>
             <div
                 className="px-0 d-flex justify-content-between"
                 style={{border: "1px solid green"}}
             >
-                <span className={`seat-span text-center mx-1 ${getSeatClass(seats[seatNo+2])}`}>
+                <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatNo+2])}`}>
                     {seatNo+2}
                 </span>
-                <span className={`seat-span text-center mx-1 ${getSeatClass(seats[seatNo+3])}`}>
+                <span className={`seat-span text-center ${getSeatClass(seats[seatNo+3])}`}>
                     {seatNo+3}
                 </span>
             </div>
         </div>
         )
 
-        // TODO: FIX SEATS OUT OF RANGE
     }
 
     const constructSeats = () => {
         const seatsLength = Object.keys(seats).length;
 
         let seatsRows = [];
-        for (let seatNo=1; seatNo<=seatsLength; seatNo+=4) {
+        for (let seatNo=1; seatNo<=seatsLength-8; seatNo+=4) {
             seatsRows.push(constructSeatsRow(seatNo));
         }
+
+        // Add 5 last seats
+        seatsRows.push((
+            <div className="d-flex my-2">
+                <div className="px-0 d-flex justify-content-between">
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[41])}`}>
+                        {41}
+                    </span>
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[42])}`}>
+                        {42}
+                    </span>
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[43])}`}>
+                        {43}
+                    </span>
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[44])}`}>
+                        {44}
+                    </span>
+                    <span className={`seat-span text-center ${getSeatClass(seats[45])}`}>
+                        {45}
+                    </span>
+                </div>
+            </div>
+        ))
 
         return seatsRows;
     }

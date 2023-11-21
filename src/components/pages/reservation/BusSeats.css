@@ -1,3 +1,8 @@
+main .bus-seats-container {
+    box-shadow: var(--default-box-shadow);
+    border-radius: 0.5em;
+}
+
 main .bus-seats-container .seat-span {
     min-width: 2.2em;
     border: 1px solid gray;
