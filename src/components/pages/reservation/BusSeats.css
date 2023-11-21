@@ -6,16 +6,37 @@ main .bus-seats-container {
 main .bus-seats-container .seat-span {
     min-width: 2.2em;
     border: 1px solid gray;
+    border-radius: 0.5em;
+}
+
+main .bus-seats-container .seat-span:hover {
+    cursor: pointer;
+    box-shadow: var(--default-box-shadow);
 }
 
 main .bus-seats-container .seat-span.seat-reserved {
     background-color: var(--bs-danger);
 }
 
+main .bus-seats-container .seat-span.seat-reserved:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
 main .bus-seats-container .seat-span.seat-selected {
     background-color: var(--bs-warning);
 }
 
+main .bus-seats-container .seat-span.seat-selected:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
 main .bus-seats-container .seat-span.seat-disabled {
     background-color: gray;
+}
+
+main .bus-seats-container .seat-span.seat-disabled:hover {
+    cursor: not-allowed;
+    box-shadow: none;
 }

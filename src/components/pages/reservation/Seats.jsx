@@ -30,13 +30,13 @@ export const Seats = ({
                 <div className="col-12 px-0 d-flex justify-content-evenly flex-wrap">
 
                     {/* Wagon selector container */}
-                    <div className="wagons-container me-1">
+                    <div className="wagons-container me-1 d-flex flex-column flex-wrap">
                         {activeTrip?.seats &&
                             Object.keys(activeTrip.seats).map((wagonId) => (
                                 <div
                                     key={wagonId}
                                     data-wagon-seat-selector-id={`wagon-seat-selector-${wagonId}`}
-                                    className="border d-flex flex-column my-1 p-1"
+                                    className="d-flex flex-column m-1 p-1"
                                     onClick={() =>
                                         toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`)
                                     }

@@ -25,11 +25,9 @@ export const BusSeats = ({tripId, wagonId, seats}) => {
             <div
             key={`${tripId}-${wagonId}-${seatNo}`}
             className="d-flex mt-2 justify-content-between"
-            style={{border: "1px solid red"}}
         >
             <div
                 className="px-0 d-flex justify-content-between"
-                style={{border: "1px solid green"}}
             >
                 <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatNo])}`}>
                     {seatNo}
@@ -40,7 +38,6 @@ export const BusSeats = ({tripId, wagonId, seats}) => {
             </div>
             <div
                 className="px-0 d-flex justify-content-between"
-                style={{border: "1px solid green"}}
             >
                 <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatNo+2])}`}>
                     {seatNo+2}
@@ -66,20 +63,20 @@ export const BusSeats = ({tripId, wagonId, seats}) => {
         seatsRows.push((
             <div className="d-flex my-2">
                 <div className="px-0 d-flex justify-content-between">
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[41])}`}>
-                        {41}
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-4])}`}>
+                        {seatsLength-4}
                     </span>
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[42])}`}>
-                        {42}
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-3])}`}>
+                        {seatsLength-3}
                     </span>
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[43])}`}>
-                        {43}
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-2])}`}>
+                        {seatsLength-2}
                     </span>
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[44])}`}>
-                        {44}
+                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-1])}`}>
+                        {seatsLength-1}
                     </span>
-                    <span className={`seat-span text-center ${getSeatClass(seats[45])}`}>
-                        {45}
+                    <span className={`seat-span text-center ${getSeatClass(seats[seatsLength])}`}>
+                        {seatsLength}
                     </span>
                 </div>
             </div>

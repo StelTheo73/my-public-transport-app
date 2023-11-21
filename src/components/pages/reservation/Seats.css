@@ -1,0 +1,17 @@
+main .wagons-container > div {
+    border-radius: 0.5em;
+    border: 1px solid var(--bs-primary);
+}
+
+main .wagons-container > div > span {
+    font-size: small;
+}
+
+main .wagons-container > div:hover {
+    box-shadow: var(--default-box-shadow);
+    cursor: pointer;
+}
+
+/* main .wagon-seat-selector-wrapper.selected {
+    background-color: var(--confirmation-color);
+} */
