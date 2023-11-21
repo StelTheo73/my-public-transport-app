@@ -39,27 +39,9 @@ const constructSubTrips = async (_selectedTrip, stations) => {
         });
     }
 
+    console.log(subTrips)
     return subTrips;
 }
-
-// const fetchSeats = (trainId) => {
-//     if (trainId.startsWith("T")) {
-//         return {}
-//     }
-
-//     return {
-//         "1": "selected",
-//         "2": "selected",
-//         "3": "free",
-//         "4": "free",
-//         "5:": "reserved",
-//         "6": " free",
-//         "7": "selected",
-//         "8": "selected",
-//         "9": "free",
-//         "10": "reserved"
-//     }
-// }
 
 export const Reservation = ({
     language, stations, searchParameters,

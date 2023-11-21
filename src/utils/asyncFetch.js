@@ -1,3 +1,5 @@
+import Seats from "../database/seats.json";
+
 export async function fetchData(url) {
     try {
         // Actual fetch
@@ -9,7 +11,10 @@ export async function fetchData(url) {
             response.ok = true;
             response.json = () => {
                 return new Promise((resolve, reject) => {
-                    resolve([]);
+                    const vehicleType =
+                        url.split("/fetch/seats/")[1].split("/")[1][0]
+                    const seats = Seats[vehicleType];
+                    seats === undefined ? resolve({}) : resolve(seats)
                 })
             }
         }

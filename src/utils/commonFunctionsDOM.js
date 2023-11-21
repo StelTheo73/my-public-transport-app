@@ -27,7 +27,6 @@ export function enableElement(elementId) {
 export function toggleElementVisibility(elementId, isDFlex=false) {
     try {
         const element = document.getElementById(elementId);
-        console.log(element)
         if (element.classList.contains("hide")) {
             element.classList.remove("hide");
 
@@ -42,7 +41,6 @@ export function toggleElementVisibility(elementId, isDFlex=false) {
                 element.classList.remove("d-flex");
             }
         }
-        console.log(element.classList)
     }
     catch (error) {
         console.debug(error.message);
