@@ -1,0 +1,16 @@
+main .bus-seats-container .seat-span {
+    min-width: 2.2em;
+    border: 1px solid gray;
+}
+
+main .bus-seats-container .seat-span.seat-reserved {
+    background-color: var(--bs-danger);
+}
+
+main .bus-seats-container .seat-span.seat-selected {
+    background-color: var(--bs-warning);
+}
+
+main .bus-seats-container .seat-span.seat-disabled {
+    background-color: gray;
+}

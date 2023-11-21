@@ -107,6 +107,7 @@
         },
         "I4": {
             "class": "C",
+            "wagonId": "I4",
             "basicCost": 31.5,
             "seats": {
                 "1": "free",

@@ -4,19 +4,20 @@ import { useNavigate } from "react-router-dom";
 // import { useFetch } from "../../../hooks/useFetch";
 
 import {
-    FaArrowRight, FaArrowLeft, FaArrowDown,
-    FaMoneyCheck, FaTrain, FaChevronUp, FaChevronDown,
+    FaArrowRight, FaArrowLeft,
+    FaMoneyCheck, FaTrain, FaChevronUp,
 } from "react-icons/fa";
 
+import { Seats } from "./Seats.jsx";
+import { TripSelector } from "./TripSelector.jsx";
 
 import { fetchData } from "../../../utils/asyncFetch.js";
 import {
-    toggleElementVisibility,  hideElement,
-    markSelectedTrip, rotateElement, showElement
+    toggleElementVisibility, rotateElement,
 }
 from "../../../utils/commonFunctionsDOM.js";
 
-import { DEFAULT_TRANSITION_TIMEOUT } from "../../../env/constants";
+// import { DEFAULT_TRANSITION_TIMEOUT } from "../../../env/constants";
 
 import textObject from "../../../assets/language/reservation.json";
 
@@ -35,11 +36,11 @@ const constructSubTrips = async (_selectedTrip, stations) => {
             arrivalStation: stations[subTrip.arrivalStationId],
             seats: seats.data,
             startTime: subTrip.startTime,
-            arrivalTime: subTrip.arrivalTime
+            arrivalTime: subTrip.arrivalTime,
+            selectedSeats: {}
         });
     }
 
-    console.log(subTrips)
     return subTrips;
 }
 
@@ -54,8 +55,11 @@ export const Reservation = ({
     const [returnLoading, setReturnLoading] = useState(true);
     const [error, setError] = useState("");
     const [returnError, setReturnError] = useState("");
+    const [activeTrip, setActiveTrip] = useState({});
+    const tripsContainerRef = useRef(null);
     const seatsRef = useRef(null);
     const passengersRef = useRef(null);
+
 
     useEffect(() => {
         // Navigate to home page is search has not been performed
@@ -85,13 +89,7 @@ export const Reservation = ({
         }
 
 
-    }, [navigate, selectedTrip, stations, searchParameters]);
-
-    const openVehicleSeats = () => {
-        showElement(seatsRef.current.id, true);
-        toggleElementVisibility("onward-trip-selector-wrapper", true);
-        toggleElementVisibility("return-trip-selector-wrapper", true);
-    }
+    }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
 
   return (
     <main>
@@ -142,13 +140,14 @@ export const Reservation = ({
         {/* Trip selector */}
         <div
             className="container border p-3 reservation-items-container"
+            ref={tripsContainerRef}
         >
 
             {/* Trip selector header */}
             <div className="row d-flex justify-content-center">
                 <div className="col-12 d-flex">
                     <span className="flex-fill">
-                        Επιλέξτε ένα όχημα για να εμφανιστούν οι διαθέσιμες θέσεις
+                        Επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις
                     </span>
                     <span
                         id="chevron-1-span"
@@ -169,86 +168,29 @@ export const Reservation = ({
             {/* End trip selector header */}
 
             {/* Onward trip selector */}
-            <div
-                className="row d-flex justify-content-start mt-2"
+            <TripSelector
+                language={language}
                 id="onward-trip-selector-wrapper"
-            >
-                <div className="col-12 my-2">Ταξίδι Μετάβασης</div>
-
-                {!loading && !error && subTrips && subTrips.map((subTrip) => (
-                    <div
-                        key={subTrip.trainId}
-                        className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
-                        style={{minWidth: "max-content"}}
-                        id={`trip-selector-wrapper-${subTrip.tripId}`}
-                        onClick={() => {
-                            markSelectedTrip(`trip-selector-wrapper-${subTrip.tripId}`,
-                                            "trip-selector-wrapper");
-                            openVehicleSeats();
-                        }}
-                    >
-                        <div className="d-flex flex-column">
-                            <div className="text-center">
-                                {subTrip.startStation[language]}&nbsp;
-                                ({subTrip.startTime})
-                                <FaArrowRight className="ms-1"/>
-                            </div>
-                        </div>
-                        <div className="d-flex flex-column">
-                            <div className="text-center">
-                                {subTrip.arrivalStation[language]}&nbsp;
-                                ({subTrip.arrivalTime})
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-                ))}
-
-            </div>
+                setActiveTrip={setActiveTrip}
+                tripsContainerRef={tripsContainerRef}
+                seatsRef={seatsRef}
+                loading={loading}
+                error={error}
+                subTrips={subTrips}
+            />
             {/* End onward trip selector */}
 
-            {/* Return trip selector */}
-            {returnSubTrips?.length > 0 &&
-                <div
-                    className="row d-flex justify-content-start mt-2"
-                    id="return-trip-selector-wrapper"
-                >
-                    <div className="col-12 my-2">Ταξίδι Επιστροφής</div>
-
-                    {!returnLoading && !returnError && returnSubTrips && returnSubTrips.map((subTrip) => (
-                        <div
-                            key={subTrip.trainId}
-                            className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
-                            id={`trip-selector-wrapper-${subTrip.tripId}`}
-                            style={{minWidth: "max-content"}}
-                            onClick={() => {
-                                markSelectedTrip(`trip-selector-wrapper-${subTrip.tripId}`,
-                                                "trip-selector-wrapper");
-                                openVehicleSeats();
-                            }}
-                        >
-                            <div className="d-flex flex-column">
-                                <div className="text-center">
-                                    {subTrip.startStation[language]}&nbsp;
-                                    ({subTrip.startTime})
-                                    <FaArrowRight className="ms-1"/>
-                                </div>
-                            </div>
-                            <div className="d-flex flex-column">
-                                <div className="text-center">
-                                    {subTrip.arrivalStation[language]}&nbsp;
-                                    ({subTrip.arrivalTime})
-                                </div>
-                            </div>
-
-                        </div>
-                    ))}
-
-                </div>
-            }
+            {/* Return trips selector */}
+            <TripSelector
+                language={language}
+                id="return-trip-selector-wrapper"
+                setActiveTrip={setActiveTrip}
+                tripsContainerRef={tripsContainerRef}
+                seatsRef={seatsRef}
+                loading={returnLoading}
+                error={returnError}
+                subTrips={returnSubTrips}
+            />
             {/* End return trip selector */}
 
         </div>
@@ -269,7 +211,7 @@ export const Reservation = ({
                         className="rotate-transition d-flex align-items-center justify-content-center"
                         onClick={() => {
                             rotateElement("chevron-2");
-                            toggleElementVisibility("seat-selector-wrapper", true);
+                            toggleElementVisibility("seat-selector-wrapper");
                         }}
                         >
                         <FaChevronUp
@@ -283,11 +225,15 @@ export const Reservation = ({
 
             <div
                 // Hide seat selector by default
-                className="hide"
+                className="container hide"
                 id="seat-selector-wrapper"
                 ref={seatsRef}
                 >
-                test seats
+                <Seats
+                    language={language}
+                    activeTrip={activeTrip}
+                    setActiveTrip={setActiveTrip}
+                />
             </div>
         </div>
         {/* End seat selector */}
