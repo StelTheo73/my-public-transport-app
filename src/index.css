@@ -20,7 +20,6 @@ body {
     margin-bottom: 0.1em;
     box-shadow: var(--default-box-shadow);
     border-radius: 1em;
-    /* filter: grayscale(0%); */
 }
 
 body::before {

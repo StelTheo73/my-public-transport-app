@@ -1,3 +1,7 @@
+main .wagons-container * {
+    user-select: none;
+}
+
 main .wagons-container > div {
     border-radius: 0.5em;
     border: 1px solid var(--bs-primary);

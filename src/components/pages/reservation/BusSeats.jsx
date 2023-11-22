@@ -2,81 +2,136 @@ import PropTypes from 'prop-types';
 
 import "./BusSeats.css";
 
-const getSeatClass = (seat) => {
-    if (seat === "free") {
-        return "seat-free";
-    }
-    else if (seat === "reserved") {
-        return "seat-reserved";
-    }
-    else if (seat === "selected") {
-        return "seat-selected";
-    }
-    else {
-        return "seat-disabled";
-    }
-}
+export const BusSeats = ({
+    wagonId, seats,
+    activeTrip, setActiveTrip
+}) => {
+    const tripId = activeTrip.tripId;
 
-export const BusSeats = ({tripId, wagonId, seats}) => {
+    const getSeatClass = (seatNo) => {
+        const seat = seats[seatNo];
+
+        if (activeTrip.selectedSeats[wagonId].includes(seatNo.toString())) {
+            return "seat-user-selected";
+        }
+        else if (seat === "free") {
+            return "seat-free";
+        }
+        else if (seat === "reserved") {
+            return "seat-reserved";
+        }
+        else if (seat === "selected") {
+            return "seat-selected";
+        }
+        else {
+            return "seat-disabled";
+        }
+    }
+
+    const markSeatSelected = (event) => {
+        console.log(event.target);
+        event.stopPropagation();
+        const target = event.target;
+        const classList = target.classList;
+
+        const _activeTrip = {...activeTrip};
+        if (classList.contains("seat-span")) {
+            if (target.classList.contains("seat-user-selected")) {
+                target.classList.remove("seat-user-selected");
+                target.classList.add("seat-free");
+                _activeTrip.selectedSeats[wagonId] = _activeTrip.selectedSeats[wagonId].filter((seatNo) => {
+                    return seatNo !== target.innerText;
+                });
+            }
+            else if (classList.contains("seat-free")) {
+                target.classList.add("seat-user-selected");
+                target.classList.remove("seat-free");
+
+                if (!_activeTrip.selectedSeats[wagonId].includes(target.innerText)) {
+                    _activeTrip.selectedSeats[wagonId].push(target.innerText);
+                }
+
+            }
+        }
+
+        setActiveTrip(_activeTrip);
+    }
 
     const constructSeatsRow = (seatNo) => {
 
         return (
             <div
-            key={`${tripId}-${wagonId}-${seatNo}`}
-            className="d-flex mt-2 justify-content-between"
-        >
-            <div
-                className="px-0 d-flex justify-content-between"
+                key={`div-${tripId}-${wagonId}-${seatNo}`}
+                className="d-flex mt-2 justify-content-between"
             >
-                <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatNo])}`}>
-                    {seatNo}
-                </span>
-                <span className={`seat-span text-center ${getSeatClass(seats[seatNo+1])}`}>
-                    {seatNo+1}
-                </span>
+                <div
+                    className="px-0 d-flex justify-content-between"
+                >
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatNo)}`}
+                        onClick={(event) => markSeatSelected(event)}
+                    >{seatNo}
+                    </span>
+                    <span
+                        className={`seat-span text-center ${getSeatClass(seatNo+1)}`}
+                        onClick={(event) => markSeatSelected(event)}
+                    >{seatNo+1}
+                    </span>
+                </div>
+                <div
+                    className="px-0 d-flex justify-content-between"
+                >
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatNo+2)}`}
+                        onClick={(event) => markSeatSelected(event)}
+                    >{seatNo+2}
+                    </span>
+                    <span
+                        className={`seat-span text-center ${getSeatClass(seatNo+3)}`}
+                        onClick={(event) => markSeatSelected(event)}
+                    >{seatNo+3}
+                    </span>
+                </div>
             </div>
-            <div
-                className="px-0 d-flex justify-content-between"
-            >
-                <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatNo+2])}`}>
-                    {seatNo+2}
-                </span>
-                <span className={`seat-span text-center ${getSeatClass(seats[seatNo+3])}`}>
-                    {seatNo+3}
-                </span>
-            </div>
-        </div>
         )
-
     }
 
     const constructSeats = () => {
         const seatsLength = Object.keys(seats).length;
 
         let seatsRows = [];
-        for (let seatNo=1; seatNo<=seatsLength-8; seatNo+=4) {
+        for (let seatNo=1; seatNo<=seatsLength-5; seatNo+=4) {
             seatsRows.push(constructSeatsRow(seatNo));
         }
 
         // Add 5 last seats
         seatsRows.push((
-            <div className="d-flex my-2">
+            <div className="d-flex my-2"  key={`div-${tripId}-${wagonId}-${seatsLength-4}`}>
                 <div className="px-0 d-flex justify-content-between">
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-4])}`}>
-                        {seatsLength-4}
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatsLength-4)}`}
+                        onClick={(event) => {markSeatSelected(event)}}
+                    >{seatsLength-4}
                     </span>
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-3])}`}>
-                        {seatsLength-3}
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatsLength-3)}`}
+                        onClick={(event) => {markSeatSelected(event)}}
+                    >{seatsLength-3}
                     </span>
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-2])}`}>
-                        {seatsLength-2}
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatsLength-2)}`}
+                        onClick={(event) => {markSeatSelected(event)}}
+                    >{seatsLength-2}
                     </span>
-                    <span className={`seat-span text-center me-1 ${getSeatClass(seats[seatsLength-1])}`}>
-                        {seatsLength-1}
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatsLength-1)}`}
+                        onClick={(event) => {markSeatSelected(event)}}
+                    >{seatsLength-1}
                     </span>
-                    <span className={`seat-span text-center ${getSeatClass(seats[seatsLength])}`}>
-                        {seatsLength}
+                    <span
+                        className={`seat-span text-center ${getSeatClass(seatsLength)}`}
+                        onClick={(event) => {markSeatSelected(event)}}
+                    >{seatsLength}
                     </span>
                 </div>
             </div>
@@ -85,10 +140,10 @@ export const BusSeats = ({tripId, wagonId, seats}) => {
         return seatsRows;
     }
 
-
     return (
     <div
         className="bus-seats-container container border px-1"
+        key={`${tripId}-${wagonId}`}
     >
         {seats && constructSeats().map((seatsRow) => (
                 seatsRow
@@ -99,7 +154,8 @@ export const BusSeats = ({tripId, wagonId, seats}) => {
 }
 
 BusSeats.propTypes = {
-    tripId: PropTypes.string.isRequired,
     wagonId: PropTypes.string.isRequired,
-    seats: PropTypes.object.isRequired
+    seats: PropTypes.object.isRequired,
+    activeTrip: PropTypes.object.isRequired,
+    setActiveTrip: PropTypes.func.isRequired
 }

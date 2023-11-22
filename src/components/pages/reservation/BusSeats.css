@@ -3,6 +3,10 @@ main .bus-seats-container {
     border-radius: 0.5em;
 }
 
+main .bus-seats-container * {
+    user-select: none;
+}
+
 main .bus-seats-container .seat-span {
     min-width: 2.2em;
     border: 1px solid gray;
@@ -39,4 +43,8 @@ main .bus-seats-container .seat-span.seat-disabled {
 main .bus-seats-container .seat-span.seat-disabled:hover {
     cursor: not-allowed;
     box-shadow: none;
+}
+
+main .bus-seats-container .seat-span.seat-user-selected {
+    background-color: var(--confirmation-color);
 }

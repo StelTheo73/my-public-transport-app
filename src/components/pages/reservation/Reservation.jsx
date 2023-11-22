@@ -28,6 +28,11 @@ const constructSubTrips = async (_selectedTrip, stations) => {
     for (const subTrip of _selectedTrip.subTrips) {
         const seats = await fetchData(`/fetch/seats/${_selectedTrip.tripId}/${subTrip.trainId}`);
 
+        const selectedSeats = Object.keys(seats.data).reduce((result, wagonId) => {
+            result[wagonId] = [];
+            return result;
+          }, {});
+
         subTrips.push({
             tripId: subTrip.tripId,
             trainId: subTrip.trainId,
@@ -36,7 +41,7 @@ const constructSubTrips = async (_selectedTrip, stations) => {
             seats: seats.data,
             startTime: subTrip.startTime,
             arrivalTime: subTrip.arrivalTime,
-            selectedSeats: {}
+            selectedSeats: selectedSeats
         });
     }
 

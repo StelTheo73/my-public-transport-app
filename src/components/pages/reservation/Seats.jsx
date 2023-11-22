@@ -47,9 +47,10 @@ export const Seats = React.forwardRef(({
                                         key={key}
                                         id={id}
                                         className={className}
-                                        onClick={() =>
+                                        onClick={(event) => {
+                                            event.stopPropagation();
                                             toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`, wagonId)
-                                        }
+                                        }}
                                     >
                                         <span className="text-center my-1">
                                             {wagonId.startsWith("B") ? "Λεωφ.": "Βαγόνι"}
@@ -70,7 +71,7 @@ export const Seats = React.forwardRef(({
                     <div className="wagon-seats-container my-1 mx-2">
                         {activeTrip?.seats &&
                             Object.keys(activeTrip.seats).map((wagonId) => {
-
+                                // console.log(wagonId)
                                 const seats = activeTrip.seats[wagonId].seats;
 
                                 const key = `${activeTrip.tripId}-${wagonId}`
@@ -86,9 +87,10 @@ export const Seats = React.forwardRef(({
                                     >
                                         {wagonId.startsWith("B")
                                             ? <BusSeats
-                                                tripId={activeTrip.tripId}
                                                 wagonId={wagonId}
                                                 seats={seats}
+                                                activeTrip={activeTrip}
+                                                setActiveTrip={setActiveTrip}
                                                 />
                                             : <span>Traino {activeTrip.tripId} - {wagonId}</span>
                                         }
