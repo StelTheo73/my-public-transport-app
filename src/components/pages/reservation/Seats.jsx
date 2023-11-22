@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 
 import { BusSeats } from "./BusSeats";
@@ -13,9 +14,9 @@ const toggleWagonSeats = (wagonId) => {
     showElement(`wagon-seat-selector-${wagonId}`);
 }
 
-export const Seats = ({
+export const Seats = React.forwardRef(({
         language, activeTrip, setActiveTrip
-}) => {
+}, seatsRef) => {
 
     if (!activeTrip?.seats) {
         return (<span>Παρακαλώ επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις</span>)
@@ -25,12 +26,12 @@ export const Seats = ({
         Object.keys(activeTrip?.seats)?.length > 0
 
         ?
-        <div className="row mt-2">
+        <div className="row mt-2" ref={seatsRef} id="seat-selector-wrapper">
 
-                <div className="col-12 px-0 d-flex justify-content-evenly flex-wrap">
+                <div className="col-12 d-flex justify-content-center flex-wrap">
 
                     {/* Wagon selector container */}
-                    <div className="wagons-container me-1 d-flex flex-column flex-wrap">
+                    <div className="wagons-container d-flex flex-row flex-sm-column justify-content-center flex-wrap mx-2">
                         {activeTrip?.seats &&
                             Object.keys(activeTrip.seats).map((wagonId) => (
                                 <div
@@ -56,7 +57,7 @@ export const Seats = ({
                     {/* End wagon selector container */}
 
                     {/* Seat selector container */}
-                    <div className="wagon-seats-container my-1">
+                    <div className="wagon-seats-container my-1 mx-2">
                         {activeTrip?.seats &&
                             Object.keys(activeTrip.seats).map((wagonId) => {
 
@@ -91,9 +92,9 @@ export const Seats = ({
         </div>
 
         :
-        <span>Αυτό το όχημα δεν υποστηρίζει κράτηση θέσεων</span>
+        <span ref={seatsRef} id="seat-selector-wrapper">Αυτό το όχημα δεν υποστηρίζει κράτηση θέσεων</span>
     )
-}
+});
 
 Seats.propTypes = {
     language: PropTypes.string.isRequired,

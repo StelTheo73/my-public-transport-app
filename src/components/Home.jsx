@@ -193,7 +193,7 @@ export const Home = ({
                   setAlert(errorText.dates[language]);
                   return;
             }
-            
+
             setSearchParameters({
                   start: start.valueOf(),
                   destination: destination.valueOf(),
@@ -330,21 +330,20 @@ export const Home = ({
                                     {/* End third row */}
                                     {/* Fourth row */}
                                     <div className="row">
-                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-2">
-                                                <label>&nbsp;</label>
+                                          <div className="form-group d-flex justify-content-center flex-column my-2">
+                                                <input type="submit" className="btn btn-primary" value={textObject.search[language]} />
+                                          </div>
+                                    </div>
+                                    {/* End fourth row */}
+                                    {/* Fifth row */}
+                                    <div className="row pb-3">
+                                          <div className="form-group col-12 col-sm-6 d-flex justify-content-center flex-column my-4">
+                                                {/* <label>&nbsp;</label> */}
                                                 <button
                                                       className="btn btn-outline-primary"
                                                       onClick={(event) => {event.preventDefault(); alternateStartDestination(event);}}
                                                 ><i className="bi bi-arrow-left-right"></i>&nbsp;&nbsp;{textObject.alternate[language]}
                                                 </button>
-                                          </div>
-
-                                    </div>
-                                    {/* End fourth row */}
-                                    {/* Fifth row */}
-                                    <div className="row pb-3">
-                                          <div className="form-group d-flex justify-content-center flex-column my-2">
-                                                <input type="submit" className="btn btn-primary" value={textObject.search[language]} />
                                           </div>
                                     </div>
                                     {/* End fifth row */}

@@ -223,18 +223,19 @@ export const Reservation = ({
             </div>
             {/* End seat selector header */}
 
-            <div
+            {/* <div
                 // Hide seat selector by default
                 className="container hide"
                 id="seat-selector-wrapper"
                 ref={seatsRef}
-                >
+                > */}
                 <Seats
                     language={language}
                     activeTrip={activeTrip}
                     setActiveTrip={setActiveTrip}
+                    ref={seatsRef}
                 />
-            </div>
+            {/* </div> */}
         </div>
         {/* End seat selector */}
 
