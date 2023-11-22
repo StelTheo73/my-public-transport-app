@@ -90,15 +90,15 @@ export function setTooltipContent(targetId, text){
     tooltipElement.setAttribute("data-tooltip-content", text);
 };
 
-export function markSelectedTrip(tripWrapperId, className="trip-wrapper") {
+export function markSelectedTrip(tripWrapperId, className="trip-wrapper", classToAdd="trip-selected") {
     try {
         const otherTripWrappers = document.querySelectorAll("." + className);
         otherTripWrappers.forEach((tripWrapper) => {
-            tripWrapper.classList.remove("trip-selected");
+            tripWrapper.classList.remove(classToAdd);
         });
 
         const tripWrapper = document.getElementById(tripWrapperId);
-        tripWrapper.classList.add("trip-selected");
+        tripWrapper.classList.add(classToAdd);
     }
     catch (error) {
         console.debug(error.message);

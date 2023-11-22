@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useFetch } from "../../../hooks/useFetch";
 
 import {
     FaArrowRight, FaArrowLeft,
@@ -223,19 +222,12 @@ export const Reservation = ({
             </div>
             {/* End seat selector header */}
 
-            {/* <div
-                // Hide seat selector by default
-                className="container hide"
-                id="seat-selector-wrapper"
+            <Seats
+                language={language}
+                activeTrip={activeTrip}
+                setActiveTrip={setActiveTrip}
                 ref={seatsRef}
-                > */}
-                <Seats
-                    language={language}
-                    activeTrip={activeTrip}
-                    setActiveTrip={setActiveTrip}
-                    ref={seatsRef}
-                />
-            {/* </div> */}
+            />
         </div>
         {/* End seat selector */}
 

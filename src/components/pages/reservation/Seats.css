@@ -12,6 +12,6 @@ main .wagons-container > div:hover {
     cursor: pointer;
 }
 
-/* main .wagon-seat-selector-wrapper.selected {
+main .wagon.wagon-selected {
     background-color: var(--confirmation-color);
-} */
+}

@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 
 import { BusSeats } from "./BusSeats";
 
-import { showElement } from "../../../utils/commonFunctionsDOM";
+import { markSelectedTrip, showElement } from "../../../utils/commonFunctionsDOM";
 import "./Seats.css";
 
-const toggleWagonSeats = (wagonId) => {
+const toggleWagonSeats = (tripWagonId, wagonId) => {
     document.querySelectorAll(".wagon-seat-selector-wrapper").forEach((wagonSeatSelector) => {
         wagonSeatSelector.classList.add("hide");
     })
 
-    showElement(`wagon-seat-selector-${wagonId}`);
+    markSelectedTrip(`wagon-${wagonId}`, "wagon", "wagon-selected")
+
+    showElement(`wagon-seat-selector-${tripWagonId}`);
 }
 
 export const Seats = React.forwardRef(({
@@ -33,26 +35,34 @@ export const Seats = React.forwardRef(({
                     {/* Wagon selector container */}
                     <div className="wagons-container d-flex flex-row flex-sm-column justify-content-center flex-wrap mx-2">
                         {activeTrip?.seats &&
-                            Object.keys(activeTrip.seats).map((wagonId) => (
-                                <div
-                                    key={wagonId}
-                                    data-wagon-seat-selector-id={`wagon-seat-selector-${wagonId}`}
-                                    className="d-flex flex-column m-1 p-1"
-                                    onClick={() =>
-                                        toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`)
-                                    }
-                                >
-                                    <span className="text-center my-1">
-                                        {wagonId.startsWith("B") ? "Λεωφ.": "Βαγόνι"}
-                                    </span>
-                                    <span className="text-center my-1">
-                                        ({wagonId})
-                                    </span>
-                                    <span className="text-center my-1">
-                                        Κλάση: {activeTrip.seats[wagonId].class}
-                                    </span>
-                                </div>
-                        ))}
+                            Object.keys(activeTrip.seats).map((wagonId) => {
+
+                                const key = `${activeTrip.tripId}-${wagonId}`;
+                                const id = `wagon-${wagonId}`;
+                                const className = `d-flex flex-column m-1 p-1 wagon
+                                    ${wagonId === Object.keys(activeTrip.seats)[0] ? "wagon-selected" : ""}`;
+
+                                return (
+                                    <div
+                                        key={key}
+                                        id={id}
+                                        className={className}
+                                        onClick={() =>
+                                            toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`, wagonId)
+                                        }
+                                    >
+                                        <span className="text-center my-1">
+                                            {wagonId.startsWith("B") ? "Λεωφ.": "Βαγόνι"}
+                                        </span>
+                                        <span className="text-center my-1">
+                                            ({wagonId})
+                                        </span>
+                                        <span className="text-center my-1">
+                                            Κλάση: {activeTrip.seats[wagonId].class}
+                                        </span>
+                                    </div>
+                                )
+                            })}
                     </div>
                     {/* End wagon selector container */}
 
