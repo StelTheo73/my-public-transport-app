@@ -1,17 +1,17 @@
-main .wagons-container * {
+main .wagon * {
     user-select: none;
 }
 
-main .wagons-container > div {
+main .wagon {
     border-radius: 0.5em;
     border: 1px solid var(--bs-primary);
 }
 
-main .wagons-container > div > span {
+main .wagon > span {
     font-size: small;
 }
 
-main .wagons-container > div:hover {
+main .wagon:hover {
     box-shadow: var(--default-box-shadow);
     cursor: pointer;
 }

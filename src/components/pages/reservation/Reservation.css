@@ -17,6 +17,7 @@ main .reservation-items-container span[id^="chevron-"]:hover {
 main .trip-selector-wrapper {
     border: 2px solid var(--bs-primary);
     border-radius: 0.5em;
+    user-select: none;
 }
 
 main .trip-selector-wrapper:hover  {

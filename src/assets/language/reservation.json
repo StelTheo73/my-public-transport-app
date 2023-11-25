@@ -7,11 +7,11 @@
         "EN": "Trips",
         "GR": "Δρομολόγια"
     },
-    "onwardTrips": {
+    "onwardTrip": {
         "EN": "Onward trip",
         "GR": "Ταξίδι μετάβασης"
     },
-    "returnTrips": {
+    "returnTrip": {
         "EN": "Return trip",
         "GR": "Ταξίδι επιστροφής"
     },
@@ -34,5 +34,23 @@
     "seatSelectorHeader": {
         "EN": "Select your seats",
         "GR": "Επιλέξτε τις επιθυμητές θέσεις"
+    },
+    "tripSelectorPrompt": {
+        "EN": "Please select a trip to view available seats",
+        "GR": "Παρακαλώ επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις"
+    },
+    "wagonType": {
+        "bus": {
+            "EN": "Bus",
+            "GR": "Λεωφ."
+        },
+        "train": {
+            "EN": "Train",
+            "GR": "Τρένο"
+        }
+    },
+    "class": {
+        "EN": "Class",
+        "GR": "Κλάση"
     }
 }

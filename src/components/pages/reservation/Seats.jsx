@@ -7,6 +7,8 @@ import { TrainSeats } from "./TrainSeats";
 import { markSelectedTrip, showElement } from "../../../utils/commonFunctionsDOM";
 import "./Seats.css";
 
+import textObject from "../../../assets/language/reservation.json";
+
 const toggleWagonSeats = (tripWagonId, wagonId) => {
     document.querySelectorAll(".wagon-seat-selector-wrapper").forEach((wagonSeatSelector) => {
         wagonSeatSelector.classList.add("hide");
@@ -22,7 +24,7 @@ export const Seats = React.forwardRef(({
 }, seatsRef) => {
 
     if (!activeTrip?.seats) {
-        return (<span>Παρακαλώ επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις</span>)
+        return (<span id="seat-selector-wrapper">{textObject.tripSelectorPrompt[language]}</span>)
     }
 
     return (
@@ -52,15 +54,19 @@ export const Seats = React.forwardRef(({
                                             event.stopPropagation();
                                             toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`, wagonId)
                                         }}
+                                        style={{maxHeight: "min-content", height: "min-content"}}
                                     >
                                         <span className="text-center my-1">
-                                            {wagonId.startsWith("B") ? "Λεωφ.": "Βαγόνι"}
+                                            {wagonId.startsWith("B")
+                                                ? textObject.wagonType.bus[language]
+                                                : textObject.wagonType.train[language]
+                                            }
                                         </span>
                                         <span className="text-center my-1">
                                             ({wagonId})
                                         </span>
                                         <span className="text-center my-1">
-                                            Κλάση: {activeTrip.seats[wagonId].class}
+                                            {textObject.class[language]}: {activeTrip.seats[wagonId].class}
                                         </span>
                                     </div>
                                 )
@@ -72,7 +78,6 @@ export const Seats = React.forwardRef(({
                     <div className="wagon-seats-container my-1 mx-2">
                         {activeTrip?.seats &&
                             Object.keys(activeTrip.seats).map((wagonId) => {
-                                // console.log(wagonId)
                                 const seats = activeTrip.seats[wagonId].seats;
                                 const wagonClass = activeTrip.seats[wagonId].class;
 

@@ -79,6 +79,13 @@ main {
     position: sticky;
     top: calc(var(--header-height));
     background-color: white;
+    padding-top: 1em;
+    padding-bottom: 0.2em;
+    border-radius: 1em;
+}
+
+.sticky-container button {
+    box-shadow: var(--default-box-shadow);
 }
 
 .width-90 {

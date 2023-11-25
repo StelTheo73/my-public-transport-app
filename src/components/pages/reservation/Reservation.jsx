@@ -139,7 +139,7 @@ export const Reservation = ({
 
         {/* Header */}
         <div className="container d-flex align-items-center justify-content-center mt-3">
-            <h3>{textObject.header[language]}</h3>
+            <h3 id="page-header">{textObject.header[language]}</h3>
         </div>
         {/* End header */}
 
@@ -183,6 +183,7 @@ export const Reservation = ({
                 loading={loading}
                 error={error}
                 subTrips={subTrips}
+                header={textObject.onwardTrip[language]}
             />
             {/* End onward trip selector */}
 
@@ -196,6 +197,7 @@ export const Reservation = ({
                 loading={returnLoading}
                 error={returnError}
                 subTrips={returnSubTrips}
+                header={textObject.returnTrip[language]}
             />
             {/* End return trip selector */}
 
