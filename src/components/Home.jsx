@@ -61,6 +61,7 @@ export const Home = ({
       const { data: Stations, loading, error } = useFetch(url);
 
       useEffect(() => {
+            window.scrollTo(0, 0);
             setUrl("/fetch/stations");
       }, [navigate])
 

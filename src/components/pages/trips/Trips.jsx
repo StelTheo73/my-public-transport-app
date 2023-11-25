@@ -47,6 +47,7 @@ export const Trips = ({
             return undefined;
         }
 
+        window.scrollTo(0, 0);
 
         setUrl("/fetch/trips/" +
             searchParameters.start.english + searchParameters.destination.english);

@@ -22,11 +22,17 @@ export const TripSelector = ({
 
         // Close trip selector if screen is small
         if (window.innerWidth < 768) {
+            const stickyContainer = document.getElementsByClassName("sticky-container")[0];
+
             hideElement("onward-trip-selector-wrapper", true);
             hideElement("return-trip-selector-wrapper", true);
 
+
+
             window.scrollTo({
-                top: tripsContainerRef.current.offsetTop - tripsContainerRef.current.offsetHeight - 70,
+                top: tripsContainerRef.current.offsetTop
+                            - tripsContainerRef.current.offsetHeight
+                            - stickyContainer.offsetHeight,
                 behavior: "smooth"
             });
 

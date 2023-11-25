@@ -73,6 +73,8 @@ export const Reservation = ({
             return undefined;
         }
 
+        window.scrollTo(0, 0);
+
         constructSubTrips(selectedTrip, stations.stations).then((_subTrips, error) => {
             if (_subTrips === undefined) {
                 setError(error);

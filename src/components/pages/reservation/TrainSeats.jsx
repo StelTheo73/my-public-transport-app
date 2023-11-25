@@ -54,7 +54,7 @@ export const TrainSeats = ({
     else {
         return "seat-disabled";
     }
-}
+  }
 
   const getSeatOrientation = (seatNo) => {
     const seat = seats[seatNo];

@@ -1,18 +1,11 @@
-/* footer {
-    max-width: 1200px;
-    margin: auto;
-    text-align: center;
-    padding: 20px;
-    height: 70px;
-    font-size: 18px;
-    border-top: 1px solid var(--theme-border);
-} */
-/* footer {
-    max-width: calc(var(--max-body-width));
-    min-width: 100%;
-} */
-
-/* footer */
+footer {
+    padding-left: 2em;
+    padding-right: 2em;
+    width: 100%;
+    z-index: 0;
+    /* background-color: white;
+    opacity: 0.5; */
+}
 
 footer .creator-info-link {
     margin: 0.5em;

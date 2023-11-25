@@ -11,6 +11,7 @@
 * {
     font-family: 'Poppins', sans-serif;
     font-size: medium;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -34,6 +35,7 @@ body::before {
     background-position: center;
     filter: grayscale(100%);
     z-index: -1;
+    background-color: white;
 }
 
 main {
@@ -46,13 +48,6 @@ main {
     z-index: 0;
     background-color: white;
     opacity: 0.95;
-}
-
-footer {
-    padding-left: 2em;
-    padding-right: 2em;
-    width: 100%;
-    z-index: 0;
 }
 
 .hide {
@@ -85,10 +80,6 @@ footer {
     top: calc(var(--header-height));
     background-color: white;
 }
-
-/* .sticky-container > button {
-    z-index: 5;
-} */
 
 .width-90 {
     width: 90%;
