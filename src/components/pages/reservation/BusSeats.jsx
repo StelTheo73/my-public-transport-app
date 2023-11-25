@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import "./BusSeats.css";
 
 export const BusSeats = ({
-    wagonId, seats,
+    wagonId, seats, wagonClass,
     activeTrip, setActiveTrip
 }) => {
     const tripId = activeTrip.tripId;
@@ -29,7 +29,6 @@ export const BusSeats = ({
     }
 
     const markSeatSelected = (event) => {
-        console.log(event.target);
         event.stopPropagation();
         const target = event.target;
         const classList = target.classList;
@@ -106,7 +105,7 @@ export const BusSeats = ({
 
         // Add 5 last seats
         seatsRows.push((
-            <div className="d-flex my-2"  key={`div-${tripId}-${wagonId}-${seatsLength-4}`}>
+            <div className="d-flex my-2" key={`div-${tripId}-${wagonId}-${seatsLength-4}`}>
                 <div className="px-0 d-flex justify-content-between">
                     <span
                         className={`seat-span text-center me-1 ${getSeatClass(seatsLength-4)}`}
@@ -141,21 +140,22 @@ export const BusSeats = ({
     }
 
     return (
-    <div
-        className="bus-seats-container container border px-1"
-        key={`${tripId}-${wagonId}`}
-    >
-        {seats && constructSeats().map((seatsRow) => (
-                seatsRow
-        ))}
+        <div
+            className="bus-seats-container container border px-1"
+            key={`${tripId}-${wagonId}`}
+        >
+            {seats && constructSeats().map((seatsRow) => (
+                    seatsRow
+            ))}
 
-    </div>
+        </div>
   )
 }
 
 BusSeats.propTypes = {
     wagonId: PropTypes.string.isRequired,
     seats: PropTypes.object.isRequired,
+    wagonClass: PropTypes.string.isRequired,
     activeTrip: PropTypes.object.isRequired,
     setActiveTrip: PropTypes.func.isRequired
 }

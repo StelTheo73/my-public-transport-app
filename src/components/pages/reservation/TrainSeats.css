@@ -1,0 +1,62 @@
+main .train-seats-container {
+    box-shadow: var(--default-box-shadow);
+    border-radius: 0.5em;
+}
+
+main .train-seats-container * {
+    user-select: none;
+}
+
+main .train-seats-container .seat-span {
+    min-width: 2.2em;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+}
+
+main .train-seats-container .seat-span.face-front {
+    border-bottom: 2px solid gray;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+main .train-seats-container .seat-span.face-back {
+    border-top: 2px solid gray;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+main .train-seats-container .seat-span:hover {
+    cursor: pointer;
+    box-shadow: var(--default-box-shadow);
+}
+
+main .train-seats-container .seat-span.seat-reserved {
+    background-color: var(--bs-danger);
+}
+
+main .train-seats-container .seat-span.seat-reserved:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+main .train-seats-container .seat-span.seat-selected {
+    background-color: var(--bs-warning);
+}
+
+main .train-seats-container .seat-span.seat-selected:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+main .train-seats-container .seat-span.seat-disabled {
+    background-color: gray;
+}
+
+main .train-seats-container .seat-span.seat-disabled:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+main .train-seats-container .seat-span.seat-user-selected {
+    background-color: var(--confirmation-color);
+}

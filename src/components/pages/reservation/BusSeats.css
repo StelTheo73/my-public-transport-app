@@ -9,9 +9,9 @@ main .bus-seats-container * {
 
 main .bus-seats-container .seat-span {
     min-width: 2.2em;
-    border-bottom: 1px solid gray;
-    border-left: 1px solid gray;
-    border-right: 1px solid gray;
+    border-bottom: 2px solid gray;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
 }

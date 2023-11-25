@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { BusSeats } from "./BusSeats";
+import { TrainSeats } from "./TrainSeats";
 
 import { markSelectedTrip, showElement } from "../../../utils/commonFunctionsDOM";
 import "./Seats.css";
@@ -73,6 +74,7 @@ export const Seats = React.forwardRef(({
                             Object.keys(activeTrip.seats).map((wagonId) => {
                                 // console.log(wagonId)
                                 const seats = activeTrip.seats[wagonId].seats;
+                                const wagonClass = activeTrip.seats[wagonId].class;
 
                                 const key = `${activeTrip.tripId}-${wagonId}`
                                 const id = `wagon-seat-selector-${activeTrip.tripId}-${wagonId}`
@@ -89,10 +91,17 @@ export const Seats = React.forwardRef(({
                                             ? <BusSeats
                                                 wagonId={wagonId}
                                                 seats={seats}
+                                                wagonClass={wagonClass}
                                                 activeTrip={activeTrip}
                                                 setActiveTrip={setActiveTrip}
                                                 />
-                                            : <span>Traino {activeTrip.tripId} - {wagonId}</span>
+                                            : <TrainSeats
+                                                wagonId={wagonId}
+                                                seats={seats}
+                                                wagonClass={wagonClass}
+                                                activeTrip={activeTrip}
+                                                setActiveTrip={setActiveTrip}
+                                                />
                                         }
                                     </div>
                                 )
