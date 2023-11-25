@@ -99,7 +99,7 @@ export const Reservation = ({
     <main>
 
         {/* Navigation buttons */}
-        <div className="container-fluid mt-2">
+        <div className="container-fluid mt-2 sticky-container">
             <div className="row">
                 <div className="col-12 col-sm-6 d-flex justify-content-start">
                     <button

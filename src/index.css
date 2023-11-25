@@ -78,3 +78,9 @@ footer {
     transform: rotate(-180deg);
     transition: transform 0.5s;
 }
+
+.sticky-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: calc(var(--header-height) + 0.5em);
+}
