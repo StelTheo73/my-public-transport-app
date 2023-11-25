@@ -15,9 +15,9 @@
         "EN": "Return trip",
         "GR": "Ταξίδι επιστροφής"
     },
-    "payment": {
-        "EN": "Payment",
-        "GR": "Πληρωμή"
+    "passengers": {
+        "EN": "Passengers",
+        "GR": "Επιβάτες"
     },
     "bus": {
         "EN": "Bus",

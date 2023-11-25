@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 import {
     FaArrowRight, FaArrowLeft,
-    FaMoneyCheck, FaTrain, FaChevronUp,
+    FaTrain, FaChevronUp, FaRegWindowClose
 } from "react-icons/fa";
+import { FaPersonHalfDress } from "react-icons/fa6";
 
 import { Seats } from "./Seats.jsx";
 import { TripSelector } from "./TripSelector.jsx";
 
 import { fetchData } from "../../../utils/asyncFetch.js";
 import {
-    toggleElementVisibility, rotateElement,
+    toggleElementVisibility, rotateElement, showElement, hideElement
 }
 from "../../../utils/commonFunctionsDOM.js";
 
@@ -63,6 +64,8 @@ export const Reservation = ({
     const tripsContainerRef = useRef(null);
     const seatsRef = useRef(null);
     const passengersRef = useRef(null);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errorDescription, setErrorDescription] = useState("");
 
 
     useEffect(() => {
@@ -97,8 +100,104 @@ export const Reservation = ({
 
     }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
 
+    const validateSelectedSeats = () => {
+        setErrorMessage("");
+
+        let tripsWithSeats = [];
+
+        for (const subTrip of subTrips) {
+            const sum = Object.keys(subTrip.selectedSeats).map((wagonId) => {
+                return subTrip.selectedSeats[wagonId].length;
+            }).reduce((accumulator, currentValue) => {
+                return accumulator + currentValue;
+            }, 0);
+
+            if (Object.keys(subTrip.seats).length > 0) {
+                tripsWithSeats.push({
+                    tripId: subTrip.tripId,
+                    startStation: subTrip.startStation,
+                    arrivalStation: subTrip.arrivalStation,
+                    noOfSeats: sum
+                })
+            }
+        }
+
+        for (const subTrip of returnSubTrips) {
+            const sum = Object.keys(subTrip.selectedSeats).map((wagonId) => {
+                return subTrip.selectedSeats[wagonId].length;
+            }).reduce((accumulator, currentValue) => {
+                return accumulator + currentValue;
+            }, 0);
+
+            if (Object.keys(subTrip.seats).length > 0) {
+                tripsWithSeats.push({
+                    tripId: subTrip.tripId,
+                    startStation: subTrip.startStation,
+                    arrivalStation: subTrip.arrivalStation,
+                    noOfSeats: sum
+                })
+            }
+        }
+
+        let seatsNo = 0;
+        tripsWithSeats.forEach((trip) => {
+            if (seatsNo === 0) {
+                seatsNo = trip.noOfSeats;
+            }
+            // Different number of seats selected
+            else if (seatsNo !== trip.noOfSeats) {
+                    setErrorMessage("Παρακαλώ επιλέξτε τον ίδιο αριθμό θέσεων για όλα τα ταξίδια");
+                    return;
+            }
+        });
+
+        // No seats selected but there are trips with seats
+        if (seatsNo === 0 && tripsWithSeats.length > 0) {
+            setErrorMessage("Παρακαλώ επιλέξτε θέσεις για όλα τα ταξίδια");
+            return;
+        }
+
+
+        console.log("NAVIGATE TO PASSENGERS")
+
+
+        // console.log(tripsWithSeats);
+        // console.log("====================")
+
+        // navigate("/passengers");
+    }
+
   return (
     <main>
+        {errorMessage &&
+            <div id="seat-error-message"
+            // style={{position: "absolute", top: "50%", margin: "0 auto"}}
+            style={{
+                position: "fixed",
+                top: "25%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                boxShadow: "var(--default-box-shadow)",
+                borderRadius: "0.5em",
+                zIndex: "1"
+            }}
+
+            >
+                <div className="alert alert-danger my-0" role="alert">
+                    <span className="me-1">
+                        {errorMessage}
+                    </span>
+                    <span
+                        id="close-seat-error-message"
+                        className="ms-1"
+                        onClick={() => setErrorMessage("")}
+                    >
+                        <FaRegWindowClose />
+                    </span>
+                </div>
+            </div>
+        }
+
 
         {/* Navigation buttons */}
         <div className="container-fluid sticky-container">
@@ -122,13 +221,12 @@ export const Reservation = ({
                         id="reservation-btn"
                         className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                         onClick={() => {
-                            console.log("NAVIGATE TO PAY")
-                            // navigate("/pay")
+                            validateSelectedSeats();
                         }}
                     >
-                        <FaMoneyCheck className="mb-1 me-2"/>
+                        <FaPersonHalfDress className="mb-1 me-2"/>
                         <span>
-                            {textObject.payment[language]}
+                            {textObject.passengers[language]}
                         </span>
                         <FaArrowRight className="ms-2"/>
                     </button>

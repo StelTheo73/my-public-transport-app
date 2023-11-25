@@ -7,6 +7,7 @@ import { Contact } from "./components/pages/contact/Contact.jsx";
 import { Footer } from "./components/footer/Footer.jsx";
 import { Header } from "./components/header/Header.jsx";
 import { Home } from "./components/Home.jsx";
+import { Passengers } from "./components/pages/passengers/Passengers.jsx";
 import { Reservation } from "./components/pages/reservation/Reservation";
 import { Sidebar } from "./components/Sidebar";
 import { Trips } from "./components/pages/trips/Trips";
@@ -96,6 +97,15 @@ function App() {
                 selectedReturnTrip={selectedReturnTrip}
                 />
             } />
+            <Route path="passengers" element={
+              <Passengers
+                language={language}
+                // searchParameters={searchParameters}
+                // stations={stations}
+                // selectedTrip={selectedTrip}
+                // selectedReturnTrip={selectedReturnTrip}
+                />
+            }  />
             <Route path="contact" element={
                 <Contact language={language}/>
             } />
