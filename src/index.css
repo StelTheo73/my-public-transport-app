@@ -24,7 +24,7 @@ body {
 
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -82,5 +82,14 @@ footer {
 .sticky-container {
     position: -webkit-sticky;
     position: sticky;
-    top: calc(var(--header-height) + 0.5em);
+    top: calc(var(--header-height));
+    background-color: white;
+}
+
+/* .sticky-container > button {
+    z-index: 5;
+} */
+
+.width-90 {
+    width: 90%;
 }

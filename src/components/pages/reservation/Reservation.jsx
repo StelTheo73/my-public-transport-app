@@ -99,7 +99,7 @@ export const Reservation = ({
     <main>
 
         {/* Navigation buttons */}
-        <div className="container-fluid mt-2 sticky-container">
+        <div className="container-fluid sticky-container">
             <div className="row">
                 <div className="col-12 col-sm-6 d-flex justify-content-start">
                     <button
@@ -143,7 +143,7 @@ export const Reservation = ({
 
         {/* Trip selector */}
         <div
-            className="container border p-3 reservation-items-container"
+            className="container border p-3 reservation-items-container width-90"
             ref={tripsContainerRef}
         >
 
@@ -201,7 +201,7 @@ export const Reservation = ({
         {/* End trip selector */}
 
         {/* Seat selector */}
-        <div className="container border my-2 p-3 reservation-items-container">
+        <div className="container border my-2 p-3 reservation-items-container width-90">
 
 
             {/* Seat selector header */}
@@ -237,7 +237,7 @@ export const Reservation = ({
         {/* End seat selector */}
 
         {/* Passengers selector */}
-        <div className="container border my-2 p-3 reservation-items-container">
+        <div className="container border my-2 p-3 reservation-items-container width-90">
             <div
                 // Hide passengers selector by default
                 className="hide"

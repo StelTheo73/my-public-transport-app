@@ -32,3 +32,8 @@ main .trip-selector-wrapper.trip-selected {
     box-shadow: var(--default-box-shadow);
     background-color: var(--confirmation-color);
 }
+
+/* Do not display chevron over header buttons when page is scrolled */
+main span[id^="chevron-"] > svg {
+    z-index: -1;
+}

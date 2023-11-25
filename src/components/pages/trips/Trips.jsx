@@ -92,7 +92,7 @@ export const Trips = ({
 
     return (
         <main>
-            <div className="container-fluid mt-2 sticky-container">
+            <div className="container-fluid sticky-container">
                 <div className="row">
                     <div className="col-12 col-sm-6 d-flex justify-content-start">
                         <button
@@ -156,7 +156,7 @@ export const Trips = ({
                 </div>
             }
 
-            <div className="d-flex flex-column align-items-center justify-content-center mt-3">
+            <div className="d-flex flex-column align-items-center justify-content-center mt-3 px-3">
                 <div className="trip-header pb-2 row">
                     <div className="col-2 px-1 px-sm-2">
                         <FaTrain/>

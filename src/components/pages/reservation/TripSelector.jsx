@@ -26,7 +26,7 @@ export const TripSelector = ({
             hideElement("return-trip-selector-wrapper", true);
 
             window.scrollTo({
-                top: tripsContainerRef.current.offsetTop - tripsContainerRef.current.offsetHeight,
+                top: tripsContainerRef.current.offsetTop - tripsContainerRef.current.offsetHeight - 70,
                 behavior: "smooth"
             });
 
