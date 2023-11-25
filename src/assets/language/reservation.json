@@ -7,9 +7,17 @@
         "EN": "Trips",
         "GR": "Δρομολόγια"
     },
+    "onwardTrips": {
+        "EN": "Onward trip",
+        "GR": "Ταξίδι μετάβασης"
+    },
+    "returnTrips": {
+        "EN": "Return trip",
+        "GR": "Ταξίδι επιστροφής"
+    },
     "payment": {
-        "EN": "Payment Info",
-        "GR": "Στοιχεία Πληρωμής"
+        "EN": "Payment",
+        "GR": "Πληρωμή"
     },
     "bus": {
         "EN": "Bus",
@@ -18,5 +26,13 @@
     "train": {
         "EN": "Train",
         "GR": "Τρένο"
+    },
+    "tripSelectorHeader": {
+        "EN": "Select a trip to view available seats",
+        "GR": "Επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις"
+    },
+    "seatSelectorHeader": {
+        "EN": "Select your seats",
+        "GR": "Επιλέξτε τις επιθυμητές θέσεις"
     }
 }

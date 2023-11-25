@@ -151,7 +151,7 @@ export const Reservation = ({
             <div className="row d-flex justify-content-center">
                 <div className="col-12 d-flex">
                     <span className="flex-fill">
-                        Επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις
+                        {textObject.tripSelectorHeader[language]}
                     </span>
                     <span
                         id="chevron-1-span"
@@ -208,7 +208,7 @@ export const Reservation = ({
             <div className="row d-flex justify-content-center">
                 <div className="col-12 d-flex">
                     <span className="flex-fill">
-                        Επιλέξτε τις επιθυμητές θέσεις
+                        {textObject.seatSelectorHeader[language]}
                     </span>
                     <span
                         id="chevron-2-span"
