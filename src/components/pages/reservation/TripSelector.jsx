@@ -32,8 +32,6 @@ export const TripSelector = ({
             hideElement("onward-trip-selector-wrapper", true);
             hideElement("return-trip-selector-wrapper", true);
 
-
-
             window.scrollTo({
                 top: tripsContainerRef.current.offsetTop
                             - tripsContainerRef.current.offsetHeight
@@ -45,7 +43,6 @@ export const TripSelector = ({
             rotateElement("chevron-1");
 
         }
-
 
         // Show seats selector
         if (seatsRef?.current?.id) {

@@ -105,6 +105,7 @@ export const Reservation = ({
         setErrorDescription("");
 
         let tripsWithSeats = [];
+        let errorFound = false;
 
         for (const subTrip of subTrips) {
             const sum = Object.keys(subTrip.selectedSeats).map((wagonId) => {
@@ -161,6 +162,7 @@ export const Reservation = ({
                         });
                     });
                     setErrorDescription(_errorDescription);
+                    errorFound = true;
                     return;
             }
         });
@@ -168,14 +170,25 @@ export const Reservation = ({
         // No seats selected but there are trips with seats
         if (seatsNo === 0 && tripsWithSeats.length > 0) {
             setErrorMessage("Παρακαλώ επιλέξτε θέσεις για όλα τα ταξίδια");
+            errorFound = true;
             return;
         }
-;
-        // navigate("/passengers");
+
+
+        if (errorFound === false) {
+            console.log(subTrips)
+            navigate("/passengers", {
+                state: {
+                    subTrips: subTrips.concat(returnSubTrips),
+                    noOfSeats: seatsNo
+                }
+            });
+        }
     }
 
   return (
     <main>
+        {/* Error message popup */}
         {errorMessage &&
             <div id="seat-error-message">
                 <div className="alert alert-danger my-0" role="alert">
@@ -212,7 +225,7 @@ export const Reservation = ({
                 </div>
             </div>
         }
-
+        {/* End error message popup */}
 
         {/* Navigation buttons */}
         <div className="container-fluid sticky-container">
@@ -339,7 +352,7 @@ export const Reservation = ({
                         >
                         <FaChevronUp
                             id="chevron-2"
-                            className="rotate-transition rotate"
+                            className="rotate-transition"
                             />
                     </span>
                 </div>
@@ -354,20 +367,6 @@ export const Reservation = ({
             />
         </div>
         {/* End seat selector */}
-
-        {/* Passengers selector */}
-        <div className="container border my-2 p-3 reservation-items-container width-90">
-            <div
-                // Hide passengers selector by default
-                className="hide"
-                id="passenger-selector-wrapper"
-                ref={passengersRef}
-                >
-                test passengers
-            </div>
-
-        </div>
-        {/* End passengers selector */}
 
     </main>
   )

@@ -118,7 +118,9 @@ export const Seats = React.forwardRef(({
         </div>
 
         :
-        <span ref={seatsRef} id="seat-selector-wrapper">Αυτό το όχημα δεν υποστηρίζει κράτηση θέσεων</span>
+        <span ref={seatsRef} id="seat-selector-wrapper">
+            {textObject.noSeatsSupported[language]}
+        </span>
     )
 });
 

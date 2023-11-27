@@ -39,6 +39,10 @@
         "EN": "Please select a trip to view available seats",
         "GR": "Παρακαλώ επιλέξτε μία διαδρομή για να εμφανιστούν οι διαθέσιμες θέσεις"
     },
+    "noSeatsSupported": {
+        "EN": "This vehicle does not support seat reservation",
+        "GR": "Αυτό το όχημα δεν υποστηρίζει κράτηση θέσεων"
+    },
     "wagonType": {
         "bus": {
             "EN": "Bus",

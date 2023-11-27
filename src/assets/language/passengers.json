@@ -1,0 +1,58 @@
+{
+    "passenger": {
+        "EN": "Passenger",
+        "GR": "Επιβάτης"
+    },
+    "passengers": {
+        "EN": "Passengers",
+        "GR": "Επιβάτες"
+    },
+    "payment": {
+        "EN": "Payment",
+        "GR": "Πληρωμή"
+    },
+    "header": {
+        "EN": "Passengers Info",
+        "GR": "Στοιχεία Επιβατών"
+    },
+    "passengerName": {
+        "EN": "Passenger Name",
+        "GR": "Όνομα Επιβάτη"
+    },
+    "ticketType": {
+        "EN": "Ticket Type",
+        "GR": "Τύπος Εισιτηρίου"
+    },
+    "contactInfo": {
+        "EN": "Contact Info",
+        "GR": "Στοιχεία Επικοινωνίας"
+    },
+    "contactName": {
+        "EN": "Name",
+        "GR": "Όνομα"
+    },
+    "contactPhone": {
+        "EN": "Phone",
+        "GR": "Τηλέφωνο"
+    },
+    "contactEmail": {
+        "EN": "Email",
+        "GR": "Email"
+    },
+    "contactAddress": {
+        "EN": "Address",
+        "GR": "Διεύθυνση"
+    },
+    "contactCity": {
+        "EN": "City",
+        "GR": "Πόλη"
+    },
+    "contactZip": {
+        "EN": "Zip Code",
+        "GR": "Ταχ. Κώδικας"
+    },
+    "contactCountry": {
+        "EN": "Country",
+        "GR": "Χώρα"
+    }
+}

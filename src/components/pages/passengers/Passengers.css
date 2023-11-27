@@ -1,0 +1,21 @@
+main .passenger-wrapper {
+    width: 100%;
+    min-width: 20em;
+    max-width: 30em;
+    box-shadow: var(--default-box-shadow);
+    border-radius: 1em;
+}
+
+main .passenger-contact-wrapper {
+    box-shadow: var(--default-box-shadow);
+    border-radius: 1em;
+}
+
+main .passenger-wrapper .form-control:focus,
+main .passenger-wrapper .form-select:focus,
+main .passenger-contact-wrapper .form-control:focus,
+main .passenger-contact-wrapper .form-select:focus
+{
+    border: 2px solid var(--bs-primary);
+    box-shadow: none;
+}

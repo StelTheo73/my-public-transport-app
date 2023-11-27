@@ -82,6 +82,7 @@ main {
     padding-top: 1em;
     padding-bottom: 0.2em;
     border-radius: 1em;
+    z-index: 1;
 }
 
 .sticky-container button {
@@ -90,4 +91,10 @@ main {
 
 .width-90 {
     width: 90%;
+}
+
+/* Add red asterisk after labels with .required */
+label.required::after {
+    content: " *";
+    color: red;
 }

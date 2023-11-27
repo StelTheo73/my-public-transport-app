@@ -100,10 +100,12 @@ function App() {
             <Route path="passengers" element={
               <Passengers
                 language={language}
-                // searchParameters={searchParameters}
-                // stations={stations}
-                // selectedTrip={selectedTrip}
-                // selectedReturnTrip={selectedReturnTrip}
+                searchParameters={searchParameters}
+                stations={stations}
+                selectedTrip={selectedTrip}
+                selectedReturnTrip={selectedReturnTrip}
+                // subTrips={[]}
+                // returnSubTrips={[]}
                 />
             }  />
             <Route path="contact" element={
