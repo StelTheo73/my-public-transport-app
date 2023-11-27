@@ -43,6 +43,17 @@ main #seat-error-message #close-seat-error-message {
     cursor: pointer;
 }
 
+main #seat-error-message {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    box-shadow: var(--default-box-shadow);
+    border-radius: 0.5em;
+    z-index: 1;
+}
+
 main #seat-error-message #close-seat-error-message > svg{
     font-size: x-large;
 }

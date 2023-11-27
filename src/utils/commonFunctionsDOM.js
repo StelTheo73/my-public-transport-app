@@ -105,6 +105,18 @@ export function markSelectedTrip(tripWrapperId, className="trip-wrapper", classT
     }
 };
 
+export function unMarkSelectedTrips(className="trip-wrapper", classToRemove="trip-selected") {
+    try {
+        const tripWrappers = document.querySelectorAll("." + className);
+        tripWrappers.forEach((tripWrapper) => {
+            tripWrapper.classList.remove(classToRemove);
+        });
+    }
+    catch (error) {
+        console.debug(error.message);
+    }
+}
+
 export function rotateElement(elementId) {
     try {
         const element = document.getElementById(elementId);

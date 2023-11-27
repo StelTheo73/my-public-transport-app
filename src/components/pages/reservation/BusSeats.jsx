@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+import { useEffect, useState } from 'react';
 import "./BusSeats.css";
 
 export const BusSeats = ({
@@ -7,6 +8,7 @@ export const BusSeats = ({
     activeTrip, setActiveTrip
 }) => {
     const tripId = activeTrip.tripId;
+    const [constructedSeats, setConstructedSeats] = useState([]);
 
     const getSeatClass = (seatNo) => {
         const seat = seats[seatNo];
@@ -139,12 +141,16 @@ export const BusSeats = ({
         return seatsRows;
     }
 
+    useEffect(() => {
+        setConstructedSeats(constructSeats());
+    }, [activeTrip, seats]);
+
     return (
         <div
             className="bus-seats-container container border px-1"
             key={`${tripId}-${wagonId}`}
         >
-            {seats && constructSeats().map((seatsRow) => (
+            {seats && constructedSeats && constructedSeats.map((seatsRow) => (
                     seatsRow
             ))}
 

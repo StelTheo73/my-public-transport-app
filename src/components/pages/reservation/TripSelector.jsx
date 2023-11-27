@@ -5,12 +5,15 @@ import { FaArrowRight } from "react-icons/fa";
 import {
     showElement, markSelectedTrip,
     hideElement,
-    rotateElement
+    rotateElement,
+    unMarkSelectedTrips
 }
 from "../../../utils/commonFunctionsDOM";
+import { useEffect } from "react";
 
 export const TripSelector = ({
-    id, language, setActiveTrip,
+    id, language,
+    activeTrip, setActiveTrip,
     tripsContainerRef, seatsRef,
     loading, error, subTrips,
     header
@@ -58,6 +61,15 @@ export const TripSelector = ({
         setActiveTrip(subTrip);
     }
 
+    useEffect(() => {
+        if (activeTrip?.tripId) {
+            markSelectedTrip(`trip-selector-wrapper-${activeTrip.tripId}`,
+                            "trip-selector-wrapper");
+        }
+        else {
+            unMarkSelectedTrips("trip-selector-wrapper");
+        }
+    }, [activeTrip]);
 
     return (!loading && !error && subTrips &&
         <div
@@ -99,6 +111,7 @@ TripSelector.propTypes = {
     // Should be one of: "onward-trip-selector-wrapper", "return-trip-selector-wrapper"
     id: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
+    activeTrip: PropTypes.object.isRequired,
     setActiveTrip: PropTypes.func.isRequired,
     // Reference to Trips Container
     tripsContainerRef: PropTypes.object.isRequired,

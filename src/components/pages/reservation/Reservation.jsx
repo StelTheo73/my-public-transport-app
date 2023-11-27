@@ -13,7 +13,7 @@ import { TripSelector } from "./TripSelector.jsx";
 
 import { fetchData } from "../../../utils/asyncFetch.js";
 import {
-    toggleElementVisibility, rotateElement, showElement, hideElement
+    toggleElementVisibility, rotateElement
 }
 from "../../../utils/commonFunctionsDOM.js";
 
@@ -97,11 +97,12 @@ export const Reservation = ({
             })
         }
 
-
+        setActiveTrip({});
     }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
 
     const validateSelectedSeats = () => {
         setErrorMessage("");
+        setErrorDescription("");
 
         let tripsWithSeats = [];
 
@@ -118,7 +119,7 @@ export const Reservation = ({
                     startStation: subTrip.startStation,
                     arrivalStation: subTrip.arrivalStation,
                     noOfSeats: sum
-                })
+                });
             }
         }
 
@@ -147,6 +148,19 @@ export const Reservation = ({
             // Different number of seats selected
             else if (seatsNo !== trip.noOfSeats) {
                     setErrorMessage("Παρακαλώ επιλέξτε τον ίδιο αριθμό θέσεων για όλα τα ταξίδια");
+
+                    let _errorDescription = [];
+                    _errorDescription.push({header: "Θέσεις ανά δρομολόγιο:"});
+
+                    tripsWithSeats.forEach((trip) => {
+                        _errorDescription.push({
+                            tripId: trip.tripId,
+                            startStation: trip.startStation,
+                            arrivalStation: trip.arrivalStation,
+                            noOfSeats: trip.noOfSeats
+                        });
+                    });
+                    setErrorDescription(_errorDescription);
                     return;
             }
         });
@@ -156,44 +170,45 @@ export const Reservation = ({
             setErrorMessage("Παρακαλώ επιλέξτε θέσεις για όλα τα ταξίδια");
             return;
         }
-
-
-        console.log("NAVIGATE TO PASSENGERS")
-
-
-        // console.log(tripsWithSeats);
-        // console.log("====================")
-
+;
         // navigate("/passengers");
     }
 
   return (
     <main>
         {errorMessage &&
-            <div id="seat-error-message"
-            // style={{position: "absolute", top: "50%", margin: "0 auto"}}
-            style={{
-                position: "fixed",
-                top: "25%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                boxShadow: "var(--default-box-shadow)",
-                borderRadius: "0.5em",
-                zIndex: "1"
-            }}
-
-            >
+            <div id="seat-error-message">
                 <div className="alert alert-danger my-0" role="alert">
-                    <span className="me-1">
-                        {errorMessage}
-                    </span>
-                    <span
-                        id="close-seat-error-message"
-                        className="ms-1"
-                        onClick={() => setErrorMessage("")}
-                    >
-                        <FaRegWindowClose />
-                    </span>
+                    <div className="d-flex flex-row">
+                        <span className="me-2">
+                            {errorMessage}
+                        </span>
+                        <span
+                            id="close-seat-error-message"
+                            className="ms-2"
+                            onClick={() => setErrorMessage("")}
+                        >
+                            <FaRegWindowClose />
+                        </span>
+                    </div>
+                    {errorDescription && <>
+                        <hr></hr>
+                        <div className="d-flex flex-column">
+                            {errorDescription.map((element) => {
+                                if (element?.header) {
+                                    return <span key="seat-error-header" className="fw-bold">
+                                        {element?.header}
+                                    </span>
+                                }
+                                else {
+                                    return <span key={`seat-error-trip-${element?.tripId}`}>
+                                        {element?.startStation[language]} - {element?.arrivalStation[language]}:
+                                        &nbsp;{element?.noOfSeats}
+                                    </span>
+                                }
+                            })}
+                        </div>
+                    </>}
                 </div>
             </div>
         }
@@ -275,6 +290,7 @@ export const Reservation = ({
             <TripSelector
                 language={language}
                 id="onward-trip-selector-wrapper"
+                activeTrip={activeTrip}
                 setActiveTrip={setActiveTrip}
                 tripsContainerRef={tripsContainerRef}
                 seatsRef={seatsRef}
@@ -289,6 +305,7 @@ export const Reservation = ({
             <TripSelector
                 language={language}
                 id="return-trip-selector-wrapper"
+                activeTrip={activeTrip}
                 setActiveTrip={setActiveTrip}
                 tripsContainerRef={tripsContainerRef}
                 seatsRef={seatsRef}
