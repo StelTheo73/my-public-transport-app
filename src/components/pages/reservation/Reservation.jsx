@@ -52,10 +52,10 @@ const constructSubTrips = async (_selectedTrip, stations) => {
 export const Reservation = ({
     language, stations, searchParameters,
     selectedTrip, selectedReturnTrip,
+    subTrips, setSubTrips,
+    returnSubTrips, setReturnSubTrips
 }) => {
     const navigate = useNavigate();
-    const [subTrips, setSubTrips] = useState([]);
-    const [returnSubTrips, setReturnSubTrips] = useState([]);
     const [loading, setLoading] = useState(true);
     const [returnLoading, setReturnLoading] = useState(true);
     const [error, setError] = useState("");
@@ -63,10 +63,8 @@ export const Reservation = ({
     const [activeTrip, setActiveTrip] = useState({});
     const tripsContainerRef = useRef(null);
     const seatsRef = useRef(null);
-    const passengersRef = useRef(null);
     const [errorMessage, setErrorMessage] = useState("");
     const [errorDescription, setErrorDescription] = useState("");
-
 
     useEffect(() => {
         // Navigate to home page is search has not been performed
@@ -78,26 +76,33 @@ export const Reservation = ({
 
         window.scrollTo(0, 0);
 
-        constructSubTrips(selectedTrip, stations.stations).then((_subTrips, error) => {
-            if (_subTrips === undefined) {
-                setError(error);
-            }
-            setSubTrips(_subTrips);
-            setLoading(false);
-        })
+        if (subTrips.length === 0) {
+            constructSubTrips(selectedTrip, stations.stations).then((_subTrips, error) => {
+                if (_subTrips === undefined) {
+                    setError(error);
+                }
+                setSubTrips(_subTrips);
+            });
+        }
+        else {
+            setActiveTrip(subTrips[0]);
+        }
+        setLoading(false);
 
         if (searchParameters?.tripType.value === "returningTrip") {
-            constructSubTrips(selectedReturnTrip, stations.stations).then((_subTrips, error) => {
-                if (_subTrips === undefined) {
-                    setReturnError(error);
-                }
-
-                setReturnSubTrips(_subTrips);
-                setReturnLoading(false);
-            })
+            if (returnSubTrips.length === 0) {
+                constructSubTrips(selectedReturnTrip, stations.stations).then((_subTrips, error) => {
+                    if (_subTrips === undefined) {
+                        setReturnError(error);
+                    }
+                    setReturnSubTrips(_subTrips);
+                })
+            }
+            setReturnLoading(false);
         }
 
-        setActiveTrip({});
+
+        // setActiveTrip({});
     }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
 
     const validateSelectedSeats = () => {
@@ -177,12 +182,14 @@ export const Reservation = ({
 
         if (errorFound === false) {
             console.log(subTrips)
-            navigate("/passengers", {
+            navigate("/passengers"
+            , {
                 state: {
-                    subTrips: subTrips.concat(returnSubTrips),
+                    // subTrips: subTrips.concat(returnSubTrips),
                     noOfSeats: seatsNo
                 }
-            });
+            }
+            );
         }
     }
 
@@ -376,6 +383,17 @@ Reservation.propTypes = {
     language: PropTypes.string.isRequired,
     stations: PropTypes.object.isRequired,
     searchParameters: PropTypes.object.isRequired,
+    // The trip that user has selected from clicking on a Trip element
     selectedTrip: PropTypes.object.isRequired,
     selectedReturnTrip: PropTypes.object.isRequired,
+    // SubTrips created at App.jsx to remain after navigation to other pages
+    // SubTrips are created from selectedTrip and selectedReturnTrip
+    // Trip.jsx resets subTrips to [] when a new Trip is clicked
+    // Reservation.jsx only creates new subTrips only if subTrips.length === 0,
+    // which means that the user has selected a new Trip
+    // Same applies for returnSubTrips
+    subTrips: PropTypes.array.isRequired,
+    setSubTrips: PropTypes.func.isRequired,
+    returnSubTrips: PropTypes.array.isRequired,
+    setReturnSubTrips: PropTypes.func.isRequired
 }

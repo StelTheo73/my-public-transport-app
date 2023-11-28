@@ -15,7 +15,7 @@ import textObject from "../../../assets/language/passengers.json";
 import "./Passengers.css";
 
 export const Passengers = ({
-  language,
+  language, subTrips, returnSubTrips
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ export const Passengers = ({
     const passengersDivsArray = [];
 
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
-      passengersDivsArray.push(constructPassengerElement(passengerId, noOfSeats));
+      passengersDivsArray.push(constructPassengerElement(passengerId));
     }
     setPassengersDiv(passengersDivsArray);
   }
@@ -125,27 +125,42 @@ export const Passengers = ({
   }
 
   useEffect(() => {
-    if (!location.state?.subTrips || location.state?.noOfSeats === null ||
+    // if (!location.state?.subTrips || location.state?.noOfSeats === null ||
+        // location.state?.noOfSeats < 0 || isNaN(location.state?.noOfSeats)
+      // ) {
+      // navigate("/");
+    // }
+
+    console.log(location.state)
+    if (!subTrips || location.state === null || location.state?.noOfSeats === null ||
         location.state?.noOfSeats < 0 || isNaN(location.state?.noOfSeats)
-      ) {
+    ) {
       navigate("/");
     }
+    else {
+      // const subTrips = location.state.subTrips;
+      const allSubTrips = subTrips.concat(returnSubTrips);
+      const noOfSeats = location.state.noOfSeats === 0 ? 1 : location.state.noOfSeats;
 
-    const subTrips = location.state.subTrips;
-    const noOfSeats = location.state.noOfSeats === 0 ? 1 : location.state.noOfSeats;
+      window.scrollTo(0, 0);
 
-    window.scrollTo(0, 0);
+      constructPassengers(noOfSeats);
+    }
 
-    constructPassengers(noOfSeats);
 
-  }, [navigate, location.state]);
+  }, [navigate]);
 
   useEffect(() => {
 
-    const noOfSeats = location.state.noOfSeats === 0 ? 1 : location.state.noOfSeats;
-    constructPassengers(noOfSeats);
+    if (location.state === null) {
+      navigate("/");
+    }
+    else {
+      const noOfSeats = location.state.noOfSeats === 0 ? 1 : location.state.noOfSeats;
+      constructPassengers(noOfSeats);
+    }
 
-  }, [language]);
+  }, [language, subTrips, returnSubTrips]);
 
   return (
     <main>

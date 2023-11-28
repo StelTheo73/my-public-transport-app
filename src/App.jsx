@@ -19,7 +19,9 @@ function App() {
   const [language, setLanguage] = useState("GR");
   const [stations, setStations] = useState({});
   const [selectedTrip, setSelectedTrip] = useState({});
-  const [selectedReturnTrip, setSelectedReturnTrip] = useState({})
+  const [selectedReturnTrip, setSelectedReturnTrip] = useState({});
+  const [subTrips, setSubTrips] = useState([]);
+  const [returnSubTrips, setReturnSubTrips] = useState([]);
 
   const location = useLocation();
 
@@ -86,6 +88,8 @@ function App() {
                 setSelectedTrip={setSelectedTrip}
                 selectedReturnTrip={selectedReturnTrip}
                 setSelectedReturnTrip={setSelectedReturnTrip}
+                setSubTrips={setSubTrips}
+                setReturnSubTrips={setReturnSubTrips}
                 />
             } />
             <Route path="reservation" element={
@@ -95,6 +99,10 @@ function App() {
                 stations={stations}
                 selectedTrip={selectedTrip}
                 selectedReturnTrip={selectedReturnTrip}
+                subTrips={subTrips}
+                setSubTrips={setSubTrips}
+                returnSubTrips={returnSubTrips}
+                setReturnSubTrips={setReturnSubTrips}
                 />
             } />
             <Route path="passengers" element={
@@ -104,8 +112,8 @@ function App() {
                 stations={stations}
                 selectedTrip={selectedTrip}
                 selectedReturnTrip={selectedReturnTrip}
-                // subTrips={[]}
-                // returnSubTrips={[]}
+                subTrips={subTrips}
+                returnSubTrips={returnSubTrips}
                 />
             }  />
             <Route path="contact" element={

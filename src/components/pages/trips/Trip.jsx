@@ -17,7 +17,7 @@ import {
 
 
 export const Trip = ({language, trip, stations,
-    _selectedTrip, _setSelectedTrip
+    _selectedTrip, _setSelectedTrip, setSubTrips
 }) => {
 
     const toggleDetails = (targetId, event) => {
@@ -28,6 +28,7 @@ export const Trip = ({language, trip, stations,
 
     const confirmTrip = () => {
         _setSelectedTrip(trip);
+        setSubTrips([]);
     };
 
     useEffect(() => {
@@ -151,5 +152,7 @@ Trip.propTypes = {
     // Selected trip
     _selectedTrip: PropTypes.object.isRequired,
     // Set selected trip
-    _setSelectedTrip: PropTypes.func.isRequired
+    _setSelectedTrip: PropTypes.func.isRequired,
+    // Reset subTrips if selected trip changes
+    setSubTrips: PropTypes.func.isRequired
 }

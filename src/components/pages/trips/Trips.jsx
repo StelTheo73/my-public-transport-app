@@ -25,7 +25,8 @@ import { DEFAULT_TRANSITION_TIMEOUT } from "../../../env/constants.js";
 export const Trips = ({
         language, searchParameters, stations,
         selectedTrip, setSelectedTrip,
-        selectedReturnTrip, setSelectedReturnTrip
+        selectedReturnTrip, setSelectedReturnTrip,
+        setSubTrips, setReturnSubTrips
     }) => {
     const navigate = useNavigate();
     const [url, setUrl] = useState("");
@@ -195,6 +196,7 @@ export const Trips = ({
                         stations={stations}
                         _selectedTrip={selectedTrip}
                         _setSelectedTrip={setSelectedTrip}
+                        setSubTrips={setSubTrips}
                     />
                 ))}
 
@@ -207,6 +209,7 @@ export const Trips = ({
                         stations={stations}
                         _selectedTrip={selectedReturnTrip}
                         _setSelectedTrip={setSelectedReturnTrip}
+                        setSubTrips={setReturnSubTrips}
                     />
                 ))}
 
