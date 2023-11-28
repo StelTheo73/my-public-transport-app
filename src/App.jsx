@@ -12,6 +12,7 @@ import { Reservation } from "./components/pages/reservation/Reservation";
 import { Sidebar } from "./components/Sidebar";
 import { Trips } from "./components/pages/trips/Trips";
 import { Navigate } from "react-router-dom/dist/index.js";
+import { Payment } from "./components/pages/payment/Payment.jsx";
 
 function App() {
   const [searchParameters, setSearchParameters] = useState({});
@@ -116,6 +117,9 @@ function App() {
                 returnSubTrips={returnSubTrips}
                 />
             }  />
+            <Route path="payment" element={
+                <Payment language={language}/>
+            } />
             <Route path="contact" element={
                 <Contact language={language}/>
             } />

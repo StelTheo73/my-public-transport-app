@@ -1,13 +1,8 @@
 import PropTypes from "prop-types";
 import { BrowserView } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
-import {
-    FaChevronDown, FaArrowRight,
-}
-from "react-icons/fa";
-
+import {FaChevronDown, FaArrowRight,} from "react-icons/fa";
 import "./Trip.css";
-
 import textObject from "../../../assets/language/trips.json";
 import { useEffect } from "react";
 
@@ -125,7 +120,9 @@ export const Trip = ({language, trip, stations,
                                 ({subTrip.startTime})
                             </span>
                         </div>
-                        <div className="col-4 col-sm-2 d-flex align-items-center justify-content-center"><FaArrowRight/></div>
+                        <div className="col-4 col-sm-2 d-flex align-items-center justify-content-center">
+                            <FaArrowRight/>
+                        </div>
                         <div className="col-4 d-flex flex-column align-items-center justify-content-center">
                             <span>
                                 {stations.stations[subTrip.arrivalStationId][language]}

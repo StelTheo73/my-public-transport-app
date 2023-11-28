@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { FaPersonHalfDress } from "react-icons/fa6";
-import { MdPayment } from "react-icons/md";
+import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 import { ContactForm } from "./ContactForm.jsx";
 
 import { TICKET_CATEGORIES } from "../../../env/constants";
@@ -75,6 +74,7 @@ export const Passengers = ({
         <div className="mt-1">
           <label
             className="form-label required"
+            htmlFor={`passenger-name-${passengerId}`}
             >{textObject.passengerName[language]}
           </label>
           <input
@@ -173,12 +173,12 @@ export const Passengers = ({
                         onClick={() => {
                             navigate("/reservation")
                         }}
-                    >
+            >
                         <FaArrowLeft className="me-2"/>
                         <span>
-                            {textObject.passengers[language]}
+                            {textObject.reservation[language]}
                         </span>
-                        <FaPersonHalfDress className="ms-2"/>
+                    <MdAirlineSeatReclineExtra className="me-2"/>
                     </button>
                 </div>
                 <div className="col-12 col-sm-6 d-flex justify-content-end">
@@ -187,6 +187,7 @@ export const Passengers = ({
                         className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                         onClick={() => {
                             validateForm();
+                            navigate("/payment");
                         }}
                     >
                         <MdPayment className="mb-1 me-2"/>
