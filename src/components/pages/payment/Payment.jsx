@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import "./Payment.css"
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -5,7 +7,9 @@ import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 // import textObject from "../../../assets/language/passengers.json";
 
 
-export const Payment = ({language}) =>{
+export const Payment = ({
+    language, passengers
+}) =>{
   const navigate = useNavigate();
 
   return (
@@ -44,7 +48,7 @@ export const Payment = ({language}) =>{
             </div>
         </div>
         {/* End navigation buttons */}
-    
+
         <div className="container d-flex align-items-center justify-content-center mt-3">
             <h3 id="page-header">Δυνατότητες πληρωμής</h3>
         </div>
@@ -52,7 +56,7 @@ export const Payment = ({language}) =>{
         <div className="d-flex justify-content-between flex-wrap">
             {[1,2,3,4]}
         </div>
-        
+
         <div className="container d-flex align-items-center justify-content-center mt-3">
             <h3 id="page-header">Στοιχεία</h3>
         </div>
@@ -122,3 +126,8 @@ export const Payment = ({language}) =>{
     </div>
   </main>
 )};
+
+Payment.propTypes = {
+    language: PropTypes.string.isRequired,
+    passengers: PropTypes.array.isRequired
+};

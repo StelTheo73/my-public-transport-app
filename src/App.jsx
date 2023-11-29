@@ -25,7 +25,7 @@ function App() {
   const [selectedReturnTrip, setSelectedReturnTrip] = useState({});
   const [subTrips, setSubTrips] = useState([]);
   const [returnSubTrips, setReturnSubTrips] = useState([]);
-  const [passengers, setPassengers] = useState([]);
+  const [passengers, setPassengers] = useState({});
   const [noOfSeats, setNoOfSeats] = useState(-1);
 
   const location = useLocation();
@@ -127,7 +127,10 @@ function App() {
                 />
             }  />
             <Route path="payment" element={
-                <Payment language={language}/>
+                <Payment
+                  language={language}
+                  passengers={passengers}
+                />
             } />
             <Route path="contact" element={
                 <Contact language={language}/>

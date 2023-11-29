@@ -73,37 +73,38 @@ export const Reservation = ({
         if (!searchParameters?.tripType || !selectedTrip?.tripId || !stations?.stations ||
             (searchParameters?.tripType.value === "returningTrip" && !selectedReturnTrip?.tripId)) {
             navigate("/");
-            return undefined;
-        }
-
-        window.scrollTo(0, 0);
-
-        if (subTrips.length === 0) {
-            constructSubTrips(selectedTrip, stations.stations).then((_subTrips, error) => {
-                if (_subTrips === undefined) {
-                    setError(error);
-                }
-                setSubTrips(_subTrips);
-            });
         }
         else {
-            setActiveTrip(subTrips[0]);
-        }
-        setLoading(false);
+            window.scrollTo(0, 0);
 
-        if (searchParameters?.tripType.value === "returningTrip") {
-            if (returnSubTrips.length === 0) {
-                constructSubTrips(selectedReturnTrip, stations.stations).then((_subTrips, error) => {
+            if (subTrips.length === 0) {
+                constructSubTrips(selectedTrip, stations.stations).then((_subTrips, _error) => {
                     if (_subTrips === undefined) {
-                        setReturnError(error);
+                        setError(_error);
                     }
-                    setReturnSubTrips(_subTrips);
+                    setSubTrips(_subTrips);
                 });
             }
-            setReturnLoading(false);
+            else {
+                setActiveTrip(subTrips[0]);
+            }
+            setLoading(false);
+
+            if (searchParameters?.tripType.value === "returningTrip") {
+                if (returnSubTrips.length === 0) {
+                    constructSubTrips(selectedReturnTrip, stations.stations).then((_subTrips, _error) => {
+                        if (_subTrips === undefined) {
+                            setReturnError(_error);
+                        }
+                        setReturnSubTrips(_subTrips);
+                    });
+                }
+                setReturnLoading(false);
+            }
+
+            // setActiveTrip({});
         }
 
-        // setActiveTrip({});
     }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
 
     const validateSelectedSeats = () => {
