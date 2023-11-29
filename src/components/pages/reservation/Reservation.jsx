@@ -42,7 +42,8 @@ const constructSubTrips = async (_selectedTrip, stations) => {
             seats: seats.data,
             startTime: subTrip.startTime,
             arrivalTime: subTrip.arrivalTime,
-            selectedSeats: selectedSeats
+            selectedSeats: selectedSeats,
+            basicCost: subTrip.basicCost
         });
     }
 
@@ -53,7 +54,8 @@ export const Reservation = ({
     language, stations, searchParameters,
     selectedTrip, selectedReturnTrip,
     subTrips, setSubTrips,
-    returnSubTrips, setReturnSubTrips
+    returnSubTrips, setReturnSubTrips,
+    setNoOfSeats
 }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -96,11 +98,10 @@ export const Reservation = ({
                         setReturnError(error);
                     }
                     setReturnSubTrips(_subTrips);
-                })
+                });
             }
             setReturnLoading(false);
         }
-
 
         // setActiveTrip({});
     }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
@@ -109,11 +110,11 @@ export const Reservation = ({
         setErrorMessage("");
         setErrorDescription("");
 
-        let tripsWithSeats = [];
+        const tripsWithSeats = [];
         let errorFound = false;
 
         for (const subTrip of subTrips) {
-            const sum = Object.keys(subTrip.selectedSeats).map((wagonId) => {
+            const sum = Object.keys(subTrip.selectedSeats).map(wagonId => {
                 return subTrip.selectedSeats[wagonId].length;
             }).reduce((accumulator, currentValue) => {
                 return accumulator + currentValue;
@@ -130,7 +131,7 @@ export const Reservation = ({
         }
 
         for (const subTrip of returnSubTrips) {
-            const sum = Object.keys(subTrip.selectedSeats).map((wagonId) => {
+            const sum = Object.keys(subTrip.selectedSeats).map(wagonId => {
                 return subTrip.selectedSeats[wagonId].length;
             }).reduce((accumulator, currentValue) => {
                 return accumulator + currentValue;
@@ -146,24 +147,25 @@ export const Reservation = ({
             }
         }
 
-        let seatsNo = 0;
-        tripsWithSeats.forEach((trip) => {
-            if (seatsNo === 0) {
+        let seatsNo = -1;
+        tripsWithSeats.forEach(trip => {
+            // Case: first trip
+            if (seatsNo === -1) {
                 seatsNo = trip.noOfSeats;
             }
             // Different number of seats selected
             else if (seatsNo !== trip.noOfSeats) {
                     setErrorMessage("Παρακαλώ επιλέξτε τον ίδιο αριθμό θέσεων για όλα τα ταξίδια");
 
-                    let _errorDescription = [];
+                    const _errorDescription = [];
                     _errorDescription.push({header: "Θέσεις ανά δρομολόγιο:"});
 
-                    tripsWithSeats.forEach((trip) => {
+                    tripsWithSeats.forEach(_trip => {
                         _errorDescription.push({
-                            tripId: trip.tripId,
-                            startStation: trip.startStation,
-                            arrivalStation: trip.arrivalStation,
-                            noOfSeats: trip.noOfSeats
+                            tripId: _trip.tripId,
+                            startStation: _trip.startStation,
+                            arrivalStation: _trip.arrivalStation,
+                            noOfSeats: _trip.noOfSeats
                         });
                     });
                     setErrorDescription(_errorDescription);
@@ -179,19 +181,11 @@ export const Reservation = ({
             return;
         }
 
-
         if (errorFound === false) {
-            console.log(subTrips)
-            navigate("/passengers"
-            , {
-                state: {
-                    // subTrips: subTrips.concat(returnSubTrips),
-                    noOfSeats: seatsNo
-                }
-            }
-            );
+            setNoOfSeats(seatsNo);
+            navigate("/passengers");
         }
-    }
+    };
 
   return (
     <main>
@@ -214,17 +208,17 @@ export const Reservation = ({
                     {errorDescription && <>
                         <hr></hr>
                         <div className="d-flex flex-column">
-                            {errorDescription.map((element) => {
+                            {errorDescription.map(element => {
                                 if (element?.header) {
                                     return <span key="seat-error-header" className="fw-bold">
                                         {element?.header}
-                                    </span>
+                                    </span>;
                                 }
                                 else {
                                     return <span key={`seat-error-trip-${element?.tripId}`}>
                                         {element?.startStation[language]} - {element?.arrivalStation[language]}:
                                         &nbsp;{element?.noOfSeats}
-                                    </span>
+                                    </span>;
                                 }
                             })}
                         </div>
@@ -241,7 +235,7 @@ export const Reservation = ({
                     <button
                         className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
                         onClick={() => {
-                            navigate("/trips")
+                            navigate("/trips");
                         }}
                     >
                         <FaArrowLeft className="me-2"/>
@@ -376,7 +370,7 @@ export const Reservation = ({
         {/* End seat selector */}
 
     </main>
-  )
+  );
 }
 
 Reservation.propTypes = {
@@ -395,5 +389,6 @@ Reservation.propTypes = {
     subTrips: PropTypes.array.isRequired,
     setSubTrips: PropTypes.func.isRequired,
     returnSubTrips: PropTypes.array.isRequired,
-    setReturnSubTrips: PropTypes.func.isRequired
-}
+    setReturnSubTrips: PropTypes.func.isRequired,
+    setNoOfSeats: PropTypes.func.isRequired
+};

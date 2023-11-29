@@ -11,11 +11,10 @@ main .passenger-contact-wrapper {
     border-radius: 1em;
 }
 
-main .passenger-wrapper .form-control:focus,
-main .passenger-wrapper .form-select:focus,
-main .passenger-contact-wrapper .form-control:focus,
-main .passenger-contact-wrapper .form-select:focus
+main .passenger-wrapper .passenger-ticket-price > span,
+main .passenger-wrapper .passenger-seat-numbers > span > span
 {
-    border: 2px solid var(--bs-primary);
-    box-shadow: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--bs-primary);
 }

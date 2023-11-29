@@ -23,6 +23,10 @@
         "EN": "Ticket Type",
         "GR": "Τύπος Εισιτηρίου"
     },
+    "reservation": {
+        "EN": "Seats",
+        "GR": "Θέσεις"
+    },
     "contactInfo": {
         "EN": "Contact Info",
         "GR": "Στοιχεία Επικοινωνίας"
@@ -54,9 +58,5 @@
     "contactCountry": {
         "EN": "Country",
         "GR": "Χώρα"
-    },
-    "reservation": {
-        "EN": "Seats",
-        "GR": "Θέσεις"
     }
 }

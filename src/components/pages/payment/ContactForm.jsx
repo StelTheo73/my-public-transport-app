@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+import textObject from "../../../assets/language/payment.json";
+
 export const ContactForm = ({language, textObject}) => {
     return (
         <div className="container-fluid passenger-contact-wrapper p-3">

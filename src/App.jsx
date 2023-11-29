@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
+import { BS_SMALL, BS_MEDIUM } from "./env/constants";
+
 import "./App.css";
 
 import { Contact } from "./components/pages/contact/Contact.jsx";
@@ -23,32 +25,34 @@ function App() {
   const [selectedReturnTrip, setSelectedReturnTrip] = useState({});
   const [subTrips, setSubTrips] = useState([]);
   const [returnSubTrips, setReturnSubTrips] = useState([]);
+  const [passengers, setPassengers] = useState([]);
+  const [noOfSeats, setNoOfSeats] = useState(-1);
 
   const location = useLocation();
 
   // Hide elements when screen is small
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 576) {
-        document.querySelectorAll(".hide-small").forEach((element) => {
+      if (window.innerWidth <= BS_SMALL) {
+        document.querySelectorAll(".hide-small").forEach(element => {
           element.classList.add("hide");
-        })
+        });
       }
       else {
-        document.querySelectorAll(".hide-small").forEach((element) => {
+        document.querySelectorAll(".hide-small").forEach(element => {
           element.classList.remove("hide");
-        })
+        });
       }
 
-      if (window.innerWidth <= 768) {
-        document.querySelectorAll(".hide-medium").forEach((element) => {
+      if (window.innerWidth <= BS_MEDIUM) {
+        document.querySelectorAll(".hide-medium").forEach(element => {
           element.classList.add("hide");
-        })
+        });
       }
       else {
-        document.querySelectorAll(".hide-medium").forEach((element) => {
+        document.querySelectorAll(".hide-medium").forEach(element => {
           element.classList.remove("hide");
-        })
+        });
       }
 
     };
@@ -104,6 +108,7 @@ function App() {
                 setSubTrips={setSubTrips}
                 returnSubTrips={returnSubTrips}
                 setReturnSubTrips={setReturnSubTrips}
+                setNoOfSeats={setNoOfSeats}
                 />
             } />
             <Route path="passengers" element={
@@ -115,6 +120,10 @@ function App() {
                 selectedReturnTrip={selectedReturnTrip}
                 subTrips={subTrips}
                 returnSubTrips={returnSubTrips}
+                passengers={passengers}
+                setPassengers={setPassengers}
+                noOfSeats={noOfSeats}
+                setNoOfSeats={setNoOfSeats}
                 />
             }  />
             <Route path="payment" element={

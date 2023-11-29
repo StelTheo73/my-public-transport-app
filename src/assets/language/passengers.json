@@ -23,37 +23,9 @@
         "EN": "Ticket Type",
         "GR": "Τύπος Εισιτηρίου"
     },
-    "contactInfo": {
-        "EN": "Contact Info",
-        "GR": "Στοιχεία Επικοινωνίας"
-    },
-    "contactName": {
-        "EN": "Name",
-        "GR": "Όνομα"
-    },
-    "contactPhone": {
-        "EN": "Phone",
-        "GR": "Τηλέφωνο"
-    },
-    "contactEmail": {
-        "EN": "Email",
-        "GR": "Email"
-    },
-    "contactAddress": {
-        "EN": "Address",
-        "GR": "Διεύθυνση"
-    },
-    "contactCity": {
-        "EN": "City",
-        "GR": "Πόλη"
-    },
-    "contactZip": {
-        "EN": "Zip Code",
-        "GR": "Ταχ. Κώδικας"
-    },
-    "contactCountry": {
-        "EN": "Country",
-        "GR": "Χώρα"
+    "ticketPrice": {
+        "EN": "Ticket Price",
+        "GR": "Τιμή Εισιτηρίου"
     },
     "reservation": {
         "EN": "Seats",

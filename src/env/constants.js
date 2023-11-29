@@ -1,12 +1,24 @@
+// BREAKPOINTS
+export const BS_SMALL = 576;
+export const BS_MEDIUM = 768;
+export const BS_LARGE = 992;
+export const BS_EXTRA_LARGE = 1200;
+export const BS_EXTRA_EXTRA_LARGE = 1400;
+// END BREAKPOINTS
+
+// TIME CONSTANTS
 export const DEFAULT_TRANSITION_TIMEOUT = 300;
 
+// END TIME CONSTANTS
+
+// TICKET CATEGORIES
 export const TICKET_CATEGORIES = [
     {
       GR: "Στρατιωτικό",
       EN: "Army",
       value: "army",
       discount: 0.25,
-      priority: 8,
+      priority: 9,
     },
     {
       GR: "Παιδικό έως 12 ετών",
@@ -34,7 +46,7 @@ export const TICKET_CATEGORIES = [
       EN: "FIP members",
       value: "fipCard",
       discount: 0.5,
-      priority: 9,
+      priority: 10,
     },
     {
       GR: "Κανονικό",
@@ -48,6 +60,7 @@ export const TICKET_CATEGORIES = [
       EN: "Multi-child",
       value: "multiChild",
       discount: 0.5,
+      priority: 8,
     },
     {
       GR: "Κάτοχοι μαθητικής κάρτας",
@@ -61,7 +74,7 @@ export const TICKET_CATEGORIES = [
       EN: "Rail Plus members",
       value: "railPlus",
       discount: 0.15,
-      priority: 10,
+      priority: 11,
     },
     {
       GR: "Φοιτητικό 25%",
@@ -77,4 +90,5 @@ export const TICKET_CATEGORIES = [
       discount: 0.5,
       priority: 5,
     }
-]
+];
+// END TICKET CATEGORIES
