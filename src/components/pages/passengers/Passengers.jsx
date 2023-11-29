@@ -1,27 +1,65 @@
 import PropTypes from "prop-types";
 
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Select from "react-select";
 
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import {
+  FaArrowLeft, FaArrowRight,
+  FaBus, FaTrain, FaTrashAlt
+} from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 
 import { TICKET_CATEGORIES } from "../../../env/constants";
 import textObject from "../../../assets/language/passengers.json";
 import "./Passengers.css";
 
+
+const PassengerSeats = ({ language, passenger, allSubTrips }) => {
+  const { passengerId, passengerSeats } = passenger;
+
+  return (
+    <div>
+      {textObject.seats[language]}:&nbsp;
+      {passengerSeats?.map(passengerSeat => {
+        const subTrip = allSubTrips.find(_subTrip => _subTrip.tripId === passengerSeat?.tripId);
+        const vehicleType = subTrip.trainId.startsWith("B") ? "bus" : "train";
+
+        return (
+          passengerSeat?.seatNumber !== "0" && (
+            <div
+              key={`passenger-seat-${passengerId}-${passengerSeat?.tripId}-${passengerSeat?.wagonId}-${passengerSeat?.seatNumber}`}
+              className="d-flex align-items-center"
+            >
+              {vehicleType === "bus" && <FaBus className="vehicle-icon me-1"/>}
+              {vehicleType === "train" && <FaTrain className="vehicle-icon me-1"/>}
+              <span className="station-names">
+                {subTrip.startStation[language]} <FaArrowRight className="mx-1"/> {subTrip.arrivalStation[language]}:
+              </span>
+              &nbsp;
+              <span className="passenger-seat">
+                {passengerSeat?.wagonId}/
+                {passengerSeat?.seatNumber}
+              </span>
+            </div>
+          )
+        );
+      })}
+    </div>
+  );
+};
+
+
 export const Passengers = ({
   language, subTrips, returnSubTrips,
   passengers, setPassengers,
   noOfSeats, setNoOfSeats
 }) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const [allSubTrips, setAllSubTrips] = useState([...subTrips, ...returnSubTrips]);
   const [passengersDiv, setPassengersDiv] = useState([]);
-  // const [passengers, setPassengers] = useState({});
+  const [displayConfirmation, setDisplayConfirmation] = useState(false);
 
   /**
    * Calculates the ticket price for a passenger.
@@ -109,7 +147,7 @@ export const Passengers = ({
           </span>
         </div>
 
-        <div className="mt-1">
+        <div className="mt-2">
           <label
             className="form-label required"
             htmlFor={`passenger-name-${passengerId}`}
@@ -127,7 +165,7 @@ export const Passengers = ({
           </input>
         </div>
 
-        <div className="mt-1">
+        <div className="mt-2">
           <label
             className="form-label required"
             htmlFor={`ticket-type-${passengerId}`}
@@ -145,20 +183,22 @@ export const Passengers = ({
             isSearchable={false}
           />
         </div>
-
         <div className="mt-2">
-            <span className="passenger-seat-numbers">Θέσεις:&nbsp;<span>{
-                passengers[passengerId]?.passengerSeats &&
-                passengers[passengerId].passengerSeats.map((passengerSeat, index) => {
-                  return (
-                    passengerSeat.seatNumber !== "0" &&
-                      <span
-                        key={`passenger-seat-${passengerId}-${passengerSeat.tripId}-${passengerSeat.wagonId}-${passengerSeat.seatNumber}`}>
-                        {passengerSeat.seatNumber}
-                        {index < passengers[passengerId].passengerSeats.length - 1 && ", "}
-                      </span>
-                );})}</span>
-            </span>
+          <PassengerSeats
+            language={language}
+            passenger={passengers[passengerId] || {}}
+            allSubTrips={allSubTrips}
+          />
+        </div>
+
+        <div className="mt-2 mx-2 d-flex justify-content-end">
+          <button
+            id={`delete-passenger-${passengerId}`}
+            className="btn btn-danger"
+            onClick={() => handleDeletePassenger(passengerId)}
+          >
+          <FaTrashAlt className="me-1"/>
+          </button>
         </div>
 
       </div>
@@ -170,14 +210,46 @@ export const Passengers = ({
    * @param {number} noOfSeats - The number of seats.
    * @returns {undefined}
   */
-  const constructPassengers = noOfSeats => {
-    const passengersDivsArray = [];
+  const constructPassengers = () => {
+    const passengersDivArray = [];
 
     // Construct a passenger element for each passenger
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
-      passengersDivsArray.push(constructPassengerElement(passengerId));
+      passengersDivArray.push(constructPassengerElement(passengerId));
     }
-    setPassengersDiv(passengersDivsArray);
+    setPassengersDiv(passengersDivArray);
+  };
+
+  /**
+   * Deletes a passenger.
+   * @param {number} passengerId - The passenger id.
+   * @returns {undefined}
+  */
+  const handleDeletePassenger = passengerId => {
+    const newPassengers = { ...passengers };
+
+    const passengerSeats = newPassengers[passengerId].passengerSeats;
+
+    // TODO: FIX THIS
+    for (const { tripId, wagonId, seatNumber } of passengerSeats) {
+      const subTrip = subTrips.find(_subTrip => _subTrip.tripId === tripId);
+
+      console.log(subTrip);
+      subTrip.selectedSeats = subTrip.selectedSeats[wagonId].filter(_seatNumber => _seatNumber !== seatNumber);
+      console.log(subTrip);
+
+      // const _returnSubTrips = returnSubTrips.find(
+        // _subTrip => _subTrip.tripId === tripId
+      // ).selectedSeats[wagonId].filter(_seatNumber => _seatNumber !== seatNumber);
+
+      // console.log(_subTrips, _returnSubTrips);
+    }
+
+      // Delete the passenger
+      delete newPassengers[passengerId];
+
+      setPassengers(newPassengers);
+      setNoOfSeats(noOfSeats - 1);
   };
 
   /**
@@ -196,7 +268,7 @@ export const Passengers = ({
    *  basicCost: <number>,
    * }
   */
-  const createSeats = noOfSeats => {
+  const createSeats = () => {
     const subTripsWithSeats = [];
 
     for (const subTrip of allSubTrips) {
@@ -294,9 +366,9 @@ export const Passengers = ({
    * passengers: An array of passenger objects
    * as described in createPassengerObject.
   */
-  const createPassengerObjects = noOfSeats => {
+  const createPassengerObjects = () => {
     const tempPassengers = {};
-    const seatsPerWagon = createSeats(noOfSeats);
+    const seatsPerWagon = createSeats();
 
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
       tempPassengers[passengerId] = createPassengerObject(passengerId, seatsPerWagon);
@@ -337,7 +409,7 @@ export const Passengers = ({
     else {
       window.scrollTo(0, 0);
 
-      createPassengerObjects(noOfSeats);
+      createPassengerObjects();
     }
 
   }, [navigate]);
@@ -348,13 +420,14 @@ export const Passengers = ({
       navigate("/");
     }
     else {
-      constructPassengers(noOfSeats);
+      constructPassengers();
     }
 
   }, [language, subTrips, returnSubTrips, passengers]);
 
   return (
     <main>
+
         {/* Navigation buttons */}
         <div className="container-fluid sticky-container">
             <div className="row">
@@ -365,7 +438,7 @@ export const Passengers = ({
                       >
                         <FaArrowLeft className="me-2"/>
                         <span>
-                            {textObject.reservation[language]}
+                            {textObject.seats[language]}
                         </span>
                     <MdAirlineSeatReclineExtra className="ms-2"/>
                     </button>
@@ -399,7 +472,7 @@ export const Passengers = ({
         <div
           className="d-flex justify-content-between flex-wrap"
         >
-          {passengersDiv && passengersDiv.map((passengersDiv) => (passengersDiv))}
+          {passengersDiv && passengersDiv.map(passengersDiv => (passengersDiv))}
         </div>
     </main>
   );
@@ -413,4 +486,10 @@ Passengers.propTypes = {
   setPassengers: PropTypes.func.isRequired,
   noOfSeats: PropTypes.number.isRequired,
   setNoOfSeats: PropTypes.func.isRequired,
+};
+
+PassengerSeats.propTypes = {
+  language: PropTypes.string.isRequired,
+  passenger: PropTypes.object.isRequired,
+  allSubTrips: PropTypes.array.isRequired,
 };

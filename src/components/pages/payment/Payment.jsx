@@ -125,9 +125,9 @@ export const Payment = ({
         </div> */}
     </div>
   </main>
-)};
+);};
 
 Payment.propTypes = {
     language: PropTypes.string.isRequired,
-    passengers: PropTypes.array.isRequired
+    passengers: PropTypes.object.isRequired
 };

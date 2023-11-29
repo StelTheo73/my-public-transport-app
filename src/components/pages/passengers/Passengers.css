@@ -1,7 +1,7 @@
 main .passenger-wrapper {
     width: 100%;
     min-width: 20em;
-    max-width: 30em;
+    max-width: 25em;
     box-shadow: var(--default-box-shadow);
     border-radius: 1em;
 }
@@ -11,10 +11,21 @@ main .passenger-contact-wrapper {
     border-radius: 1em;
 }
 
-main .passenger-wrapper .passenger-ticket-price > span,
-main .passenger-wrapper .passenger-seat-numbers > span > span
-{
+main .passenger-wrapper .passenger-ticket-price > span {
     font-size: 1.2em;
     font-weight: bold;
+    color: var(--bs-primary);
+}
+
+main .passenger-wrapper .station-names {
+    font-size: small;
+}
+
+main .passenger-wrapper .passenger-seat {
+    font-weight: bold;
+    color: var(--bs-primary);
+}
+
+main .passenger-wrapper .vehicle-icon {
     color: var(--bs-primary);
 }

@@ -27,8 +27,12 @@
         "EN": "Ticket Price",
         "GR": "Τιμή Εισιτηρίου"
     },
-    "reservation": {
+    "seats": {
         "EN": "Seats",
         "GR": "Θέσεις"
+    },
+    "deletePassenger": {
+        "EN": "Remove Passenger",
+        "GR": "Αφαίρεση Επιβάτη"
     }
 }
