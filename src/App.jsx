@@ -119,7 +119,9 @@ function App() {
                 selectedTrip={selectedTrip}
                 selectedReturnTrip={selectedReturnTrip}
                 subTrips={subTrips}
+                setSubTrips={setSubTrips}
                 returnSubTrips={returnSubTrips}
+                setReturnSubTrips={setReturnSubTrips}
                 passengers={passengers}
                 setPassengers={setPassengers}
                 noOfSeats={noOfSeats}

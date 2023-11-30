@@ -50,16 +50,16 @@ const PassengerSeats = ({ language, passenger, allSubTrips }) => {
   );
 };
 
-
 export const Passengers = ({
-  language, subTrips, returnSubTrips,
+  language,
+  subTrips, setSubTrips,
+  returnSubTrips, setReturnSubTrips,
   passengers, setPassengers,
   noOfSeats, setNoOfSeats
 }) => {
   const navigate = useNavigate();
   const [allSubTrips, setAllSubTrips] = useState([...subTrips, ...returnSubTrips]);
   const [passengersDiv, setPassengersDiv] = useState([]);
-  const [displayConfirmation, setDisplayConfirmation] = useState(false);
 
   /**
    * Calculates the ticket price for a passenger.
@@ -227,29 +227,82 @@ export const Passengers = ({
   */
   const handleDeletePassenger = passengerId => {
     const newPassengers = { ...passengers };
+    const newSubTrips = [...subTrips];
+    const newReturnSubTrips = [...returnSubTrips];
 
     const passengerSeats = newPassengers[passengerId].passengerSeats;
 
-    // TODO: FIX THIS
+    // Delete the seats from the sub trips
     for (const { tripId, wagonId, seatNumber } of passengerSeats) {
-      const subTrip = subTrips.find(_subTrip => _subTrip.tripId === tripId);
+      const subTrip = newSubTrips.find(_subTrip => _subTrip.tripId === tripId);
 
-      console.log(subTrip);
-      subTrip.selectedSeats = subTrip.selectedSeats[wagonId].filter(_seatNumber => _seatNumber !== seatNumber);
-      console.log(subTrip);
+      if (!subTrip) {
+        continue;
+      }
 
-      // const _returnSubTrips = returnSubTrips.find(
-        // _subTrip => _subTrip.tripId === tripId
-      // ).selectedSeats[wagonId].filter(_seatNumber => _seatNumber !== seatNumber);
+      const wagons = Object.keys(subTrip.selectedSeats);
+      // Case: This vehicle does not support seat selection ||
+      //       the wagon does not belong to this vehicle
+      if (wagons.length === 0 || !wagons.includes(wagonId)) {
+        continue;
+      }
 
-      // console.log(_subTrips, _returnSubTrips);
+      // Case: The seat does not belong to this wagon
+      const seats = subTrip.selectedSeats[wagonId];
+      if (seats.length === 0 || !seats.includes(seatNumber)) {
+        continue;
+      }
+
+      // Delete the seat
+      for (const newSubTrip of newSubTrips) {
+        if (newSubTrip.tripId === tripId) {
+          newSubTrip.selectedSeats[wagonId] = seats.filter(_seatNumber => _seatNumber !== seatNumber);
+        }
+      }
     }
 
-      // Delete the passenger
-      delete newPassengers[passengerId];
+    // Delete the seats from the return sub trips
+    for (const { tripId, wagonId, seatNumber } of passengerSeats) {
+      const subTrip = newReturnSubTrips.find(_subTrip => _subTrip.tripId === tripId);
 
-      setPassengers(newPassengers);
-      setNoOfSeats(noOfSeats - 1);
+      if (!subTrip) {
+        continue;
+      }
+
+      const wagons = Object.keys(subTrip.selectedSeats);
+      // Case: This vehicle does not support seat selection ||
+      //       the wagon does not belong to this vehicle
+      if (wagons.length === 0 || !wagons.includes(wagonId)) {
+        continue;
+      }
+
+      // Case: The seat does not belong to this wagon
+      const seats = subTrip.selectedSeats[wagonId];
+      if (seats.length === 0 || !seats.includes(seatNumber)) {
+        continue;
+      }
+
+      // Delete the seat
+      for (const newSubTrip of newReturnSubTrips) {
+        if (newSubTrip.tripId === tripId) {
+          newSubTrip.selectedSeats[wagonId] = seats.filter(_seatNumber => _seatNumber !== seatNumber);
+        }
+      }
+    }
+
+    // Delete the passenger
+    delete newPassengers[passengerId];
+
+    // Update the sub trips
+    setSubTrips(newSubTrips);
+    setReturnSubTrips(newReturnSubTrips);
+    setAllSubTrips([...newSubTrips, ...newReturnSubTrips]);
+
+    // Update the number of seats
+    const previousNoOfSeats = noOfSeats;
+    setNoOfSeats(previousNoOfSeats - 1);
+
+    // Passengers will be updated with useEffect on seat change
   };
 
   /**
@@ -412,7 +465,7 @@ export const Passengers = ({
       createPassengerObjects();
     }
 
-  }, [navigate]);
+  }, [navigate, noOfSeats]);
 
   useEffect(() => {
 
@@ -420,6 +473,7 @@ export const Passengers = ({
       navigate("/");
     }
     else {
+      // createPassengerObjects();
       constructPassengers();
     }
 
@@ -469,11 +523,25 @@ export const Passengers = ({
         </div>
         {/* End header */}
 
-        <div
-          className="d-flex justify-content-between flex-wrap"
-        >
-          {passengersDiv && passengersDiv.map(passengersDiv => (passengersDiv))}
-        </div>
+        {!noOfSeats &&
+          <div className="d-flex flex-column align-items-center justify-content-center my-5">
+            <span>Δεν έχετε επιλέξει καμία θέση!</span>
+            <button
+              className="btn btn-warning mt-1"
+              onClick={() => navigate("/reservation")}
+            >Επιστροφή στην επιλογή θέσεων
+            </button>
+
+          </div>
+        }
+
+        {noOfSeats > 0 &&
+          <div
+            className="d-flex justify-content-between flex-wrap"
+          >
+            {passengersDiv && passengersDiv.map(passengersDiv => (passengersDiv))}
+          </div>
+        }
     </main>
   );
 };
@@ -481,7 +549,9 @@ export const Passengers = ({
 Passengers.propTypes = {
   language: PropTypes.string.isRequired,
   subTrips: PropTypes.array.isRequired,
+  setSubTrips: PropTypes.func.isRequired,
   returnSubTrips: PropTypes.array.isRequired,
+  setReturnSubTrips: PropTypes.func.isRequired,
   passengers: PropTypes.object.isRequired,
   setPassengers: PropTypes.func.isRequired,
   noOfSeats: PropTypes.number.isRequired,
