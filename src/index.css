@@ -106,3 +106,12 @@ main .form-select:focus
     border: 2px solid var(--bs-primary);
     box-shadow: none;
 }
+
+.default-shadow {
+    box-shadow:  var(--default-box-shadow);
+}
+
+.help-button:hover {
+    box-shadow: var(--default-box-shadow);
+    cursor: pointer;
+}

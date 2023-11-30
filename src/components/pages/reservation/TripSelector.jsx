@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+
 import { FaArrowRight, FaBus, FaTrain } from "react-icons/fa";
 
 import {
@@ -9,6 +10,7 @@ import {
     unMarkSelectedTrips
 }
 from "../../../utils/commonFunctionsDOM";
+
 import { useEffect } from "react";
 
 export const TripSelector = ({

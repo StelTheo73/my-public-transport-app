@@ -55,6 +55,6 @@ main #seat-error-message {
     z-index: 1;
 }
 
-main #seat-error-message #close-seat-error-message > svg{
+main #seat-error-message #close-seat-error-message > svg {
     font-size: x-large;
 }

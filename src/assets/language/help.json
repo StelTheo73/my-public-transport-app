@@ -1,0 +1,26 @@
+{
+    "common": {
+        "header": {
+            "EN": "Help",
+            "GR": "Βοήθεια"
+        },
+        "prevLabel": {
+            "EN": "Previous image",
+            "GR": "Προηγούμενη εικόνα"
+        },
+        "nextLabel": {
+            "EN": "Next image",
+            "GR": "Επόμενη εικόνα"
+        },
+        "close": {
+            "EN": "Close help",
+            "GR": "Κλείσιμο βοήθειας"
+        }
+    },
+    "reservation": {
+
+    },
+    "trips": {
+
+    }
+}
