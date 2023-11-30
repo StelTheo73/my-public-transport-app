@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaBus, FaTrain } from "react-icons/fa";
 
 import {
     showElement, markSelectedTrip,
@@ -78,24 +78,36 @@ export const TripSelector = ({
             {subTrips.map((subTrip) => (
                 <div
                     key={subTrip.trainId}
-                    className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1"
+                    className="col-6 col-sm-4 col-md-3 trip-selector-wrapper my-1 mx-2 p-1 d-flex flex-row"
                     style={{minWidth: "max-content"}}
                     id={`trip-selector-wrapper-${subTrip.tripId}`}
                     onClick={() => clickHandler(subTrip)}
                 >
-                    <div className="d-flex flex-column">
-                        <div className="text-center">
-                            {subTrip.startStation[language]}&nbsp;
-                            ({subTrip.startTime})
-                            <FaArrowRight className="ms-1"/>
+                    <div className="d-flex flex-column align-items-center justify-content-center mx-1">
+                        {subTrip.trainId.startsWith("B") ?
+                            <FaBus/> :
+                            <FaTrain/>
+                        }
+                    </div>
+
+                    <div className="flex-fill"
+                        style={{minWidth: "15em"}}
+                    >
+                        <div className="d-flex flex-column">
+                            <div className="text-center">
+                                {subTrip.startStation[language]}&nbsp;
+                                ({subTrip.startTime})
+                                <FaArrowRight className="ms-1"/>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column">
+                            <div className="text-center">
+                                {subTrip.arrivalStation[language]}&nbsp;
+                                ({subTrip.arrivalTime})
+                            </div>
                         </div>
                     </div>
-                    <div className="d-flex flex-column">
-                        <div className="text-center">
-                            {subTrip.arrivalStation[language]}&nbsp;
-                            ({subTrip.arrivalTime})
-                        </div>
-                    </div>
+
 
                 </div>
             ))}
