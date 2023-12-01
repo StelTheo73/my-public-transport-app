@@ -34,68 +34,56 @@ export const Trip = ({language, trip, stations,
 
     return (
         <>
-            {/* <div className="position-fixed top-50 hide" id="successful-message">
-                <div className="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong>
-                    <button
-                        className="btn-close" aria-label="Close"
-                        onClick={() => hideElement("successful-message")}>
-                    </button>
-                </div>
-            </div>
-            <div className="position-fixed top-50 hide" id="warning-message">
-                <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Warning!</strong>
-                    <button
-                        className="btn-close" aria-label="Close"
-                        onClick={() => hideElement("warning-message")}
-                        >
-                    </button>
-                </div>
-            </div> */}
-
+            {/* Trip Info */}
             <div
                 key={"trip-" + trip.tripId}
-                className="row mt-3 trip-wrapper" id={`trip-wrapper-${trip.tripId}`}
+                className="mt-3 trip-wrapper d-flex flex-column justify-content-center" id={`trip-wrapper-${trip.tripId}`}
                 onClick={() => confirmTrip(`trip-wrapper-${trip.tripId}`)}
                 data-tooltip-id={`trip-wrapper-${trip.tripId}`}
                 data-tooltip-content={textObject.tooltipSelect[language]}
                 data-tooltip-float
             >
-
                 <BrowserView className="BrowserView"><Tooltip id={`trip-wrapper-${trip.tripId}`}/></BrowserView>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.startTime || "unknown"}
-                </div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.arrivalTime || "unknown"}
-                </div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.interchanges.length || "0"}
-                </div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.duration || "unknown"}
-                </div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    {trip.basicCost || "unknown"}
-                </div>
-                <div className="col-2 px-1 px-sm-2 d-flex align-items-center justify-content-center">
-                    <button className="btn btn-link"
-                        onClick={(event) => {
-                            removeTooltip("trip-wrapper-" + trip.tripId);
-                            toggleDetails("trip-info-" + trip.tripId, event);
-                        }}
-                        onMouseEnter={() => setTooltipContent(
-                            "trip-wrapper-" + trip.tripId, textObject.tooltipInfo[language])}
-                        onMouseLeave={() => setTooltipContent(
-                            "trip-wrapper-" + trip.tripId, textObject.tooltipSelect[language])}
-                    >
-                        <FaChevronDown/>
-                    </button>
-                </div>
-                <BrowserView className="BrowserView"></BrowserView>
-            </div>
 
+                <div className="d-flex pb-0 align-items-center justify-content-between">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                        {trip.startTime || "unknown"}
+                    </div>
+                    {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
+                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360">
+                        {trip.interchanges.length || "0"}
+                    </div>
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                        {trip.arrivalTime || "unknown"}
+                    </div>
+                    {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
+                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360">
+                        {trip.duration || "unknown"}
+                    </div>
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                        {trip.basicCost || "unknown"}
+                    </div>
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                        <button className="btn btn-link btn-sm"
+                            onClick={(event) => {
+                                removeTooltip("trip-wrapper-" + trip.tripId);
+                                toggleDetails("trip-info-" + trip.tripId, event);
+                            }}
+                            onMouseEnter={() => setTooltipContent(
+                                "trip-wrapper-" + trip.tripId, textObject.tooltipInfo[language])}
+                            onMouseLeave={() => setTooltipContent(
+                                "trip-wrapper-" + trip.tripId, textObject.tooltipSelect[language])}
+                        >
+                            <FaChevronDown/>
+                        </button>
+                    </div>
+                </div>
+
+                {/* <BrowserView className="BrowserView"></BrowserView> */}
+            </div>
+            {/* End Trip Info */}
+
+            {/* Sub Trips */}
             <div
                 className="container mt-2 px-1 trip-info-wrapper hide"
                 id={`trip-info-${trip.tripId}`}
@@ -135,6 +123,7 @@ export const Trip = ({language, trip, stations,
                 ))}
 
             </div>
+            {/* End Sub Trips */}
 
         </>
     )

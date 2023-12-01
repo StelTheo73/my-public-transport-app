@@ -55,6 +55,18 @@ main {
     visibility: hidden;
 }
 
+@media screen and (max-width: 360px) {
+    main .hide-360 {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.hide-360 {
+    display: flex;
+    visibility: visible;
+}
+
 .main-wrapper {
     width: 100%;
 }

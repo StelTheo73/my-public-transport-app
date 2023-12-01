@@ -3,6 +3,8 @@ main .trip-wrapper {
     height: 4em;
     border: 2px solid var(--bs-primary);
     border-radius: 1em;
+    font-size: smaller;
+    color: var(--bs-primary);
 }
 
 main .trip-wrapper:hover {
@@ -28,21 +30,13 @@ main .btn-link:hover {
 
 main .trip-info-wrapper
 {
-    width: 90%;
+    width: 100%;
     box-shadow: var(--default-box-shadow);
     border-radius: 0.5em;
 }
 
 main .trip-info-wrapper > div {
     border: 1px solid gray;
-}
-
-@media only screen and (max-width: 767px) {
-    main .trip-info-wrapper .row > div > span
-    {
-      font-size: x-small;
-    }
-
 }
 
 main .trip-wrapper.trip-selected {

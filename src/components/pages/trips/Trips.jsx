@@ -6,6 +6,7 @@ import {
     FaArrowRight, FaArrowLeft,
     FaRegClock, FaEuroSign, FaInfoCircle,
 } from "react-icons/fa";
+import { FaRightLeft } from "react-icons/fa6";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 
 import { Trip } from "./Trip.jsx";
@@ -159,23 +160,25 @@ export const Trips = ({
             }
 
             <div className="d-flex flex-column align-items-center justify-content-center mt-3 px-3">
-                <div className="trip-header pb-2 row">
-                    <div className="col-2 px-1 px-sm-2">
+                <div className="trip-header pb-2 px-3 d-flex justify-content-between">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
                         <FaTrain/>
                     </div>
-                    <div className="col-2 px-1 px-sm-2">
+                    {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
+                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360">
+                        <FaRightLeft/>
+                    </div>
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
                         <FaFlagCheckered/>
                     </div>
-                    <div className="col-2 px-1 px-sm-2">
-                        <FaTrain/><FaArrowRight/><FaTrain/>
-                    </div>
-                    <div className="col-2 px-1 px-sm-2">
+                    {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
+                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360">
                         <FaRegClock/>
                     </div>
-                    <div className="col-2 px-1 px-sm-2">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
                         <FaEuroSign/>
                     </div>
-                    <div className="col-2 px-1 px-sm-2">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
                         <FaInfoCircle/>
                     </div>
                 </div>

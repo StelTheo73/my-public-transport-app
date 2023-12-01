@@ -7,8 +7,8 @@ main .trip-header {
     width: 100%;
 }
 
-main .trip-header > div{
+/* main .trip-header > div{
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
