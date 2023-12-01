@@ -2,17 +2,17 @@ import PropTypes from "prop-types";
 
 import Carousel from "react-bootstrap/Carousel";
 
-import textObject from "../../../assets/language/help.json";
+import textObject from "../../assets/language/help.json";
 import "./HelpCarousel.css";
 
-import GR_1 from "../../../assets/images/reservation/GR_1.svg";
-import GR_2 from "../../../assets/images/reservation/GR_2.svg";
-import GR_3 from "../../../assets/images/reservation/GR_3.svg";
-import GR_4 from "../../../assets/images/reservation/GR_4.svg";
-import EN_1 from "../../../assets/images/reservation/EN_1.svg";
-import EN_2 from "../../../assets/images/reservation/EN_2.svg";
-import EN_3 from "../../../assets/images/reservation/EN_3.svg";
-import EN_4 from "../../../assets/images/reservation/EN_4.svg";
+import GR_1 from "../../assets/images/reservation/GR_1.svg";
+import GR_2 from "../../assets/images/reservation/GR_2.svg";
+import GR_3 from "../../assets/images/reservation/GR_3.svg";
+import GR_4 from "../../assets/images/reservation/GR_4.svg";
+import EN_1 from "../../assets/images/reservation/EN_1.svg";
+import EN_2 from "../../assets/images/reservation/EN_2.svg";
+import EN_3 from "../../assets/images/reservation/EN_3.svg";
+import EN_4 from "../../assets/images/reservation/EN_4.svg";
 
 export const HelpCarousel = ({language, setHelp, helpPage}) => {
     const images = [];
@@ -64,6 +64,12 @@ export const HelpCarousel = ({language, setHelp, helpPage}) => {
                     touch
                     prevLabel={textObject.common.prevLabel[language]}
                     nextLabel={textObject.common.nextLabel[language]}
+                    style={{
+                        padding: "0.3em",
+                        backgroundColor: "gray",
+                        boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)",
+                        borderRadius: "0.5em"
+                    }}
                 >
                     <Carousel.Item>
                         <img

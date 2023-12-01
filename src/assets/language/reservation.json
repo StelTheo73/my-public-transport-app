@@ -60,5 +60,19 @@
     "help": {
         "EN": "Help",
         "GR": "Βοήθεια"
+    },
+    "error": {
+        "header": {
+            "EN": "Seats per trip",
+            "GR": "Θέσεις ανά δρομολόγιο"
+        },
+        "seatNumberError": {
+            "EN": "Please select the same number of seats for all trips",
+            "GR": "Παρακαλώ επιλέξτε τον ίδιο αριθμό θέσεων σε όλα τα δρομολόγια"
+        },
+        "noSeatsSelectedError": {
+            "EN": "Please select at least one seat for each trip",
+            "GR": "Παρακαλώ επιλέξτε τουλάχιστον μία θέση για όλα τα δρομολόγια"
+        }
     }
 }

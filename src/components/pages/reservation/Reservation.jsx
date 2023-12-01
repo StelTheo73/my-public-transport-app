@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 import {
     FaArrowRight, FaArrowLeft, FaInfoCircle,
-    FaTrain, FaChevronUp, FaRegWindowClose
+    FaTrain, FaChevronUp,
 } from "react-icons/fa";
 import { FaPersonHalfDress } from "react-icons/fa6";
 
+import { Error } from "./Error.jsx";
+import { HelpCarousel } from "../../help/HelpCarousel.jsx";
 import { Seats } from "./Seats.jsx";
 import { TripSelector } from "./TripSelector.jsx";
-import { HelpCarousel } from "../help/HelpCarousel.jsx";
 
 
 import { fetchData } from "../../../utils/asyncFetch.js";
@@ -67,8 +68,8 @@ export const Reservation = ({
     const [activeTrip, setActiveTrip] = useState({});
     const tripsContainerRef = useRef(null);
     const seatsRef = useRef(null);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [errorDescription, setErrorDescription] = useState("");
+    const [errorMessage, setErrorMessage] = useState({});
+    const [errorDescription, setErrorDescription] = useState([]);
     const [help, setHelp] = useState(false);
 
     useEffect(() => {
@@ -111,8 +112,8 @@ export const Reservation = ({
     }, [navigate, selectedTrip, selectedReturnTrip, stations, searchParameters]);
 
     const validateSelectedSeats = () => {
-        setErrorMessage("");
-        setErrorDescription("");
+        setErrorMessage({});
+        setErrorDescription([]);
 
         const tripsWithSeats = [];
         let errorFound = false;
@@ -159,10 +160,10 @@ export const Reservation = ({
             }
             // Different number of seats selected
             else if (seatsNo !== trip.noOfSeats) {
-                    setErrorMessage("Παρακαλώ επιλέξτε τον ίδιο αριθμό θέσεων για όλα τα ταξίδια");
+                    setErrorMessage(textObject.error.seatNumberError);
 
                     const _errorDescription = [];
-                    _errorDescription.push({header: "Θέσεις ανά δρομολόγιο:"});
+                    _errorDescription.push({header: textObject.error.header});
 
                     tripsWithSeats.forEach(_trip => {
                         _errorDescription.push({
@@ -180,7 +181,7 @@ export const Reservation = ({
 
         // No seats selected but there are trips with seats
         if (seatsNo === 0 && tripsWithSeats.length > 0) {
-            setErrorMessage("Παρακαλώ επιλέξτε θέσεις για όλα τα ταξίδια");
+            setErrorMessage(textObject.error.noSeatsSelectedError);
             errorFound = true;
             return;
         }
@@ -204,42 +205,12 @@ export const Reservation = ({
         return (
             <main>
                 {/* Error message popup */}
-                {errorMessage &&
-                    <div id="seat-error-message">
-                        <div className="alert alert-danger my-0" role="alert">
-                            <div className="d-flex flex-row">
-                                <span className="me-2">
-                                    {errorMessage}
-                                </span>
-                                <span
-                                    id="close-seat-error-message"
-                                    className="ms-2"
-                                    onClick={() => setErrorMessage("")}
-                                >
-                                    <FaRegWindowClose />
-                                </span>
-                            </div>
-                            {errorDescription && <>
-                                <hr></hr>
-                                <div className="d-flex flex-column">
-                                    {errorDescription.map(element => {
-                                        if (element?.header) {
-                                            return <span key="seat-error-header" className="fw-bold">
-                                                {element?.header}
-                                            </span>;
-                                        }
-                                        else {
-                                            return <span key={`seat-error-trip-${element?.tripId}`}>
-                                                {element?.startStation[language]} - {element?.arrivalStation[language]}:
-                                                &nbsp;{element?.noOfSeats}
-                                            </span>;
-                                        }
-                                    })}
-                                </div>
-                            </>}
-                        </div>
-                    </div>
-                }
+                <Error
+                    language={language}
+                    errorDescription={errorDescription}
+                    errorMessage={errorMessage}
+                    setErrorMessage={setErrorMessage}
+                />
                 {/* End error message popup */}
 
                 {/* Navigation buttons */}
