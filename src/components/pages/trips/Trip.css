@@ -7,6 +7,12 @@ main .trip-wrapper {
     color: var(--bs-primary);
 }
 
+main .trip-wrapper div,
+main .trip-info-wrapper div
+{
+    user-select: none;
+}
+
 main .trip-wrapper:hover {
     box-shadow: var(--default-box-shadow);
     cursor: pointer;
