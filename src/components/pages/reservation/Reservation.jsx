@@ -10,7 +10,7 @@ import { FaPersonHalfDress } from "react-icons/fa6";
 
 import { Seats } from "./Seats.jsx";
 import { TripSelector } from "./TripSelector.jsx";
-import { HelpReservation} from "./HelpReservation.jsx";
+import { HelpCarousel } from "../help/HelpCarousel.jsx";
 
 
 import { fetchData } from "../../../utils/asyncFetch.js";
@@ -193,10 +193,11 @@ export const Reservation = ({
 
     if (help) {
         return (
-                    <HelpReservation
-                        language={language}
-                        setHelp={setHelp}
-                    />
+            <HelpCarousel
+                language={language}
+                setHelp={setHelp}
+                helpPage="reservation"
+            />
         );
     }
     else {

@@ -1,11 +1,9 @@
 import PropTypes from "prop-types";
 
 import Carousel from "react-bootstrap/Carousel";
-// IMport related css with carousel
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 import textObject from "../../../assets/language/help.json";
-import "./HelpReservation.css";
+import "./HelpCarousel.css";
 
 import GR_1 from "../../../assets/images/reservation/GR_1.svg";
 import GR_2 from "../../../assets/images/reservation/GR_2.svg";
@@ -16,7 +14,31 @@ import EN_2 from "../../../assets/images/reservation/EN_2.svg";
 import EN_3 from "../../../assets/images/reservation/EN_3.svg";
 import EN_4 from "../../../assets/images/reservation/EN_4.svg";
 
-export const HelpReservation = ({language, setHelp}) => {
+export const HelpCarousel = ({language, setHelp, helpPage}) => {
+    const images = [];
+
+    if (helpPage === "reservation") {
+        images.push({
+            "EN": EN_1,
+            "GR": GR_1
+        });
+        images.push({
+            "EN": EN_2,
+            "GR": GR_2
+        });
+        images.push({
+            "EN": EN_3,
+            "GR": GR_3
+        });
+        images.push({
+            "EN": EN_4,
+            "GR": GR_4
+        });
+    }
+    if (helpPage === "trips") {
+
+    }
+
 
     return (
         <main>
@@ -44,52 +66,32 @@ export const HelpReservation = ({language, setHelp}) => {
                     nextLabel={textObject.common.nextLabel[language]}
                 >
                     <Carousel.Item>
-                        {language === "EN" && <img
+                        <img
                             className="d-block w-100"
-                            src={EN_1}
+                            src={images[0][language]}
                             alt="First slide"
-                        />}
-                        {language === "GR" && <img
-                            className="d-block w-100"
-                            src={GR_1}
-                            alt="First slide"
-                        />}
+                        />
                     </Carousel.Item>
                     <Carousel.Item>
-                        {language === "EN" && <img
+                        <img
                             className="d-block w-100"
-                            src={EN_2}
+                            src={images[1][language]}
                             alt="Second slide"
-                        />}
-                        {language === "GR" && <img
-                            className="d-block w-100"
-                            src={GR_2}
-                            alt="Second slide"
-                        />}
+                        />
                     </Carousel.Item>
                     <Carousel.Item>
-                        {language === "EN" && <img
+                        <img
                             className="d-block w-100"
-                            src={EN_3}
+                            src={images[2][language]}
                             alt="Third slide"
-                        />}
-                        {language === "GR" && <img
-                            className="d-block w-100"
-                            src={GR_3}
-                            alt="Third slide"
-                        />}
+                        />
                     </Carousel.Item>
                     <Carousel.Item>
-                        {language === "EN" && <img
+                        <img
                             className="d-block w-100"
-                            src={EN_4}
+                            src={images[3][language]}
                             alt="Fourth slide"
-                        />}
-                        {language === "GR" && <img
-                            className="d-block w-100"
-                            src={GR_4}
-                            alt="Fourth slide"
-                        />}
+                        />
                     </Carousel.Item>
                 </Carousel>
             </div>
@@ -98,7 +100,8 @@ export const HelpReservation = ({language, setHelp}) => {
 
 }
 
-HelpReservation.propTypes = {
+HelpCarousel.propTypes = {
     language: PropTypes.string.isRequired,
-    setHelp: PropTypes.func.isRequired
+    setHelp: PropTypes.func.isRequired,
+    helpPage: PropTypes.string.isRequired
 };
