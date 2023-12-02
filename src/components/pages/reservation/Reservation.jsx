@@ -256,8 +256,9 @@ export const Reservation = ({
                 </div>
                 {/* End header */}
 
+                {/* Help button */}
                 <div
-                    className="container d-flex justify-content-end mb-1 width-90">
+                    className="container d-flex justify-content-end mb-1">
                     <div
                         className="help-button d-flex align-items-center border border-primary rounded p-1"
                         onClick={() => setHelp(true)}
@@ -266,6 +267,7 @@ export const Reservation = ({
                         <span className="ms-1"><FaInfoCircle className="text-primary"/></span>
                     </div>
                 </div>
+                {/* End help button */}
 
                 {/* Trip selector */}
                 <div

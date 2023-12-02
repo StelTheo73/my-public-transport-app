@@ -14,6 +14,17 @@ import EN_2 from "../../assets/images/reservation/EN_2.svg";
 import EN_3 from "../../assets/images/reservation/EN_3.svg";
 import EN_4 from "../../assets/images/reservation/EN_4.svg";
 
+import TRIPS_GR_1 from "../../assets/images/trips/TRIPS_GR_1.svg";
+import TRIPS_GR_2 from "../../assets/images/trips/TRIPS_GR_2.svg";
+import TRIPS_GR_3 from "../../assets/images/trips/TRIPS_GR_3.svg";
+import TRIPS_GR_4 from "../../assets/images/trips/TRIPS_GR_4.svg";
+import TRIPS_GR_5 from "../../assets/images/trips/TRIPS_GR_5.svg";
+import TRIPS_EN_1 from "../../assets/images/trips/TRIPS_EN_1.svg";
+import TRIPS_EN_2 from "../../assets/images/trips/TRIPS_EN_2.svg";
+import TRIPS_EN_3 from "../../assets/images/trips/TRIPS_EN_3.svg";
+import TRIPS_EN_4 from "../../assets/images/trips/TRIPS_EN_4.svg";
+import TRIPS_EN_5 from "../../assets/images/trips/TRIPS_EN_5.svg";
+
 export const HelpCarousel = ({language, setHelp, helpPage}) => {
     const images = [];
 
@@ -36,7 +47,26 @@ export const HelpCarousel = ({language, setHelp, helpPage}) => {
         });
     }
     if (helpPage === "trips") {
-
+        images.push({
+            "EN": TRIPS_EN_1,
+            "GR": TRIPS_GR_1
+        });
+        images.push({
+            "EN": TRIPS_EN_2,
+            "GR": TRIPS_GR_2
+        });
+        images.push({
+            "EN": TRIPS_EN_3,
+            "GR": TRIPS_GR_3
+        });
+        images.push({
+            "EN": TRIPS_EN_4,
+            "GR": TRIPS_GR_4
+        });
+        images.push({
+            "EN": TRIPS_EN_5,
+            "GR": TRIPS_GR_5
+        });
     }
 
 
@@ -99,6 +129,15 @@ export const HelpCarousel = ({language, setHelp, helpPage}) => {
                             alt="Fourth slide"
                         />
                     </Carousel.Item>
+                    {helpPage === "trips" &&
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src={images[4][language]}
+                            alt="Fifth slide"
+                        />
+                    </Carousel.Item>
+                    }
                 </Carousel>
             </div>
         </main>

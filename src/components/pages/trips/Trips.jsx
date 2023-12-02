@@ -9,6 +9,7 @@ import {
 import { FaRightLeft } from "react-icons/fa6";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 
+import { HelpCarousel } from "../../help/HelpCarousel.jsx";
 import { Trip } from "./Trip.jsx";
 
 import { useFetch } from "../../../hooks/useFetch.jsx";
@@ -16,10 +17,8 @@ import { useFetch } from "../../../hooks/useFetch.jsx";
 import "./Trips.css";
 
 import textObject from "../../../assets/language/trips.json";
-import errorText from "../../../assets/language/error.json";
 
 import { disableElement, enableElement } from "../../../utils/commonFunctionsDOM.js";
-import { ErrorAlert } from "../../ErrorAlert.jsx";
 
 import { DEFAULT_TRANSITION_TIMEOUT } from "../../../env/constants.js";
 
@@ -36,8 +35,8 @@ export const Trips = ({
     const [showReturnTrips, setShowReturnTrips] = useState(false);
     const { data: trips, loading, error } = useFetch(url);
     const { data: returnTrips, loading: returnLoading, error: returnError } = useFetch(returnUrl);
+    const [help, setHelp] = useState(false);
 
-    const [alert, setAlert] = useState(false);
 
     // Navigate to home page is search has not been performed
     useEffect(() => {
@@ -93,144 +92,174 @@ export const Trips = ({
         }
     }
 
-    return (
-        <main>
-            <div className="container-fluid sticky-container">
-                <div className="row">
-                    <div className="col-12 col-sm-6 d-flex justify-content-start">
-                        <button
-                            className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
-                            onClick={() => {
-                                // Reset trips to avoid showing previous trips
-                                setSelectedTrip({});
-                                setSelectedReturnTrip({});
-                                navigate("/")
-                            }}
-                        >
-                            <FaArrowLeft className="me-2"/>
+    if (help)  {
+        return (
+            <HelpCarousel
+                language={language}
+                setHelp={setHelp}
+                helpPage="trips"
+            />
+        );
+    }
+    else {
+        return (
+            <main>
+                {/* Navigation buttons */}
+                <div className="container-fluid sticky-container">
+                    <div className="row">
+                        <div className="col-12 col-sm-6 d-flex justify-content-start">
+                            <button
+                                className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
+                                onClick={() => {
+                                    // Reset trips to avoid showing previous trips
+                                    setSelectedTrip({});
+                                    setSelectedReturnTrip({});
+                                    navigate("/")
+                                }}
+                            >
+                                <FaArrowLeft className="me-2"/>
+                                <span>
+                                    {textObject.returnToSearch[language]}
+                                </span>
+                                <FaSearch className="ms-2"/>
+                            </button>
+                        </div>
+                        <div className="col-12 col-sm-6 d-flex justify-content-end">
+                            <button
+                                id="reservation-btn"
+                                className="btn btn-success mt-2 mt-sm-1 full-width-xs"
+                                onClick={() => {
+                                    if ((selectedTrip?.tripId
+                                            && searchParameters?.tripType?.value === "oneWayTrip"
+                                        ) ||
+                                        (selectedTrip?.tripId && selectedReturnTrip?.tripId
+                                            && searchParameters?.tripType?.value === "returningTrip"
+                                        )) {
+                                        navigate("/reservation")
+                                    }
+                                }}
+                            >
+                            <MdAirlineSeatReclineExtra className="mb-1 me-2"/>
                             <span>
-                                {textObject.returnToSearch[language]}
+                                {textObject.reservation[language]}
                             </span>
-                            <FaSearch className="ms-2"/>
-                        </button>
-                    </div>
-                    <div className="col-12 col-sm-6 d-flex justify-content-end">
-                        <button
-                            id="reservation-btn"
-                            className="btn btn-success mt-2 mt-sm-1 full-width-xs"
-                            onClick={() => {
-                                if ((selectedTrip?.tripId
-                                        && searchParameters?.tripType?.value === "oneWayTrip"
-                                    ) ||
-                                    (selectedTrip?.tripId && selectedReturnTrip?.tripId
-                                        && searchParameters?.tripType?.value === "returningTrip"
-                                    )) {
-                                    navigate("/reservation")
-                                }
-                            }}
-                        >
-                        <MdAirlineSeatReclineExtra className="mb-1 me-2"/>
-                        <span>
-                            {textObject.reservation[language]}
-                        </span>
-                        <FaArrowRight className="ms-2"/>
-                        </button>
+                            <FaArrowRight className="ms-2"/>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                {/* End navigation buttons */}
 
-
-            <div className="container d-flex align-items-center justify-content-center mt-3">
-                <h3>{textObject.header[language]}</h3>
-            </div>
-
-            {searchParameters?.tripType?.value === "returningTrip" &&
+                {/* Header */}
                 <div className="container d-flex align-items-center justify-content-center mt-3">
-                    <button
-                        className={`btn mx-1 ${!showReturnTrips ? "btn-primary" : "btn-outline-primary"}`}
-                        onClick={() => tripsTransition("trips")}
-                    >{textObject.outward[language]}
-                    </button>
-                    <button
-                        className={`btn mx-1 ${showReturnTrips ? "btn-primary" : "btn-outline-primary"}`}
-                        onClick={() => tripsTransition("returnTrips")}
-                    >{textObject.return[language]}
-                    </button>
+                    <h3>{textObject.header[language]}</h3>
                 </div>
-            }
+                {/* End header */}
 
-            <div className="d-flex flex-column align-items-center justify-content-center mt-3 px-3">
-                <div className="trip-header pb-2 px-3 d-flex justify-content-between">
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
-                        <FaTrain/>
-                    </div>
-                    {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
-                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360 text-primary-bold">
-                        <FaRightLeft/>
-                    </div>
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
-                        <FaFlagCheckered/>
-                    </div>
-                    {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
-                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360 text-primary-bold">
-                        <FaRegClock/>
-                    </div>
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
-                        <FaEuroSign/>
-                    </div>
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
-                        <FaInfoCircle/>
+                {/* Help button */}
+                <div
+                    className="container d-flex justify-content-end mb-1">
+                    <div
+                        className="help-button d-flex align-items-center border border-primary rounded p-1"
+                        onClick={() => setHelp(true)}
+                    >
+                        <span className="text-primary" style={{userSelect: "none"}}>{textObject.help[language]}</span>
+                        <span className="ms-1"><FaInfoCircle className="text-primary"/></span>
                     </div>
                 </div>
+                {/* End help button */}
 
-                {(hide || loading || returnLoading) &&
-                    <div className="spinner-border text-primary mt-3">
-                        <output></output>
-                        <span className="visually-hidden display-6">Loading...</span>
+                {/* Onward & Return trip buttons */}
+                {searchParameters?.tripType?.value === "returningTrip" &&
+                    <div className="container d-flex align-items-center justify-content-center mt-3">
+                        <button
+                            className={`btn mx-1 ${!showReturnTrips ? "btn-primary" : "btn-outline-primary"}`}
+                            onClick={() => tripsTransition("trips")}
+                        >{textObject.outward[language]}
+                        </button>
+                        <button
+                            className={`btn mx-1 ${showReturnTrips ? "btn-primary" : "btn-outline-primary"}`}
+                            onClick={() => tripsTransition("returnTrips")}
+                        >{textObject.return[language]}
+                        </button>
                     </div>
                 }
+                {/* End onward & return trip buttons */}
 
-                {!error && !loading && !showReturnTrips && !hide &&
-                    trips && trips.map(trip => (
-                    <Trip
-                        key={trip.tripId}
-                        language={language}
-                        trip={trip}
-                        stations={stations}
-                        _selectedTrip={selectedTrip}
-                        _setSelectedTrip={setSelectedTrip}
-                        setSubTrips={setSubTrips}
-                    />
-                ))}
+                {/* Trips */}
+                <div className="d-flex flex-column align-items-center justify-content-center mt-3 px-3">
+                    <div className="trip-header pb-2 px-3 d-flex justify-content-between">
+                        <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
+                            <FaTrain/>
+                        </div>
+                        {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
+                        <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360 text-primary-bold">
+                            <FaRightLeft/>
+                        </div>
+                        <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
+                            <FaFlagCheckered/>
+                        </div>
+                        {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
+                        <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360 text-primary-bold">
+                            <FaRegClock/>
+                        </div>
+                        <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
+                            <FaEuroSign/>
+                        </div>
+                        <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
+                            <FaInfoCircle/>
+                        </div>
+                    </div>
 
-                {!returnError && !returnLoading && showReturnTrips && !hide &&
-                    returnTrips && returnTrips.map(trip => (
-                    <Trip
-                        key={trip.tripId}
-                        language={language}
-                        trip={trip}
-                        stations={stations}
-                        _selectedTrip={selectedReturnTrip}
-                        _setSelectedTrip={setSelectedReturnTrip}
-                        setSubTrips={setReturnSubTrips}
-                    />
-                ))}
+                    {(hide || loading || returnLoading) &&
+                        <div className="spinner-border text-primary mt-3">
+                            <output></output>
+                            <span className="visually-hidden display-6">Loading...</span>
+                        </div>
+                    }
 
-                {(!error && !loading && !showReturnTrips && !hide &&
-                (trips?.length === 0)) &&
-                    <div className="mt-3 display-6">{textObject.noTripsFound[language]}</div>
-                }
+                    {!error && !loading && !showReturnTrips && !hide &&
+                        trips && trips.map(trip => (
+                        <Trip
+                            key={trip.tripId}
+                            language={language}
+                            trip={trip}
+                            stations={stations}
+                            _selectedTrip={selectedTrip}
+                            _setSelectedTrip={setSelectedTrip}
+                            setSubTrips={setSubTrips}
+                        />
+                    ))}
 
-                {!returnError && !returnLoading && showReturnTrips && !hide &&
-                (returnTrips?.length === 0) &&
+                    {!returnError && !returnLoading && showReturnTrips && !hide &&
+                        returnTrips && returnTrips.map(trip => (
+                        <Trip
+                            key={trip.tripId}
+                            language={language}
+                            trip={trip}
+                            stations={stations}
+                            _selectedTrip={selectedReturnTrip}
+                            _setSelectedTrip={setSelectedReturnTrip}
+                            setSubTrips={setReturnSubTrips}
+                        />
+                    ))}
+
+                    {(!error && !loading && !showReturnTrips && !hide &&
+                    (trips?.length === 0)) &&
                         <div className="mt-3 display-6">{textObject.noTripsFound[language]}</div>
-                }
+                    }
+
+                    {!returnError && !returnLoading && showReturnTrips && !hide &&
+                    (returnTrips?.length === 0) &&
+                            <div className="mt-3 display-6">{textObject.noTripsFound[language]}</div>
+                    }
 
 
-            </div>
-
-        </main>
-    );
+                </div>
+                {/* End trips */}
+            </main>
+        );
+    }
 };
 
 Trips.propTypes = {
