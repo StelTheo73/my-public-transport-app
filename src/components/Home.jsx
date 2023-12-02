@@ -154,6 +154,16 @@ export const Home = ({
                   });
             }
 
+            if (start && destination && start.value === destination.value) {
+                  setErrorAlert(errorText.sameTown[language]);
+            }
+            else if (new Date(date) < new Date(TODAY)){
+                  setErrorAlert(errorText.pastDate[language]);
+            }
+            else if (new Date(date) > new Date(returnDate)){
+                  setErrorAlert(errorText.dates[language]);
+            }
+
       }, [language, Stations?.stations, navigate])
 
       // Hide return date selector when trip type is one way trip
@@ -188,17 +198,14 @@ export const Home = ({
       const handleSubmit = (event) => {
             event.preventDefault();
 
-            if (start?.value === destination?.value) {
-                  setErrorAlert(errorText.sameTown[language]);
-                  return;
+            if (start && destination && start.value === destination.value) {
+                  return setErrorAlert(errorText.sameTown[language]);
             }
-            if (new Date(date) < new Date(TODAY)){
-                  setErrorAlert(errorText.pastDate[language]);
-                  return;
+            else if (new Date(date) < new Date(TODAY)){
+                  return setErrorAlert(errorText.pastDate[language]);
             }
-            if (new Date(date) > new Date(returnDate)){
-                  setErrorAlert(errorText.dates[language]);
-                  return;
+            else if (new Date(date) > new Date(returnDate)){
+                  return setErrorAlert(errorText.dates[language]);
             }
 
             setSearchParameters({
