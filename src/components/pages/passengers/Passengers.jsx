@@ -414,23 +414,59 @@ export const Passengers = ({
   };
 
   const validateForm = () => {
+    let formIsValid = true;
 
     for (const passenger of Object.values(passengers)) {
       console.log(passenger);
-      if (passenger.passengerName.trim().length === 0) {
-        console.log(passenger.passengerId, "EMPTY NAME");
+
+      const passengerId = passenger.passengerId;
+      const passengerName = passenger.passengerName;
+      const ticketType = passenger.ticketType;
+
+      const passengerNameElement = document.getElementById(`passenger-name-${passengerId}`);
+      const passengerNameValidElement = document.getElementById(`passenger-name-${passengerId}-valid`);
+      const passengerNameInvalidElement = document.getElementById(`passenger-name-${passengerId}-invalid`);
+
+      const ticketTypeElement = document.getElementById(`ticket-type-${passengerId}`);
+      const ticketTypeValidElement = document.getElementById(`ticket-type-${passengerId}-valid`);
+      const ticketTypeInvalidElement = document.getElementById(`ticket-type-${passengerId}-invalid`);
+
+      if (passengerName.trim().length === 0) {
+        formIsValid = false;
+        passengerNameElement.classList.add("is-invalid");
+        passengerNameElement.classList.remove("is-valid");
+        passengerNameValidElement.classList.remove("d-block");
+        passengerNameInvalidElement.classList.add("d-block");
+      }
+      else {
+        passengerNameElement.classList.add("is-valid");
+        passengerNameElement.classList.remove("is-invalid");
+        passengerNameValidElement.classList.add("d-block");
+        passengerNameInvalidElement.classList.remove("d-block");
       }
 
       // Ticket type should be a number between 0 and 1,
       // as it represents the discount
-      if (passenger.ticketType < 0 || passenger.ticketType > 1) {
-        console.log("INVALID TICKET TYPE");
+      console.log(ticketType, !ticketType, isNaN(ticketType), ticketType < 0, ticketType > 1);
+      if (ticketType === null || isNaN(ticketType) || ticketType < 0 || ticketType > 1) {
+        formIsValid = false;
+        ticketTypeElement.classList.add("is-invalid");
+        ticketTypeElement.classList.remove("is-valid");
+        ticketTypeInvalidElement.classList.add("d-block");
+        ticketTypeValidElement.classList.remove("d-block");
+      }
+      else {
+        ticketTypeElement.classList.add("is-valid");
+        ticketTypeElement.classList.remove("is-invalid");
+        ticketTypeValidElement.classList.add("d-block");
+        ticketTypeInvalidElement.classList.remove("d-block");
       }
 
     }
 
-    // console.log(passengers);
-    console.log("VALIDATE PASSENGERS FORM");
+    if (formIsValid) {
+      navigate("/payment");
+    }
   };
 
   useEffect(() => {

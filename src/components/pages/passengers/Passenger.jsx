@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Select from "react-select";
 
 import {
-  FaArrowRight,
+  FaArrowRight, FaHeart,
   FaBus, FaTrain, FaTrashAlt
 } from "react-icons/fa";
 
@@ -53,6 +53,22 @@ const PassengerSeats = ({ language, passenger, allSubTrips }) => {
     );
 };
 
+const ValidationFields = ({validId, invalidId, text}) => {
+  return (
+    <>
+      <div
+        id={validId}
+        className="valid-feedback">
+          <FaHeart className="text-success"/>
+      </div>
+      <div
+        id={invalidId}
+        className="invalid-feedback">
+        {text}
+      </div>
+    </>
+  );
+};
 
 const getTicketTypeFromValue = value => {
 for (const ticket of TICKET_CATEGORIES) {
@@ -109,6 +125,7 @@ export const Passenger = ({
           </span>
         </div>
 
+        {/* Passenger name */}
         <div className="mt-2">
           <label
             className="form-label required"
@@ -128,6 +145,15 @@ export const Passenger = ({
           </input>
         </div>
 
+        <ValidationFields
+          validId={`passenger-name-${passengerId}-valid`}
+          invalidId={`passenger-name-${passengerId}-invalid`}
+          text={textObject.formValidation.passengerNameInvalid[language]}
+        />
+
+        {/* End passenger name */}
+
+        {/* Ticket type select */}
         <div className="mt-2">
           <label
             className="form-label required"
@@ -138,7 +164,7 @@ export const Passenger = ({
             key={`ticket-type-${passengerId}`}
             id={`ticket-type-${passengerId}`}
             ref={selectRef}
-            className="required"
+            className="required react-form-select"
             required
             name={`ticket-type-${passengerId}`}
             value={getTicketTypeFromValue(passenger?.ticketTypeName)}
@@ -147,6 +173,16 @@ export const Passenger = ({
             isSearchable={false}
           />
         </div>
+
+        <ValidationFields
+          validId={`ticket-type-${passengerId}-valid`}
+          invalidId={`ticket-type-${passengerId}-invalid`}
+          text={textObject.formValidation.ticketTypeInvalid[language]}
+        />
+
+        {/* End ticket type select */}
+
+        {/* Passenger seats */}
         <div className="mt-2">
           <PassengerSeats
             language={language}
@@ -154,6 +190,7 @@ export const Passenger = ({
             allSubTrips={allSubTrips}
           />
         </div>
+        {/* End passenger seats */}
 
         <div className="mt-2 mx-2 d-flex justify-content-end">
           <button

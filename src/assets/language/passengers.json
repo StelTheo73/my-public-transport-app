@@ -46,5 +46,15 @@
     "returnToSeatSelection": {
         "EN": "Return to seat selection",
         "GR": "Επιστροφή στην επιλογή θέσεων"
+    },
+    "formValidation": {
+        "passengerNameInvalid": {
+            "EN": "Passenger name cannot be empty!",
+            "GR": "Το όνομα του επιβάτη δεν μπορεί να είναι κενό!"
+        },
+        "ticketTypeInvalid": {
+            "EN": "Please select a ticket type!",
+            "GR": "Παρακαλώ επιλέξτε έναν τύπο εισιτηρίου!"
+        }
     }
 }
