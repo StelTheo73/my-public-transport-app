@@ -51,7 +51,7 @@ export const Passengers = ({
 
   /**
    * Calculates the total price for all passengers.
-   * @returns {undefined}
+   * @returns {number} - The total price rounded up to 2 decimals.
   */
   const calculateTotalPrice = () => {
     let _totalPrice = 0;
@@ -60,6 +60,7 @@ export const Passengers = ({
       _totalPrice += passenger.ticketPrice;
     }
 
+    // Return total price rounded up to 2 decimals
     return Math.round(_totalPrice * 100) / 100;
   };
 
