@@ -111,6 +111,10 @@ label.required::after {
     color: red;
 }
 
+label {
+    user-select: none;
+}
+
 /* Make form element appear like react-select component on focus */
 main .form-control:focus,
 main .form-select:focus
