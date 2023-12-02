@@ -443,7 +443,6 @@ export const Passengers = ({
 
       // Ticket type should be a number between 0 and 1,
       // as it represents the discount
-      console.log(ticketType, !ticketType, isNaN(ticketType), ticketType < 0, ticketType > 1);
       if (ticketType === null || isNaN(ticketType) || ticketType < 0 || ticketType > 1) {
         formIsValid = false;
         ticketTypeElement.classList.add("is-invalid");
