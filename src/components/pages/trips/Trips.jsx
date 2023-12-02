@@ -161,24 +161,24 @@ export const Trips = ({
 
             <div className="d-flex flex-column align-items-center justify-content-center mt-3 px-3">
                 <div className="trip-header pb-2 px-3 d-flex justify-content-between">
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
                         <FaTrain/>
                     </div>
                     {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
-                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360">
+                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360 text-primary-bold">
                         <FaRightLeft/>
                     </div>
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
                         <FaFlagCheckered/>
                     </div>
                     {/* hide-360 elements do not have d-flex on purpose. They get "display: flex" through index.css */}
-                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360">
+                    <div className="px-1 px-sm-2 align-items-center justify-content-center hide-360 text-primary-bold">
                         <FaRegClock/>
                     </div>
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
                         <FaEuroSign/>
                     </div>
-                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
+                    <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center text-primary-bold">
                         <FaInfoCircle/>
                     </div>
                 </div>

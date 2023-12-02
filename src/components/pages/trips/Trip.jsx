@@ -38,6 +38,7 @@ export const Trip = ({language, trip, stations,
             <div
                 key={"trip-" + trip.tripId}
                 className="mt-3 trip-wrapper d-flex flex-column justify-content-center" id={`trip-wrapper-${trip.tripId}`}
+                style={{transparency: "1"}}
                 onClick={() => confirmTrip(`trip-wrapper-${trip.tripId}`)}
                 data-tooltip-id={`trip-wrapper-${trip.tripId}`}
                 data-tooltip-content={textObject.tooltipSelect[language]}

@@ -6,9 +6,3 @@ main .trip-header {
     border-bottom: 2px dotted var(--bs-primary);
     width: 100%;
 }
-
-/* main .trip-header > div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */

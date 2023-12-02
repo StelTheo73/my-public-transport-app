@@ -4,7 +4,7 @@ main .trip-wrapper {
     border: 2px solid var(--bs-primary);
     border-radius: 1em;
     font-size: smaller;
-    color: var(--bs-primary);
+    font-weight: bold;
 }
 
 main .trip-wrapper div,
@@ -43,6 +43,10 @@ main .trip-info-wrapper
 
 main .trip-info-wrapper > div {
     border: 1px solid gray;
+}
+
+main .trip-info-wrapper span {
+    font-size: smaller;
 }
 
 main .trip-wrapper.trip-selected {
