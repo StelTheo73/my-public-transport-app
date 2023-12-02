@@ -54,13 +54,13 @@ export const Passengers = ({
    * @returns {undefined}
   */
   const calculateTotalPrice = () => {
-    let totalPrice = 0;
+    let _totalPrice = 0;
 
     for (const passenger of Object.values(passengers)) {
-      totalPrice += passenger.ticketPrice;
+      _totalPrice += passenger.ticketPrice;
     }
 
-    return totalPrice;
+    return Math.round(_totalPrice * 100) / 100;
   };
 
   /**
@@ -93,7 +93,7 @@ export const Passengers = ({
     newPassengers[passengerId].ticketType = choice.discount;
     //  Calculate the new ticket price
     newPassengers[passengerId].ticketPrice = getTicketPrice(passengerSeats, choice.discount);
-    newPassengers[passengerId].ticketTypeName = choice.value
+    newPassengers[passengerId].ticketTypeName = choice.value;
 
     setPassengers(newPassengers);
   };
@@ -108,7 +108,6 @@ export const Passengers = ({
 
     // Construct a passenger element for each passenger
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
-      // passengersDivArray.push(constructPassengerElement(passengerId));
       const passenger = passengers[passengerId];
       if (!passenger) {
         continue;
@@ -374,19 +373,11 @@ export const Passengers = ({
 
     // Case: The passenger already exists and is marked for deletion
     if (passengersAfterDeletion[passengerId]) {
-      const tempPassenger = passengersAfterDeletion[passengerId];
-      // tempPassenger.ticketType = 0;
-      // tempPassenger.ticketPrice = getTicketPrice(passengerSeats, 0);
-      // tempPassenger.ticketTypeName = "full";
-      return tempPassenger;
+      return passengersAfterDeletion[passengerId];
     }
     // Case: The passenger already exists and is not marked for deletion
     else if (Object.keys(passengersAfterDeletion).length === 0 && passengers[passengerId]) {
-        const tempPassenger = passengers[passengerId];
-        // tempPassenger.ticketType = 0;
-        // tempPassenger.ticketPrice = getTicketPrice(passengerSeats, 0);
-        // tempPassenger.ticketTypeName = "full";
-        return tempPassenger;
+        return passengers[passengerId];
     }
     // Case: The passenger does not exist
     else {
@@ -426,9 +417,7 @@ export const Passengers = ({
     for (const passenger of Object.values(passengers)) {
       console.log(passenger);
 
-      const passengerId = passenger.passengerId;
-      const passengerName = passenger.passengerName;
-      const ticketType = passenger.ticketType;
+      const { passengerId, passengerName, ticketType } = passenger;
 
       const passengerNameElement = document.getElementById(`passenger-name-${passengerId}`);
       const passengerNameValidElement = document.getElementById(`passenger-name-${passengerId}-valid`);
@@ -582,7 +571,7 @@ export const Passengers = ({
                 while (blockAddDelete) {
                   continue;
                 }
-                setNoOfSeats(noOfSeats + 1)
+                setNoOfSeats(noOfSeats + 1);
               }}
             >{textObject.addPassenger[language]}
             </button>
