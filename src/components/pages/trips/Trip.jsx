@@ -14,7 +14,6 @@ import {
 export const Trip = ({language, trip, stations,
     _selectedTrip, _setSelectedTrip, setSubTrips
 }) => {
-
     const toggleDetails = (targetId, event) => {
         const toggleElement = document.getElementById(targetId);
         toggleElement.classList.toggle("hide");
@@ -30,7 +29,7 @@ export const Trip = ({language, trip, stations,
         if (_selectedTrip?.tripId === trip?.tripId) {
             markSelectedTrip("trip-wrapper-" + trip.tripId);
         }
-    }, [trip, _selectedTrip])
+    }, [trip, _selectedTrip]);
 
     return (
         <>
@@ -39,10 +38,18 @@ export const Trip = ({language, trip, stations,
                 key={"trip-" + trip.tripId}
                 className="mt-3 trip-wrapper d-flex flex-column justify-content-center" id={`trip-wrapper-${trip.tripId}`}
                 style={{transparency: "1"}}
-                onClick={() => confirmTrip(`trip-wrapper-${trip.tripId}`)}
+                onClick={() => confirmTrip()}
                 data-tooltip-id={`trip-wrapper-${trip.tripId}`}
                 data-tooltip-content={textObject.tooltipSelect[language]}
                 data-tooltip-float
+                tabIndex={0}
+                onKeyDown={event => {
+                    if (event.key === " " || event.key === "Enter") {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        confirmTrip();
+                    }
+                }}
             >
                 <BrowserView className="BrowserView"><Tooltip id={`trip-wrapper-${trip.tripId}`}/></BrowserView>
 
@@ -66,7 +73,7 @@ export const Trip = ({language, trip, stations,
                     </div>
                     <div className="px-1 px-sm-2 d-flex align-items-center justify-content-center">
                         <button className="btn btn-link btn-sm"
-                            onClick={(event) => {
+                            onClick={event => {
                                 removeTooltip("trip-wrapper-" + trip.tripId);
                                 toggleDetails("trip-info-" + trip.tripId, event);
                             }}
@@ -74,6 +81,14 @@ export const Trip = ({language, trip, stations,
                                 "trip-wrapper-" + trip.tripId, textObject.tooltipInfo[language])}
                             onMouseLeave={() => setTooltipContent(
                                 "trip-wrapper-" + trip.tripId, textObject.tooltipSelect[language])}
+                            onKeyDown={event => {
+                                if (event.key === " " || event.key === "Enter") {
+                                    event.stopPropagation();
+                                    event.preventDefault();
+                                    removeTooltip("trip-wrapper-" + trip.tripId);
+                                    toggleDetails("trip-info-" + trip.tripId, event);
+                                }
+                            }}
                         >
                             <FaChevronDown/>
                         </button>
@@ -89,7 +104,7 @@ export const Trip = ({language, trip, stations,
                 className="container mt-2 px-1 trip-info-wrapper hide"
                 id={`trip-info-${trip.tripId}`}
             >
-                {trip.subTrips.map((subTrip) => (
+                {trip.subTrips.map(subTrip => (
                     <div
                         key={`${subTrip.tripId}-${subTrip.trainId}`}
                         className="row my-2 mx-1 py-1 d-flex align-items-center justify-content-center">
@@ -127,8 +142,8 @@ export const Trip = ({language, trip, stations,
             {/* End Sub Trips */}
 
         </>
-    )
-}
+    );
+};
 
 Trip.propTypes = {
     // The selected language
@@ -142,4 +157,4 @@ Trip.propTypes = {
     _setSelectedTrip: PropTypes.func.isRequired,
     // Reset subTrips if selected trip changes
     setSubTrips: PropTypes.func.isRequired
-}
+};

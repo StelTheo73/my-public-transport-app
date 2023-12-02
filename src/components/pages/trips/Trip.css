@@ -5,7 +5,7 @@ main .trip-wrapper {
     border-radius: 1em;
     font-size: smaller;
     font-weight: bold;
-}
+        }
 
 main .trip-wrapper div,
 main .trip-info-wrapper div
@@ -18,8 +18,13 @@ main .trip-wrapper:hover {
     cursor: pointer;
 }
 
+main .trip-wrapper:focus {
+    box-shadow: var(--default-box-shadow);
+    border: 2px solid var(--bs-primary);
+}
+
 main .btn-link {
-    border: 1px solid var(--bs-primary)
+    border: 1px solid var(--bs-primary);
 }
 
 main .btn-link:hover {

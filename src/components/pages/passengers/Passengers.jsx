@@ -27,6 +27,7 @@ export const Passengers = ({
   const [blockAddDelete, setBlockAddDelete] = useState(false);
   const [passengersAfterDeletion, setPassengersAfterDeletion] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+  const paymentButtonRef = useRef(null);
 
   /**
    * Calculates the ticket price for a passenger.
@@ -51,16 +52,17 @@ export const Passengers = ({
 
   /**
    * Calculates the total price for all passengers.
-   * @returns {undefined}
+   * @returns {number} - The total price rounded up to 2 decimals.
   */
   const calculateTotalPrice = () => {
-    let totalPrice = 0;
+    let _totalPrice = 0;
 
     for (const passenger of Object.values(passengers)) {
-      totalPrice += passenger.ticketPrice;
+      _totalPrice += passenger.ticketPrice;
     }
 
-    return totalPrice;
+    // Return total price rounded up to 2 decimals
+    return Math.round(_totalPrice * 100) / 100;
   };
 
   /**
@@ -93,7 +95,7 @@ export const Passengers = ({
     newPassengers[passengerId].ticketType = choice.discount;
     //  Calculate the new ticket price
     newPassengers[passengerId].ticketPrice = getTicketPrice(passengerSeats, choice.discount);
-    newPassengers[passengerId].ticketTypeName = choice.value
+    newPassengers[passengerId].ticketTypeName = choice.value;
 
     setPassengers(newPassengers);
   };
@@ -108,7 +110,6 @@ export const Passengers = ({
 
     // Construct a passenger element for each passenger
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
-      // passengersDivArray.push(constructPassengerElement(passengerId));
       const passenger = passengers[passengerId];
       if (!passenger) {
         continue;
@@ -374,19 +375,11 @@ export const Passengers = ({
 
     // Case: The passenger already exists and is marked for deletion
     if (passengersAfterDeletion[passengerId]) {
-      const tempPassenger = passengersAfterDeletion[passengerId];
-      // tempPassenger.ticketType = 0;
-      // tempPassenger.ticketPrice = getTicketPrice(passengerSeats, 0);
-      // tempPassenger.ticketTypeName = "full";
-      return tempPassenger;
+      return passengersAfterDeletion[passengerId];
     }
     // Case: The passenger already exists and is not marked for deletion
     else if (Object.keys(passengersAfterDeletion).length === 0 && passengers[passengerId]) {
-        const tempPassenger = passengers[passengerId];
-        // tempPassenger.ticketType = 0;
-        // tempPassenger.ticketPrice = getTicketPrice(passengerSeats, 0);
-        // tempPassenger.ticketTypeName = "full";
-        return tempPassenger;
+        return passengers[passengerId];
     }
     // Case: The passenger does not exist
     else {
@@ -424,11 +417,7 @@ export const Passengers = ({
     let formIsValid = true;
 
     for (const passenger of Object.values(passengers)) {
-      console.log(passenger);
-
-      const passengerId = passenger.passengerId;
-      const passengerName = passenger.passengerName;
-      const ticketType = passenger.ticketType;
+      const { passengerId, passengerName, ticketType } = passenger;
 
       const passengerNameElement = document.getElementById(`passenger-name-${passengerId}`);
       const passengerNameValidElement = document.getElementById(`passenger-name-${passengerId}-valid`);
@@ -541,11 +530,11 @@ export const Passengers = ({
                 </div>
                 <div className="col-12 col-sm-6 d-flex justify-content-end">
                     <button
+                        ref={paymentButtonRef}
                         id="reservation-btn"
                         className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                         onClick={() => {
                             validateForm();
-                            // navigate("/payment");
                         }}
                     >
                         <MdPayment className="mb-1 me-2"/>
@@ -582,7 +571,7 @@ export const Passengers = ({
                 while (blockAddDelete) {
                   continue;
                 }
-                setNoOfSeats(noOfSeats + 1)
+                setNoOfSeats(noOfSeats + 1);
               }}
             >{textObject.addPassenger[language]}
             </button>
@@ -609,6 +598,14 @@ export const Passengers = ({
             {passengersDiv && passengersDiv.map(passengersDiv => (passengersDiv))}
           </div>
         }
+
+        <span
+          className=""
+          tabIndex={0}
+          onFocus={() => paymentButtonRef.current.focus()}
+        >
+        </span>
+
     </main>
   );
 };
