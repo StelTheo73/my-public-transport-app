@@ -44,7 +44,7 @@
         "GR": "Αυτό το όχημα δεν υποστηρίζει κράτηση θέσεων."
     },
     "noSeatsSupportedPrompt": {
-        "EN": "If this is the only vehicle on the trip, you will select the number of seats in the next step.",
+        "EN": "If this is the only vehicle of the trip, you will select the number of seats in the next step.",
         "GR": "Αν αυτό είναι το μοναδικό όχημα του ταξιδιού, θα επιλέξετε αριθμό θέσεων στο επόμενο βήμα."
     },
     "wagonType": {
