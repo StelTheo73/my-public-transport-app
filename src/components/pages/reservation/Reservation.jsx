@@ -259,13 +259,13 @@ export const Reservation = ({
                 {/* Help button */}
                 <div
                     className="container d-flex justify-content-end mb-1">
-                    <div
-                        className="help-button d-flex align-items-center border border-primary rounded p-1"
+                    <button
+                        className="btn btn-outline-primary p-1"
                         onClick={() => setHelp(true)}
                     >
-                        <span className="text-primary" style={{userSelect: "none"}}>{textObject.help[language]}</span>
-                        <span className="ms-1"><FaInfoCircle className="text-primary"/></span>
-                    </div>
+                        <span>{textObject.help[language]}</span>
+                        <span className="ms-1"><FaInfoCircle/></span>
+                    </button>
                 </div>
                 {/* End help button */}
 

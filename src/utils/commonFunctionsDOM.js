@@ -9,7 +9,7 @@ export function disableElement(elementId) {
         console.debug(error.message);
     }
 
-};
+}
 
 export function enableElement(elementId) {
     try {
@@ -22,7 +22,7 @@ export function enableElement(elementId) {
         console.debug(error.message);
     }
 
-};
+}
 
 export function toggleElementVisibility(elementId, isDFlex=false) {
     try {
@@ -45,7 +45,7 @@ export function toggleElementVisibility(elementId, isDFlex=false) {
     catch (error) {
         console.debug(error.message);
     }
-};
+}
 
 export function hideElement(elementId, isDFlex=false){
     try {
@@ -59,7 +59,7 @@ export function hideElement(elementId, isDFlex=false){
     catch (error) {
         console.debug(error.message);
     }
-};
+}
 
 export function showElement(elementId, isDFlex=false){
     try {
@@ -73,7 +73,7 @@ export function showElement(elementId, isDFlex=false){
     catch (error) {
         console.debug(error.message);
     }
-};
+}
 
 export function removeTooltip(targetId){
     try {
@@ -83,18 +83,18 @@ export function removeTooltip(targetId){
     catch (error) {
         console.debug(error.message);
     }
-};
+}
 
 export function setTooltipContent(targetId, text){
     const tooltipElement = document.getElementById(targetId);
     tooltipElement.setAttribute("data-tooltip-content", text);
-};
+}
 
 export function markSelectedTrip(tripWrapperId, className="trip-wrapper", classToAdd="trip-selected") {
     try {
         const otherTripWrappers = document.querySelectorAll("." + className);
-        otherTripWrappers.forEach((tripWrapper) => {
-            tripWrapper.classList.remove(classToAdd);
+        otherTripWrappers.forEach(_tripWrapper => {
+            _tripWrapper.classList.remove(classToAdd);
         });
 
         const tripWrapper = document.getElementById(tripWrapperId);
@@ -103,13 +103,13 @@ export function markSelectedTrip(tripWrapperId, className="trip-wrapper", classT
     catch (error) {
         console.debug(error.message);
     }
-};
+}
 
 export function unMarkSelectedTrips(className="trip-wrapper", classToRemove="trip-selected") {
     try {
         const tripWrappers = document.querySelectorAll("." + className);
-        tripWrappers.forEach((tripWrapper) => {
-            tripWrapper.classList.remove(classToRemove);
+        tripWrappers.forEach(_tripWrapper => {
+            _tripWrapper.classList.remove(classToRemove);
         });
     }
     catch (error) {
@@ -127,6 +127,6 @@ export function rotateElement(elementId) {
     catch (error) {
         console.debug(error.message);
     }
-};
+}
 
 // export function =

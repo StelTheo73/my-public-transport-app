@@ -10,14 +10,14 @@ import "./Seats.css";
 import textObject from "../../../assets/language/reservation.json";
 
 const toggleWagonSeats = (tripWagonId, wagonId) => {
-    document.querySelectorAll(".wagon-seat-selector-wrapper").forEach((wagonSeatSelector) => {
+    document.querySelectorAll(".wagon-seat-selector-wrapper").forEach(wagonSeatSelector => {
         wagonSeatSelector.classList.add("hide");
-    })
+    });
 
-    markSelectedTrip(`wagon-${wagonId}`, "wagon", "wagon-selected")
+    markSelectedTrip(`wagon-${wagonId}`, "wagon", "wagon-selected");
 
     showElement(`wagon-seat-selector-${tripWagonId}`);
-}
+};
 
 export const Seats = React.forwardRef(({
         language, activeTrip, setActiveTrip
@@ -28,7 +28,7 @@ export const Seats = React.forwardRef(({
             <span id="seat-selector-wrapper" className="text-warning-bold user-select-disabled">
                 {textObject.tripSelectorPrompt[language]}
             </span>
-    )
+    );
     }
 
     return (
@@ -42,7 +42,7 @@ export const Seats = React.forwardRef(({
                     {/* Wagon selector container */}
                     <div className="wagons-container d-flex flex-row flex-sm-column justify-content-center flex-wrap mx-2">
                         {activeTrip?.seats &&
-                            Object.keys(activeTrip.seats).map((wagonId) => {
+                            Object.keys(activeTrip.seats).map(wagonId => {
 
                                 const key = `${activeTrip.tripId}-${wagonId}`;
                                 const id = `wagon-${wagonId}`;
@@ -54,9 +54,9 @@ export const Seats = React.forwardRef(({
                                         key={key}
                                         id={id}
                                         className={className}
-                                        onClick={(event) => {
+                                        onClick={event => {
                                             event.stopPropagation();
-                                            toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`, wagonId)
+                                            toggleWagonSeats(`${activeTrip.tripId}-${wagonId}`, wagonId);
                                         }}
                                         style={{maxHeight: "min-content", height: "min-content"}}
                                     >
@@ -73,7 +73,7 @@ export const Seats = React.forwardRef(({
                                             {textObject.class[language]}: {activeTrip.seats[wagonId].class}
                                         </span>
                                     </div>
-                                )
+                                );
                             })}
                     </div>
                     {/* End wagon selector container */}
@@ -81,14 +81,14 @@ export const Seats = React.forwardRef(({
                     {/* Seat selector container */}
                     <div className="wagon-seats-container my-1 mx-2">
                         {activeTrip?.seats &&
-                            Object.keys(activeTrip.seats).map((wagonId) => {
+                            Object.keys(activeTrip.seats).map(wagonId => {
                                 const seats = activeTrip.seats[wagonId].seats;
                                 const wagonClass = activeTrip.seats[wagonId].class;
 
-                                const key = `${activeTrip.tripId}-${wagonId}`
-                                const id = `wagon-seat-selector-${activeTrip.tripId}-${wagonId}`
+                                const key = `${activeTrip.tripId}-${wagonId}`;
+                                const id = `wagon-seat-selector-${activeTrip.tripId}-${wagonId}`;
                                 const className = `wagon-seat-selector-wrapper
-                                    ${wagonId === Object.keys(activeTrip.seats)[0] ? "" : "hide"}`
+                                    ${wagonId === Object.keys(activeTrip.seats)[0] ? "" : "hide"}`;
 
                                 return (
                                     <div
@@ -113,7 +113,7 @@ export const Seats = React.forwardRef(({
                                                 />
                                         }
                                     </div>
-                                )
+                                );
                             })}
                     </div>
                     {/* End seat selector container */}
@@ -131,11 +131,11 @@ export const Seats = React.forwardRef(({
                 {textObject.noSeatsSupportedPrompt[language]}
             </span>
         </>
-        )
+        );
 });
 
 Seats.propTypes = {
     language: PropTypes.string.isRequired,
     activeTrip: PropTypes.object.isRequired,
     setActiveTrip: PropTypes.func.isRequired
-}
+};

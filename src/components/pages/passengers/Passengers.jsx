@@ -27,6 +27,7 @@ export const Passengers = ({
   const [blockAddDelete, setBlockAddDelete] = useState(false);
   const [passengersAfterDeletion, setPassengersAfterDeletion] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+  const paymentButtonRef = useRef(null);
 
   /**
    * Calculates the ticket price for a passenger.
@@ -416,8 +417,6 @@ export const Passengers = ({
     let formIsValid = true;
 
     for (const passenger of Object.values(passengers)) {
-      console.log(passenger);
-
       const { passengerId, passengerName, ticketType } = passenger;
 
       const passengerNameElement = document.getElementById(`passenger-name-${passengerId}`);
@@ -531,11 +530,11 @@ export const Passengers = ({
                 </div>
                 <div className="col-12 col-sm-6 d-flex justify-content-end">
                     <button
+                        ref={paymentButtonRef}
                         id="reservation-btn"
                         className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                         onClick={() => {
                             validateForm();
-                            // navigate("/payment");
                         }}
                     >
                         <MdPayment className="mb-1 me-2"/>
@@ -599,6 +598,14 @@ export const Passengers = ({
             {passengersDiv && passengersDiv.map(passengersDiv => (passengersDiv))}
           </div>
         }
+
+        <span
+          className=""
+          tabIndex={0}
+          onFocus={() => paymentButtonRef.current.focus()}
+        >
+        </span>
+
     </main>
   );
 };

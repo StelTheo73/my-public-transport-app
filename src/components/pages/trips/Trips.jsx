@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useEffect, useState  } from "react";
+import { useEffect, useState, useRef  } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     FaTrain, FaFlagCheckered, FaSearch,
@@ -36,7 +36,7 @@ export const Trips = ({
     const { data: trips, loading, error } = useFetch(url);
     const { data: returnTrips, loading: returnLoading, error: returnError } = useFetch(returnUrl);
     const [help, setHelp] = useState(false);
-
+    const seatsButtonRef = useRef(null);
 
     // Navigate to home page is search has not been performed
     useEffect(() => {
@@ -47,17 +47,17 @@ export const Trips = ({
             navigate("/");
             return undefined;
         }
-
-        window.scrollTo(0, 0);
+        else {
+            window.scrollTo(0, 0);
 
         setUrl("/fetch/trips/" +
             searchParameters.start.english + searchParameters.destination.english);
 
-        if (searchParameters?.tripType?.value === "returningTrip") {
+            if (searchParameters?.tripType?.value === "returningTrip") {
             setReturnUrl("/fetch/trips/" +
                 searchParameters.destination.english + searchParameters.start.english);
         }
-
+        }
     }, [navigate, searchParameters]);
 
     useEffect(() => {
@@ -73,9 +73,9 @@ export const Trips = ({
         }
 
 
-    }, [selectedTrip, selectedReturnTrip, searchParameters?.tripType?.value])
+    }, [selectedTrip, selectedReturnTrip, searchParameters?.tripType?.value]);
 
-    const tripsTransition = (tripsToShow) => {
+    const tripsTransition = tripsToShow => {
         if (tripsToShow === "trips" && showReturnTrips === true) {
             setHide(true);
             setShowReturnTrips(false);
@@ -90,7 +90,7 @@ export const Trips = ({
                 setHide(false);
             }, DEFAULT_TRANSITION_TIMEOUT);
         }
-    }
+    };
 
     if (help)  {
         return (
@@ -114,7 +114,7 @@ export const Trips = ({
                                     // Reset trips to avoid showing previous trips
                                     setSelectedTrip({});
                                     setSelectedReturnTrip({});
-                                    navigate("/")
+                                    navigate("/");
                                 }}
                             >
                                 <FaArrowLeft className="me-2"/>
@@ -126,6 +126,7 @@ export const Trips = ({
                         </div>
                         <div className="col-12 col-sm-6 d-flex justify-content-end">
                             <button
+                                ref={seatsButtonRef}
                                 id="reservation-btn"
                                 className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                                 onClick={() => {
@@ -135,7 +136,7 @@ export const Trips = ({
                                         (selectedTrip?.tripId && selectedReturnTrip?.tripId
                                             && searchParameters?.tripType?.value === "returningTrip"
                                         )) {
-                                        navigate("/reservation")
+                                        navigate("/reservation");
                                     }
                                 }}
                             >
@@ -159,13 +160,13 @@ export const Trips = ({
                 {/* Help button */}
                 <div
                     className="container d-flex justify-content-end mb-1">
-                    <div
-                        className="help-button d-flex align-items-center border border-primary rounded p-1"
+                    <button
+                        className="btn btn-outline-primary p-1"
                         onClick={() => setHelp(true)}
                     >
-                        <span className="text-primary" style={{userSelect: "none"}}>{textObject.help[language]}</span>
-                        <span className="ms-1"><FaInfoCircle className="text-primary"/></span>
-                    </div>
+                        <span>{textObject.help[language]}</span>
+                        <span className="ms-1"><FaInfoCircle/></span>
+                    </button>
                 </div>
                 {/* End help button */}
 
@@ -257,6 +258,14 @@ export const Trips = ({
 
                 </div>
                 {/* End trips */}
+
+                <span
+                    className=""
+                    tabIndex={0}
+                    onFocus={() => seatsButtonRef.current.focus()}
+                >
+        </span>
+
             </main>
         );
     }
@@ -269,5 +278,7 @@ Trips.propTypes = {
     selectedTrip: PropTypes.object.isRequired,
     setSelectedTrip: PropTypes.func.isRequired,
     selectedReturnTrip: PropTypes.object.isRequired,
-    setSelectedReturnTrip: PropTypes.func.isRequired
-}
+    setSelectedReturnTrip: PropTypes.func.isRequired,
+    setSubTrips: PropTypes.func.isRequired,
+    setReturnSubTrips: PropTypes.func.isRequired
+};
