@@ -28,12 +28,11 @@
 
 @media (max-width:450px) {
     .payment-wrapper {
-        /* flex-direction: column; */
-        /* align-items: center; */
-        overflow-x: scroll;
+        flex-direction: column;
+        align-items: center;
     }
     .payment-option {
-        width: 100px;
+        width: 10em;
     }
     .payment-option img {
         display: none;
