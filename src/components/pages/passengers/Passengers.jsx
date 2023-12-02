@@ -3,23 +3,15 @@ import PropTypes from "prop-types";
 import { useEffect, useState , useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Select from "react-select";
-
 import {
   FaArrowLeft, FaArrowRight,
-  FaBus, FaTrain, FaTrashAlt
 } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 
-import { TICKET_CATEGORIES } from "../../../env/constants";
 import textObject from "../../../assets/language/passengers.json";
 import "./Passengers.css";
 
 import { Passenger } from "./Passenger.jsx";
-
-
-
-
 
 export const Passengers = ({
   language,
@@ -34,6 +26,7 @@ export const Passengers = ({
   const [allowAddPassengers, setAllowAddPassengers] = useState(false);
   const [blockAddDelete, setBlockAddDelete] = useState(false);
   const [passengersAfterDeletion, setPassengersAfterDeletion] = useState({});
+  const [totalPrice, setTotalPrice] = useState(0);
 
   /**
    * Calculates the ticket price for a passenger.
@@ -54,6 +47,20 @@ export const Passengers = ({
 
     // Return ticket price rounded up to 2 decimals
     return Math.round(ticketPrice * 100) / 100;
+  };
+
+  /**
+   * Calculates the total price for all passengers.
+   * @returns {undefined}
+  */
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+
+    for (const passenger of Object.values(passengers)) {
+      totalPrice += passenger.ticketPrice;
+    }
+
+    return totalPrice;
   };
 
   /**
@@ -494,9 +501,9 @@ export const Passengers = ({
         createPassengerObjects(seatsPerWagon);
         setPassengersAfterDeletion({});
       }
-  }, [noOfSeats, blockAddDelete]);
+    }, [noOfSeats, blockAddDelete]);
 
-  useEffect(() => {
+    useEffect(() => {
       if (blockAddDelete) {
         return;
       }
@@ -504,6 +511,15 @@ export const Passengers = ({
         constructPassengers();
       }
   }, [language, subTrips, returnSubTrips, passengers, blockAddDelete]);
+
+  useEffect(() => {
+    if (blockAddDelete) {
+      return;
+    }
+    else {
+      setTotalPrice(calculateTotalPrice());
+    }
+  }, [passengers, blockAddDelete]);
 
   return (
     <main>
@@ -548,6 +564,14 @@ export const Passengers = ({
             <h3 id="page-header">{textObject.header[language]}</h3>
         </div>
         {/* End header */}
+
+        {/* Total price */}
+
+        <div className="container d-flex align-items-center justify-content-end">
+            <span className="h5 user-select-disabled">{textObject.totalCost[language]}:&nbsp;
+              <span className="h3 text-primary-bold user-select-disabled">{totalPrice} €</span>
+            </span>
+          </div>
 
         {/* Add passenger */}
         {allowAddPassengers &&

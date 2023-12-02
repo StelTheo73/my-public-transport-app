@@ -56,5 +56,9 @@
             "EN": "Please select a ticket type!",
             "GR": "Παρακαλώ επιλέξτε έναν τύπο εισιτηρίου!"
         }
+    },
+    "totalCost": {
+        "EN": "Total Cost",
+        "GR": "Συνολικό Κόστος"
     }
 }
