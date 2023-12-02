@@ -58,7 +58,7 @@ export const Reservation = ({
     selectedTrip, selectedReturnTrip,
     subTrips, setSubTrips,
     returnSubTrips, setReturnSubTrips,
-    setNoOfSeats
+    setNoOfSeats, setPassengers
 }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -80,6 +80,8 @@ export const Reservation = ({
         }
         else {
             window.scrollTo(0, 0);
+
+            setPassengers({})
 
             if (subTrips.length === 0) {
                 constructSubTrips(selectedTrip, stations.stations).then((_subTrips, _error) => {
@@ -105,7 +107,6 @@ export const Reservation = ({
                 }
                 setReturnLoading(false);
             }
-
             // setActiveTrip({});
         }
 
@@ -187,7 +188,7 @@ export const Reservation = ({
         }
 
         if (errorFound === false) {
-            setNoOfSeats(seatsNo);
+            setNoOfSeats(seatsNo === -1 ? 1 : seatsNo);
             navigate("/passengers");
         }
     };

@@ -82,6 +82,7 @@ function App() {
                 searchParameters={searchParameters}
                 setSearchParameters={setSearchParameters}
                 setStations={setStations}
+                setPassengers={setPassengers}
                 />
             } />
             <Route path="trips" element={
@@ -95,6 +96,7 @@ function App() {
                 setSelectedReturnTrip={setSelectedReturnTrip}
                 setSubTrips={setSubTrips}
                 setReturnSubTrips={setReturnSubTrips}
+                setPassengers={setPassengers}
                 />
             } />
             <Route path="reservation" element={
@@ -109,6 +111,7 @@ function App() {
                 returnSubTrips={returnSubTrips}
                 setReturnSubTrips={setReturnSubTrips}
                 setNoOfSeats={setNoOfSeats}
+                setPassengers={setPassengers}
                 />
             } />
             <Route path="passengers" element={

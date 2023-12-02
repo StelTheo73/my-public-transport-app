@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Select from "react-select";
@@ -15,40 +15,11 @@ import { TICKET_CATEGORIES } from "../../../env/constants";
 import textObject from "../../../assets/language/passengers.json";
 import "./Passengers.css";
 
+import { Passenger } from "./Passenger.jsx";
 
-const PassengerSeats = ({ language, passenger, allSubTrips }) => {
-  const { passengerId, passengerSeats } = passenger;
 
-  return (
-    <div>
-      {textObject.seats[language]}:&nbsp;
-      {passengerSeats?.map(passengerSeat => {
-        const subTrip = allSubTrips.find(_subTrip => _subTrip.tripId === passengerSeat?.tripId);
-        const vehicleType = subTrip.trainId.startsWith("B") ? "bus" : "train";
 
-        return (
-          passengerSeat?.seatNumber !== "0" && (
-            <div
-              key={`passenger-seat-${passengerId}-${passengerSeat?.tripId}-${passengerSeat?.wagonId}-${passengerSeat?.seatNumber}`}
-              className="d-flex align-items-center"
-            >
-              {vehicleType === "bus" && <FaBus className="vehicle-icon me-1"/>}
-              {vehicleType === "train" && <FaTrain className="vehicle-icon me-1"/>}
-              <span className="station-names">
-                {subTrip.startStation[language]} <FaArrowRight className="mx-1"/> {subTrip.arrivalStation[language]}:
-              </span>
-              &nbsp;
-              <span className="passenger-seat">
-                {passengerSeat?.wagonId}/
-                {passengerSeat?.seatNumber}
-              </span>
-            </div>
-          )
-        );
-      })}
-    </div>
-  );
-};
+
 
 export const Passengers = ({
   language,
@@ -60,6 +31,9 @@ export const Passengers = ({
   const navigate = useNavigate();
   const [allSubTrips, setAllSubTrips] = useState([...subTrips, ...returnSubTrips]);
   const [passengersDiv, setPassengersDiv] = useState([]);
+  const [allowAddPassengers, setAllowAddPassengers] = useState(false);
+  const [blockAddDelete, setBlockAddDelete] = useState(false);
+  const [passengersAfterDeletion, setPassengersAfterDeletion] = useState({});
 
   /**
    * Calculates the ticket price for a passenger.
@@ -112,97 +86,9 @@ export const Passengers = ({
     newPassengers[passengerId].ticketType = choice.discount;
     //  Calculate the new ticket price
     newPassengers[passengerId].ticketPrice = getTicketPrice(passengerSeats, choice.discount);
+    newPassengers[passengerId].ticketTypeName = choice.value
 
     setPassengers(newPassengers);
-  };
-
-  /**
-   * Constructs the passenger element.
-   * @param {number} passengerId - The passenger id.
-   * @returns {JSX.Element} - The passenger element.
-  */
-  const constructPassengerElement = passengerId => {
-    const ticketTypes = [...TICKET_CATEGORIES].sort((a, b) => a.priority - b.priority);
-
-    for (const ticketType of ticketTypes) {
-      ticketType.label = ticketType[language];
-    }
-    const defaultTicketType = ticketTypes[0];
-
-    return (
-      <div
-        key={`passenger-id-${passengerId}`}
-        className="border m-3 p-3 passenger-wrapper"
-      >
-
-        <div className="d-flex justify-content-between flex-wrap">
-          <span>{textObject.passenger[language]} {passengerId+1}</span>
-          <span className="passenger-ticket-price">
-            {textObject.ticketPrice[language]}:&nbsp;
-              <span>
-              {passengers[passengerId]?.ticketPrice &&
-                getTicketPrice(passengers[passengerId].passengerSeats, passengers[passengerId].ticketType)
-              || 0} €
-              </span>
-          </span>
-        </div>
-
-        <div className="mt-2">
-          <label
-            className="form-label required"
-            htmlFor={`passenger-name-${passengerId}`}
-            >{textObject.passengerName[language]}
-          </label>
-          <input
-            id={`passenger-name-${passengerId}`}
-            className="form-control required"
-            required
-            type="text"
-            autoFocus={passengerId === 0}
-            onChange={() => handlePassengerNameChange(passengerId)}
-            autoComplete="name"
-            >
-          </input>
-        </div>
-
-        <div className="mt-2">
-          <label
-            className="form-label required"
-            htmlFor={`ticket-type-${passengerId}`}
-            value={passengers[passengerId]?.passengerName || ""}
-            >{textObject.ticketType[language]}
-          </label>
-          <Select
-            id={`ticket-type-${passengerId}`}
-            className="required"
-            required
-            name={`ticket-type-${passengerId}`}
-            defaultValue={defaultTicketType}
-            options={ticketTypes}
-            onChange={choice => handleTicketTypeChange(passengerId, choice)}
-            isSearchable={false}
-          />
-        </div>
-        <div className="mt-2">
-          <PassengerSeats
-            language={language}
-            passenger={passengers[passengerId] || {}}
-            allSubTrips={allSubTrips}
-          />
-        </div>
-
-        <div className="mt-2 mx-2 d-flex justify-content-end">
-          <button
-            id={`delete-passenger-${passengerId}`}
-            className="btn btn-danger"
-            onClick={() => handleDeletePassenger(passengerId)}
-          >
-          <FaTrashAlt className="me-1"/>
-          </button>
-        </div>
-
-      </div>
-    );
   };
 
   /**
@@ -215,7 +101,25 @@ export const Passengers = ({
 
     // Construct a passenger element for each passenger
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
-      passengersDivArray.push(constructPassengerElement(passengerId));
+      // passengersDivArray.push(constructPassengerElement(passengerId));
+      const passenger = passengers[passengerId];
+      if (!passenger) {
+        continue;
+      }
+
+      passengersDivArray.push(
+        <Passenger
+          key={`passenger-id-${passengerId}`}
+          language={language}
+          passenger={passengers[passengerId]}
+          setPassengers={setPassengers}
+          handlePassengerNameChange={handlePassengerNameChange}
+          handleTicketTypeChange={handleTicketTypeChange}
+          handleDeletePassenger={handleDeletePassenger}
+          allSubTrips={allSubTrips}
+          getTicketPrice={getTicketPrice}
+        />
+      );
     }
     setPassengersDiv(passengersDivArray);
   };
@@ -226,83 +130,135 @@ export const Passengers = ({
    * @returns {undefined}
   */
   const handleDeletePassenger = passengerId => {
-    const newPassengers = { ...passengers };
-    const newSubTrips = [...subTrips];
-    const newReturnSubTrips = [...returnSubTrips];
+    if (blockAddDelete) {
+      return;
+    }
+    else {
+      setBlockAddDelete(true);
 
-    const passengerSeats = newPassengers[passengerId].passengerSeats;
+      const newPassengers = { ...passengers };
+      const newSubTrips = [...subTrips];
+      const newReturnSubTrips = [...returnSubTrips];
 
-    // Delete the seats from the sub trips
-    for (const { tripId, wagonId, seatNumber } of passengerSeats) {
-      const subTrip = newSubTrips.find(_subTrip => _subTrip.tripId === tripId);
+      const passengerSeats = newPassengers[passengerId].passengerSeats;
 
-      if (!subTrip) {
-        continue;
-      }
+      // Delete the seats from the sub trips
+      for (const { tripId, wagonId, seatNumber } of passengerSeats) {
+        const subTrip = newSubTrips.find(_subTrip => _subTrip.tripId === tripId);
 
-      const wagons = Object.keys(subTrip.selectedSeats);
-      // Case: This vehicle does not support seat selection ||
-      //       the wagon does not belong to this vehicle
-      if (wagons.length === 0 || !wagons.includes(wagonId)) {
-        continue;
-      }
-
-      // Case: The seat does not belong to this wagon
-      const seats = subTrip.selectedSeats[wagonId];
-      if (seats.length === 0 || !seats.includes(seatNumber)) {
-        continue;
-      }
-
-      // Delete the seat
-      for (const newSubTrip of newSubTrips) {
-        if (newSubTrip.tripId === tripId) {
-          newSubTrip.selectedSeats[wagonId] = seats.filter(_seatNumber => _seatNumber !== seatNumber);
+        if (!subTrip) {
+          continue;
         }
+
+        const wagons = Object.keys(subTrip.selectedSeats);
+        // Case: This vehicle does not support seat selection ||
+        //       the wagon does not belong to this vehicle
+        if (wagons.length === 0 || !wagons.includes(wagonId)) {
+          continue;
+        }
+
+        // Case: The seat does not belong to this wagon
+        const seats = subTrip.selectedSeats[wagonId];
+        if (seats.length === 0 || !seats.includes(seatNumber)) {
+          continue;
+        }
+
+        // Delete the seat
+        for (const newSubTrip of newSubTrips) {
+          if (newSubTrip.tripId === tripId) {
+            newSubTrip.selectedSeats[wagonId] = seats.filter(_seatNumber => _seatNumber !== seatNumber);
+          }
+        }
+      }
+
+      // Delete the seats from the return sub trips
+      for (const { tripId, wagonId, seatNumber } of passengerSeats) {
+        const subTrip = newReturnSubTrips.find(_subTrip => _subTrip.tripId === tripId);
+
+        if (!subTrip) {
+          continue;
+        }
+
+        const wagons = Object.keys(subTrip.selectedSeats);
+        // Case: This vehicle does not support seat selection ||
+        //       the wagon does not belong to this vehicle
+        if (wagons.length === 0 || !wagons.includes(wagonId)) {
+          continue;
+        }
+
+        // Case: The seat does not belong to this wagon
+        const seats = subTrip.selectedSeats[wagonId];
+        if (seats.length === 0 || !seats.includes(seatNumber)) {
+          continue;
+        }
+
+        // Delete the seat
+        for (const newSubTrip of newReturnSubTrips) {
+          if (newSubTrip.tripId === tripId) {
+            newSubTrip.selectedSeats[wagonId] = seats.filter(_seatNumber => _seatNumber !== seatNumber);
+          }
+        }
+      }
+
+      // Update the sub trips
+      setSubTrips(newSubTrips);
+      setReturnSubTrips(newReturnSubTrips);
+      setAllSubTrips([...newSubTrips, ...newReturnSubTrips]);
+
+      // Update the number of seats
+      const previousNoOfSeats = noOfSeats;
+
+      delete newPassengers[passengerId];
+      for (const passenger of Object.values(newPassengers)) {
+        if (passenger.passengerId > passengerId) {
+          const tempPassenger = newPassengers[passenger.passengerId];
+          delete newPassengers[passenger.passengerId];
+          tempPassenger.passengerId -= 1;
+          newPassengers[tempPassenger.passengerId] = tempPassenger;
+        }
+      }
+      setPassengersAfterDeletion(newPassengers);
+
+      setBlockAddDelete(false);
+      // Passengers will be updated with useEffect on seat change
+      setNoOfSeats(previousNoOfSeats - 1);
+    }
+  };
+
+  /**
+   * Checks if the provided sub trips support seat selection.
+   * If none of the sub trips support seat selection,
+   * then user can add passengers from this page.
+   * @returns {boolean} - True if the user can add passengers from this page.
+   *
+   * allSubTrips: An array of sub trips as described below:
+   *
+   *
+   * allSubTrips: [
+   *  {
+   *  |  tripId: <string>,
+   *  |  ...
+   *  |  seats: {
+   *  |  |  <wagonId>: {
+   *  |  |  ...
+   *  |  |  },
+   *  |  |  <wagonId>: {
+   *  |  |  ...
+   *  |  |  },
+   *  |  |  ...
+   *  |  },
+   *  },
+   *  ...
+   *  ]
+  */
+  const _allowAddPassengers = () => {
+    for (const subTrip of allSubTrips) {
+      if (Object.keys(subTrip.seats).length !== 0) {
+        return false;
       }
     }
 
-    // Delete the seats from the return sub trips
-    for (const { tripId, wagonId, seatNumber } of passengerSeats) {
-      const subTrip = newReturnSubTrips.find(_subTrip => _subTrip.tripId === tripId);
-
-      if (!subTrip) {
-        continue;
-      }
-
-      const wagons = Object.keys(subTrip.selectedSeats);
-      // Case: This vehicle does not support seat selection ||
-      //       the wagon does not belong to this vehicle
-      if (wagons.length === 0 || !wagons.includes(wagonId)) {
-        continue;
-      }
-
-      // Case: The seat does not belong to this wagon
-      const seats = subTrip.selectedSeats[wagonId];
-      if (seats.length === 0 || !seats.includes(seatNumber)) {
-        continue;
-      }
-
-      // Delete the seat
-      for (const newSubTrip of newReturnSubTrips) {
-        if (newSubTrip.tripId === tripId) {
-          newSubTrip.selectedSeats[wagonId] = seats.filter(_seatNumber => _seatNumber !== seatNumber);
-        }
-      }
-    }
-
-    // Delete the passenger
-    delete newPassengers[passengerId];
-
-    // Update the sub trips
-    setSubTrips(newSubTrips);
-    setReturnSubTrips(newReturnSubTrips);
-    setAllSubTrips([...newSubTrips, ...newReturnSubTrips]);
-
-    // Update the number of seats
-    const previousNoOfSeats = noOfSeats;
-    setNoOfSeats(previousNoOfSeats - 1);
-
-    // Passengers will be updated with useEffect on seat change
+    return true;
   };
 
   /**
@@ -313,6 +269,14 @@ export const Passengers = ({
    * @returns {string} - An array of seat objects[].seatNumber.
    * @returns {string} - An array of seat objects[].wagonId.
    * @returns {number} - An array of seat objects[].basicCost.
+   *
+   * subTripsWithSeats: [
+   *  [ <seat object>, <seat object>, ... ], --> seats for the first sub trip
+   *  [ <seat object>, <seat object>, ... ], --> seats for the second sub trip
+   *  [ <seat object>, <seat object>, ... ], --> seats for the third sub trip
+   *  ...                                    --> seats for the rest sub trips
+   * ]
+   *
    *
    * seat object: {
    *  tripId: <string>,
@@ -380,6 +344,7 @@ export const Passengers = ({
    *  passengerName: <string>,
    *  ticketType: <number>,
    *  ticketPrice: <number>,
+   *  ticketTypeName: <string>,
    *  passengerSeats: <Object[]> - An array of seat objects as described below.
    * }
    *
@@ -400,15 +365,34 @@ export const Passengers = ({
       passengerSeats.push(wagonSeats[passengerId]);
     }
 
-    return {
-      passengerId: passengerId,
-      passengerName: "",
-      // The discount
-      ticketType: 0,
-      ticketPrice: getTicketPrice(passengerSeats, 0),
-      passengerSeats: passengerSeats
-    };
-
+    // Case: The passenger already exists and is marked for deletion
+    if (passengersAfterDeletion[passengerId]) {
+      const tempPassenger = passengersAfterDeletion[passengerId];
+      // tempPassenger.ticketType = 0;
+      // tempPassenger.ticketPrice = getTicketPrice(passengerSeats, 0);
+      // tempPassenger.ticketTypeName = "full";
+      return tempPassenger;
+    }
+    // Case: The passenger already exists and is not marked for deletion
+    else if (Object.keys(passengersAfterDeletion).length === 0 && passengers[passengerId]) {
+        const tempPassenger = passengers[passengerId];
+        // tempPassenger.ticketType = 0;
+        // tempPassenger.ticketPrice = getTicketPrice(passengerSeats, 0);
+        // tempPassenger.ticketTypeName = "full";
+        return tempPassenger;
+    }
+    // Case: The passenger does not exist
+    else {
+      return {
+        passengerId: passengerId,
+        passengerName: "",
+        // The discount
+        ticketType: 0,
+        ticketTypeName: "full",
+        ticketPrice: getTicketPrice(passengerSeats, 0),
+        passengerSeats: passengerSeats,
+      };
+    }
   };
 
   /**
@@ -419,9 +403,8 @@ export const Passengers = ({
    * passengers: An array of passenger objects
    * as described in createPassengerObject.
   */
-  const createPassengerObjects = () => {
+  const createPassengerObjects = seatsPerWagon => {
     const tempPassengers = {};
-    const seatsPerWagon = createSeats();
 
     for (let passengerId = 0; passengerId < noOfSeats; passengerId += 1) {
       tempPassengers[passengerId] = createPassengerObject(passengerId, seatsPerWagon);
@@ -438,13 +421,8 @@ export const Passengers = ({
         console.log(passenger.passengerId, "EMPTY NAME");
       }
 
-
-
-
-      // ticket type should be a number between 0 and 1
-      // check the ticket type type with typeof, it should be a number
-      // check the ticket type value with >= 0 and <= 1
-
+      // Ticket type should be a number between 0 and 1,
+      // as it represents the discount
       if (passenger.ticketType < 0 || passenger.ticketType > 1) {
         console.log("INVALID TICKET TYPE");
       }
@@ -462,22 +440,34 @@ export const Passengers = ({
     else {
       window.scrollTo(0, 0);
 
-      createPassengerObjects();
+      // Reset passengers on navigate
+      setBlockAddDelete(true);
+      setPassengers({});
+      setBlockAddDelete(false);
     }
+  }, [navigate]);
 
-  }, [navigate, noOfSeats]);
 
   useEffect(() => {
+      if (blockAddDelete) {
+        return;
+      }
+      else {
+        const seatsPerWagon = createSeats();
+        setAllowAddPassengers(_allowAddPassengers());
+        createPassengerObjects(seatsPerWagon);
+        setPassengersAfterDeletion({});
+      }
+  }, [noOfSeats, blockAddDelete]);
 
-    if (!subTrips || subTrips.length === 0 || noOfSeats < 0) {
-      navigate("/");
-    }
-    else {
-      // createPassengerObjects();
-      constructPassengers();
-    }
-
-  }, [language, subTrips, returnSubTrips, passengers]);
+  useEffect(() => {
+      if (blockAddDelete) {
+        return;
+      }
+      else {
+        constructPassengers();
+      }
+  }, [language, subTrips, returnSubTrips, passengers, blockAddDelete]);
 
   return (
     <main>
@@ -523,13 +513,30 @@ export const Passengers = ({
         </div>
         {/* End header */}
 
+        {/* Add passenger */}
+        {allowAddPassengers &&
+          <div className="container d-flex justify-content-end mt-1">
+            <button
+              className="btn btn-outline-primary mt-1"
+              onClick={() => {
+                while (blockAddDelete) {
+                  continue;
+                }
+                setNoOfSeats(noOfSeats + 1)
+              }}
+            >{textObject.addPassenger[language]}
+            </button>
+          </div>
+        }
+        {/* End add passenger */}
+
         {!noOfSeats &&
           <div className="d-flex flex-column align-items-center justify-content-center my-5">
-            <span>Δεν έχετε επιλέξει καμία θέση!</span>
+            <span>{textObject.noSeatsSelected[language]}</span>
             <button
               className="btn btn-warning mt-1"
               onClick={() => navigate("/reservation")}
-            >Επιστροφή στην επιλογή θέσεων
+            >{textObject.returnToSeatSelection[language]}
             </button>
 
           </div>
@@ -556,10 +563,4 @@ Passengers.propTypes = {
   setPassengers: PropTypes.func.isRequired,
   noOfSeats: PropTypes.number.isRequired,
   setNoOfSeats: PropTypes.func.isRequired,
-};
-
-PassengerSeats.propTypes = {
-  language: PropTypes.string.isRequired,
-  passenger: PropTypes.object.isRequired,
-  allSubTrips: PropTypes.array.isRequired,
 };

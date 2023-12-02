@@ -585,7 +585,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0001",
             "interchanges": [],
             "subTrips": [
@@ -596,7 +596,7 @@
                     "duration": "1h15'",
                     "basicCost": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0001"
                 }
             ]
@@ -608,7 +608,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0002",
             "interchanges": [],
             "subTrips": [
@@ -619,7 +619,7 @@
                     "duration": "1h15'",
                     "basicCst": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0002"
                 }
             ]
@@ -631,7 +631,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0003",
             "interchanges": [],
             "subTrips": [
@@ -642,7 +642,7 @@
                     "duration": "1h15'",
                     "basicCost": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0003"
                 }
             ]
@@ -654,7 +654,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0004",
             "interchanges": [],
             "subTrips": [
@@ -665,7 +665,7 @@
                     "duration": "1h15'",
                     "basicCost": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0004"
                 }
             ]
@@ -677,7 +677,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0005",
             "interchanges": [],
             "subTrips": [
@@ -688,7 +688,7 @@
                     "duration": "1h15'",
                     "basicCost": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0005"
                 }
             ]
@@ -700,7 +700,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0006",
             "interchanges": [],
             "subTrips": [
@@ -711,7 +711,7 @@
                     "duration": "1h15'",
                     "basicCost": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0006"
                 }
             ]
@@ -723,7 +723,7 @@
             "duration": "1h15'",
             "basicCost": 11,
             "startStationId": "2",
-            "arrivalStationId": "3",
+            "arrivalStationId": "4",
             "trainId": "T0007",
             "interchanges": [],
             "subTrips": [
@@ -734,7 +734,7 @@
                     "duration": "1h15'",
                     "basicCost": 11,
                     "startStationId": "2",
-                    "arrivalStationId": "3",
+                    "arrivalStationId": "4",
                     "trainId": "T0007"
                 }
             ]
@@ -747,7 +747,7 @@
             "arrivalTime": "09:15",
             "duration": "1h15'",
             "basicCost": 11,
-            "startStationId": "3",
+            "startStationId": "4",
             "arrivalStationId": "2",
             "trainId": "T0001",
             "interchanges": [],
@@ -758,7 +758,7 @@
                     "arrivalTime": "09:15",
                     "duration": "1h15'",
                     "basicCost": 11,
-                    "startStationId": "3",
+                    "startStationId": "4",
                     "arrivalStationId": "2",
                     "trainId": "T0001"
                 }
@@ -770,7 +770,7 @@
             "arrivalTime": "10:15",
             "duration": "1h15'",
             "basicCost": 11,
-            "startStationId": "3",
+            "startStationId": "4",
             "arrivalStationId": "2",
             "trainId": "T0002",
             "interchanges": [],
@@ -781,7 +781,7 @@
                     "arrivalTime": "10:15",
                     "duration": "1h15'",
                     "basicCost": 11,
-                    "startStationId": "3",
+                    "startStationId": "4",
                     "arrivalStationId": "2",
                     "trainId": "T0002"
                 }
@@ -793,7 +793,7 @@
             "arrivalTime": "11:15",
             "duration": "1h15'",
             "basicCost": 11,
-            "startStationId": "3",
+            "startStationId": "4",
             "arrivalStationId": "2",
             "trainId": "T0003",
             "interchanges": [],
@@ -804,7 +804,7 @@
                     "arrivalTime": "11:15",
                     "duration": "1h15'",
                     "basicCost": 11,
-                    "startStationId": "3",
+                    "startStationId": "4",
                     "arrivalStationId": "2",
                     "trainId": "T0003"
                 }
@@ -816,7 +816,7 @@
             "arrivalTime": "12:15",
             "duration": "1h15'",
             "basicCost": 11,
-            "startStationId": "3",
+            "startStationId": "4",
             "arrivalStationId": "2",
             "trainId": "T0004",
             "interchanges": [],
@@ -827,7 +827,7 @@
                     "arrivalTime": "12:15",
                     "duration": "1h15'",
                     "basicCost": 11,
-                    "startStationId": "3",
+                    "startStationId": "4",
                     "arrivalStationId": "2",
                     "trainId": "T0004"
                 }
@@ -839,7 +839,7 @@
             "arrivalTime": "13:15",
             "duration": "1h15'",
             "basicCost": 11,
-            "startStationId": "3",
+            "startStationId": "4",
             "arrivalStationId": "2",
             "trainId": "T0005",
             "interchanges": [],
@@ -850,7 +850,7 @@
                     "arrivalTime": "13:15",
                     "duration": "1h15'",
                     "basicCost": 11,
-                    "startStationId": "3",
+                    "startStationId": "4",
                     "arrivalStationId": "2",
                     "trainId": "T0005"
                 }
@@ -862,7 +862,7 @@
             "arrivalTime": "14:15",
             "duration": "1h15'",
             "basicCost": 11,
-            "startStationId": "3",
+            "startStationId": "4",
             "arrivalStationId": "2",
             "trainId": "T0006",
             "interchanges": [],
@@ -873,7 +873,7 @@
                     "arrivalTime": "14:15",
                     "duration": "1h15'",
                     "basicCost": 11,
-                    "startStationId": "3",
+                    "startStationId": "4",
                     "arrivalStationId": "2",
                     "trainId": "T0006"
                 }

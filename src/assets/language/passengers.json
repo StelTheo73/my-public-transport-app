@@ -34,5 +34,17 @@
     "deletePassenger": {
         "EN": "Remove Passenger",
         "GR": "Αφαίρεση Επιβάτη"
+    },
+    "addPassenger": {
+        "EN": "Add New Passenger",
+        "GR": "Προσθήκη Νέου Επιβάτη"
+    },
+    "noSeatsSelected": {
+        "EN": "You have not selected any seats!",
+        "GR": "Δεν έχετε επιλέξει καμία θέση!"
+    },
+    "returnToSeatSelection": {
+        "EN": "Return to seat selection",
+        "GR": "Επιστροφή στην επιλογή θέσεων"
     }
 }
