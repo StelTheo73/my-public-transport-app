@@ -14,6 +14,8 @@ import { removeTones } from "../utils/removeTones";
 import { ErrorAlert } from "./ErrorAlert";
 
 
+const TODAY = new Date().toISOString().slice(0,10);
+
 function createOptions(station, language) {
       const stationInEnglish = station["EN"];
       return {
@@ -76,9 +78,9 @@ export const Home = ({
       const [destination, setDestination] =
             useState(searchParameters?.destination || "");
       const [date, setDate] =
-            useState(searchParameters?.date || new Date().toISOString().slice(0, 10));
+            useState(searchParameters?.date || TODAY);
       const [returnDate, setReturnDate] =
-            useState(searchParameters?.returnDate || new Date().toISOString().slice(0, 10));
+            useState(searchParameters?.returnDate || TODAY);
       const [tripType, setTripType] =
             useState(searchParameters?.tripType ||
                   {
@@ -181,17 +183,21 @@ export const Home = ({
             }
       }
 
-      const [alert, setAlert] = useState(false);
+      const [errorAlert, setErrorAlert] = useState(false);
       // Handle form submission
       const handleSubmit = (event) => {
             event.preventDefault();
 
             if (start?.value === destination?.value) {
-                  setAlert(errorText.sameTown[language]);
+                  setErrorAlert(errorText.sameTown[language]);
+                  return;
+            }
+            if (new Date(date) < new Date(TODAY)){
+                  setErrorAlert(errorText.pastDate[language]);
                   return;
             }
             if (new Date(date) > new Date(returnDate)){
-                  setAlert(errorText.dates[language]);
+                  setErrorAlert(errorText.dates[language]);
                   return;
             }
 
@@ -227,7 +233,7 @@ export const Home = ({
                               <h3>{textObject.header[language]}</h3>
                         </div>
                         <div className="form-wrapper container justify-content-center pt-3 my-3">
-                              <ErrorAlert show={alert} error={alert} />
+                              <ErrorAlert show={errorAlert} error={errorAlert} />
                               {/* Form */}
                               <form
                                     className="container"
@@ -308,7 +314,7 @@ export const Home = ({
                                                       name="date"
                                                       id="date"
                                                       value={date}
-                                                      onChange={e => setDate(e.target.value)}
+                                                      onChange={e => {setDate(e.target.value); setReturnDate(e.target.value)}}
                                                 />
                                           </div>
                                           {/* End date select */}

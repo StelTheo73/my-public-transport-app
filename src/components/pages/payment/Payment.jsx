@@ -4,128 +4,90 @@ import "./Payment.css"
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
-// import textObject from "../../../assets/language/passengers.json";
+import { ContactForm } from "./ContactForm";
+import textObject from "../../../assets/language/payment.json";
+import creditCard from "../../../assets/images/paymentOptions/creditCard.png"
+import payPal from "../../../assets/images/paymentOptions/payPal.png"
+import coupons from "../../../assets/images/paymentOptions/coupon.jpg"
+import { useEffect } from "react";
 
+let payOptions;
 
-export const Payment = ({
-    language, passengers
-}) =>{
-  const navigate = useNavigate();
+const handlePaymentOption = (elmt)=> {
+    payOptions.forEach(opt=> {
+        if (opt.classList.contains("active")) opt.classList.remove("active");
+    });
+    payOptions[elmt].classList.add("active");
+}
 
-  return (
-  <main>
-    <div className="payment">
-        {/* Navigation buttons */}
-        <div className="container-fluid sticky-container">
-            <div className="row">
-                <div className="col-12 col-sm-6 d-flex justify-content-start">
-                    <button className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
-                        onClick={() => {
-                            navigate("/passengers", {state: {noOfSeats: 0}});
-                        }}>
-                        <FaArrowLeft className="me-2"/>
-                        <span>
-                            ΠΙΣΩ
-                        </span>
-                    <MdAirlineSeatReclineExtra className="me-2"/>
-                    </button>
-                </div>
-                <div className="col-12 col-sm-6 d-flex justify-content-end">
-                    <button
-                        id="reservation-btn"
-                        className="btn btn-success mt-2 mt-sm-1 full-width-xs"
-                        onClick={() => {
-                            navigate("/payment");
-                        }}
-                    >
-                        <MdPayment className="mb-1 me-2"/>
-                        <span>
-                            ΜΠΡΟΣΤΑ
-                        </span>
-                        <FaArrowRight className="ms-2"/>
-                    </button>
-                </div>
-            </div>
-        </div>
-        {/* End navigation buttons */}
+export const Payment = ({language}) =>{
+    const navigate = useNavigate();
 
-        <div className="container d-flex align-items-center justify-content-center mt-3">
-            <h3 id="page-header">Δυνατότητες πληρωμής</h3>
-        </div>
+    useEffect(()=> {
+        payOptions = document.querySelectorAll(".payment-option");
+    }, []);
 
-        <div className="d-flex justify-content-between flex-wrap">
-            {[1,2,3,4]}
-        </div>
-
-        <div className="container d-flex align-items-center justify-content-center mt-3">
-            <h3 id="page-header">Στοιχεία</h3>
-        </div>
-
-
-        <div className="d-flex align-items-center flex-column">
-            <div className="border m-3 p-3 passenger-wrapper">
-                <span>Στοιχεία επικοινωνίας</span>
-
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor="myron-input">Όνομα (το μόνο optional)</label>
-                    <input id="myron-input" className="form-control required" required />
-                </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Τηλέφωνο</label>
-                    <input id="myron-input" className="form-control required" required />
-                </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Email</label>
-                    <input id="myron-input" className="form-control required" required />
-                </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Καμιά πίπα;</label>
-                    <input id="myron-input" className="form-control required" required />
+    return <main>
+        <div className="payment">
+            {/* Navigation buttons */}
+            <div className="container-fluid sticky-container">
+                <div className="row">
+                    <div className="col-12 col-sm-6 d-flex justify-content-start">
+                        <button className="btn btn-warning mt-2 mt-sm-1 full-width-xs"
+                            onClick={() => {
+                                navigate("/passengers", {state: {noOfSeats: 0}});
+                            }}>
+                            <FaArrowLeft className="me-2"/>
+                            <span>
+                                {textObject.passengers[language]}
+                            </span>
+                        <MdAirlineSeatReclineExtra className="me-2"/>
+                        </button>
+                    </div>
+                    <div className="col-12 col-sm-6 d-flex justify-content-end">
+                        <button
+                            id="reservation-btn"
+                            className="btn btn-success mt-2 mt-sm-1 full-width-xs"
+                            onClick={() => {
+                                navigate("/payment");
+                            }}
+                        >
+                            <MdPayment className="mb-1 me-2"/>
+                            <span>
+                                {textObject.continue[language]}
+                            </span>
+                            <FaArrowRight className="ms-2"/>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div className="border m-3 p-3 passenger-wrapper">
-                <span>Στοιχεία χρέωσης</span>
+            {/* End navigation buttons */}
 
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor="myron-input">Χώρα</label>
-                    <input id="myron-input" className="form-control required" required />
+            <div className="container d-flex align-items-center justify-content-center mt-3">
+                <h3 id="page-header">{textObject.paymentOptions[language]}</h3>
+            </div>
+
+            <div className="d-flex flex-wrap">
+                <div className="payment-option" onClick={e=> handlePaymentOption(0)}>
+                    <img src={creditCard} alt="Card"/>
                 </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Ταχ. Κώδικας</label>
-                    <input id="myron-input" className="form-control required" required />
+                <div className="payment-option" onClick={e=> handlePaymentOption(1)}>
+                    <img src={payPal} alt="PayPal"/>
                 </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Πόλη</label>
-                    <input id="myron-input" className="form-control required" required />
-                </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Διεύθυνση</label>
-                    <input id="myron-input" className="form-control required" required />
-                </div>
-                <div className="mt-1">
-                    <label className="form-label required" htmlFor={`ticket-type-`}>Όροφος και ώρες που είναι άδειο το σπίτι</label>
-                    <input id="myron-input" className="form-control required" required />
+                <div className="payment-option" onClick={e=> handlePaymentOption(2)}>
+                    <img src={coupons} alt="coupons"/>
                 </div>
             </div>
+
+            <div className="container d-flex align-items-center justify-content-center mt-3">
+                <h3 id="page-header">{textObject.details[language]}</h3>
+            </div>
+
+            <ContactForm language={language} textObject={textObject}/>
+
         </div>
-
-
-
-
-        {/* <div className="row d-flex justify-content-center">
-            <div className="col-12 d-flex">
-                <span className="flex-fill">
-                    PAYMENT
-                </span>
-                <span id="chevron-1-span" className="rotate-transition d-flex align-items-center justify-content-center"
-                    onClick={() => alert('CLICK')}>
-                    <FaChevronUp id="chevron-1" className="rotate-transition" />
-                </span>
-            </div>
-        </div> */}
-    </div>
-  </main>
-);};
+    </main>
+};
 
 Payment.propTypes = {
     language: PropTypes.string.isRequired,

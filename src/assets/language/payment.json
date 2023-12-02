@@ -1,4 +1,17 @@
 {
+    "paymentOptions": {
+        "EN": "Pyment Options",
+        "GR": "Δυνατότητες Πληρωμής"
+    },
+    "details": {
+        "EN": "Details",
+        "GR": "Στοιχεία"
+    },
+    "continue": {
+        "EN": "Continue",
+        "GR": "Συνέχεια"
+    },
+
     "passenger": {
         "EN": "Passenger",
         "GR": "Επιβάτης"

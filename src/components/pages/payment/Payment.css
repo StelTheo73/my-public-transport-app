@@ -1,3 +1,23 @@
+.payment-option {
+    display: flex;
+    align-items: center;
+    width: 20em;
+    margin: 1em;
+    padding: .5em;
+    box-shadow: var(--default-box-shadow);
+    border-radius: 1em;
+    border: solid transparent .5em;
+    cursor: pointer;
+    transition: .3s;
+}
+.payment-option:hover {
+    transform: scale(1.05);
+}
+.payment-option.active {
+    border: solid rebeccapurple .5em;
+}
 
-
+.payment-option img {
+    max-width: 100%;
+}
 

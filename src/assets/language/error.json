@@ -3,6 +3,10 @@
         "EN": "The start and the destination must be different.",
         "GR": "Δεν μπορεί η αφετηρία και ο προορισμός να είναι η ίδια πόλη."
     },
+    "pastDate": {
+        "EN": "Your trip cannot be in a past date.",
+        "GR": "Η ημερομηνία αναχώρησης που επιλέξατε είναι στο παρελθόν."
+    },
     "dates": {
         "EN": "The return date must be later than the departure.",
         "GR": "Η ημερομηνία επιστροφής πρέπει να είναι μετά από την αναχώρησης."

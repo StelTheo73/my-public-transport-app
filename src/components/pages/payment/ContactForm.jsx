@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import textObject from "../../../assets/language/payment.json";
+// import textObject from "../../../assets/language/payment.json";
 
 export const ContactForm = ({language, textObject}) => {
     return (
