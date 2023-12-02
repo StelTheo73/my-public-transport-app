@@ -41,7 +41,7 @@ export const Payment = ({language}) =>{
                             <span>
                                 {textObject.passengers[language]}
                             </span>
-                        <MdAirlineSeatReclineExtra className="me-2"/>
+                        <MdAirlineSeatReclineExtra className="ms-2"/>
                         </button>
                     </div>
                     <div className="col-12 col-sm-6 d-flex justify-content-end">

@@ -14,10 +14,9 @@
     transform: scale(1.05);
 }
 .payment-option.active {
-    border: solid rebeccapurple .5em;
+    border: solid var(--bs-primary) .5em;
 }
 
 .payment-option img {
     max-width: 100%;
 }
-
