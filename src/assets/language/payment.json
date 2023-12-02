@@ -11,6 +11,18 @@
         "EN": "Continue",
         "GR": "Συνέχεια"
     },
+    "cardPayment": {
+        "EN":"by card",
+        "GR":"με κάρτα"
+    },
+    "PayPalPayment": {
+        "EN":"using PayPal",
+        "GR":"μέσω payPal"
+    },
+    "couponsPayment": {
+        "EN":"only with coupons",
+        "GR":"μόνο με κουπόνια"
+    },
 
     "passenger": {
         "EN": "Passenger",

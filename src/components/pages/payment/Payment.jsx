@@ -83,19 +83,22 @@ export const Payment = ({language}) =>{
 
             <ErrorAlert show={showError} error={errorText.payment[language]} />
 
-            <div className="container d-flex align-items-center justify-content-center mt-3">
+            <div className="container d-flex align-items-center justify-content-center mt-3 text-center">
                 <h3 id="page-header">{textObject.paymentOptions[language]}</h3>
             </div>
 
-            <div className="d-flex flex-wrap">
+            <div className="payment-wrapper">
                 <div className="payment-option" onClick={e=> handlePaymentOption(0)}>
                     <img src={creditCard} alt="Card"/>
+                    {textObject.cardPayment[language]}
                 </div>
                 <div className="payment-option" onClick={e=> handlePaymentOption(1)}>
                     <img src={payPal} alt="PayPal"/>
+                    {textObject.PayPalPayment[language]}
                 </div>
                 <div className="payment-option" onClick={e=> handlePaymentOption(2)}>
                     <img src={coupons} alt="coupons"/>
+                    {textObject.couponsPayment[language]}
                 </div>
             </div>
 
