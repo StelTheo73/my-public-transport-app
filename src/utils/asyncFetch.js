@@ -12,14 +12,13 @@ export async function fetchData(url) {
             response.json = () => {
                 return new Promise((resolve, reject) => {
                     const vehicleType =
-                        url.split("/fetch/seats/")[1].split("/")[1][0]
+                        url.split("/fetch/seats/")[1].split("/")[1][0];
                     const seats = Seats[vehicleType];
-                    seats === undefined ? resolve({}) : resolve(seats)
-                })
-            }
+                    seats === undefined ? resolve({}) : resolve(seats);
+                });
+            };
         }
         else {
-            console.log("URL did not match!");
             throw new Error("URL did not match!");
         }
 
