@@ -14,5 +14,9 @@
     "seats": {
         "EN": "Please choose valid seats for both trips.",
         "GR": "Παρακαλώ διαλέξτε έγκυρες θέσεις και για τις δύο διαδρομές."
+    },
+    "payment": {
+        "EN": "Please choose one payment option.",
+        "GR": "Παρακαλώ διαλέξτε έναν τρόπο πληρωμής."
     }
 }

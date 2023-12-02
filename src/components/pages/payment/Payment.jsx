@@ -6,19 +6,23 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 import { ContactForm } from "./ContactForm";
 import textObject from "../../../assets/language/payment.json";
+import errorText from "../../../assets/language/error.json";
 import creditCard from "../../../assets/images/paymentOptions/creditCard.png"
 import payPal from "../../../assets/images/paymentOptions/payPal.png"
 import coupons from "../../../assets/images/paymentOptions/coupon.jpg"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ErrorAlert } from "../../ErrorAlert";
 
+
 let payOptions;
+let choseOption = false;
 
 const handlePaymentOption = (elmt)=> {
     payOptions.forEach(opt=> {
         if (opt.classList.contains("active")) opt.classList.remove("active");
     });
     payOptions[elmt].classList.add("active");
+    choseOption = true;
 }
 
 const checkEmail = email=> /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -26,15 +30,19 @@ const checkPhone = phone=> /^(2\d|69)\d{8}$/.test(phone);
 
 export const Payment = ({language}) =>{
     const navigate = useNavigate();
+    const [showError, setShowError] = useState(false);
 
     useEffect(()=> {
         payOptions = document.querySelectorAll(".payment-option");
     }, []);
 
-    const validateForm = () => {
-        let formIsValid = true;
 
-        if (formIsValid) {
+    const validateForm = (e) => {
+        e.preventDefault();
+
+        if(!choseOption) setShowError(true);
+        else {
+            setShowError(false);
             navigate("#");
         }
     };
@@ -73,7 +81,7 @@ export const Payment = ({language}) =>{
             </div>
             {/* End navigation buttons */}
 
-            {/* <ErrorAlert show={true} error={"ERROR"} /> */}
+            <ErrorAlert show={showError} error={errorText.payment[language]} />
 
             <div className="container d-flex align-items-center justify-content-center mt-3">
                 <h3 id="page-header">{textObject.paymentOptions[language]}</h3>
