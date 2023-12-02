@@ -10,10 +10,8 @@
     cursor: pointer;
     transition: .3s;
 }
-.payment-option:hover {
+.payment-option:hover, .payment-option.active {
     transform: scale(1.05);
-}
-.payment-option.active {
     border: solid var(--bs-primary) .5em;
 }
 

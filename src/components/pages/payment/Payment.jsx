@@ -10,6 +10,7 @@ import creditCard from "../../../assets/images/paymentOptions/creditCard.png"
 import payPal from "../../../assets/images/paymentOptions/payPal.png"
 import coupons from "../../../assets/images/paymentOptions/coupon.jpg"
 import { useEffect } from "react";
+import { ErrorAlert } from "../../ErrorAlert";
 
 let payOptions;
 
@@ -20,6 +21,9 @@ const handlePaymentOption = (elmt)=> {
     payOptions[elmt].classList.add("active");
 }
 
+const checkEmail = email=> /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+const checkPhone = phone=> /^(2\d|69)\d{8}$/.test(phone);
+
 export const Payment = ({language}) =>{
     const navigate = useNavigate();
 
@@ -27,8 +31,16 @@ export const Payment = ({language}) =>{
         payOptions = document.querySelectorAll(".payment-option");
     }, []);
 
+    const validateForm = () => {
+        let formIsValid = true;
+
+        if (formIsValid) {
+            navigate("#");
+        }
+    };
+
     return <main>
-        <div className="payment">
+        <form className="payment" onSubmit={validateForm}>
             {/* Navigation buttons */}
             <div className="container-fluid sticky-container">
                 <div className="row">
@@ -48,9 +60,7 @@ export const Payment = ({language}) =>{
                         <button
                             id="reservation-btn"
                             className="btn btn-success mt-2 mt-sm-1 full-width-xs"
-                            onClick={() => {
-                                navigate("/payment");
-                            }}
+                            type="submit"
                         >
                             <MdPayment className="mb-1 me-2"/>
                             <span>
@@ -62,6 +72,8 @@ export const Payment = ({language}) =>{
                 </div>
             </div>
             {/* End navigation buttons */}
+
+            {/* <ErrorAlert show={true} error={"ERROR"} /> */}
 
             <div className="container d-flex align-items-center justify-content-center mt-3">
                 <h3 id="page-header">{textObject.paymentOptions[language]}</h3>
@@ -85,7 +97,7 @@ export const Payment = ({language}) =>{
 
             <ContactForm language={language} textObject={textObject}/>
 
-        </div>
+        </form>
     </main>
 };
 

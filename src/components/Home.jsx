@@ -199,27 +199,28 @@ export const Home = ({
             event.preventDefault();
 
             if (start && destination && start.value === destination.value) {
-                  return setErrorAlert(errorText.sameTown[language]);
+                  setErrorAlert(errorText.sameTown[language]);
             }
             else if (new Date(date) < new Date(TODAY)){
-                  return setErrorAlert(errorText.pastDate[language]);
+                  setErrorAlert(errorText.pastDate[language]);
             }
             else if (new Date(date) > new Date(returnDate)){
-                  return setErrorAlert(errorText.dates[language]);
+                  setErrorAlert(errorText.dates[language]);
             }
+            else {
+                  setSearchParameters({
+                        start: start.valueOf(),
+                        destination: destination.valueOf(),
+                        date: date.valueOf(),
+                        returnDate: returnDate.valueOf(),
+                        tripType: tripType.valueOf()
+                  })
 
-            setSearchParameters({
-                  start: start.valueOf(),
-                  destination: destination.valueOf(),
-                  date: date.valueOf(),
-                  returnDate: returnDate.valueOf(),
-                  tripType: tripType.valueOf()
-            })
-
-            navigate("/trips", {
-                  language: language,
-                  searchParameters: searchParameters
-                });
+                  navigate("/trips", {
+                        language: language,
+                        searchParameters: searchParameters
+                  });
+            }
       }
 
 
