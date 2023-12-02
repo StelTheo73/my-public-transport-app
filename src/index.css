@@ -127,3 +127,17 @@ main .form-select:focus
     box-shadow: var(--default-box-shadow);
     cursor: pointer;
 }
+
+.text-primary-bold {
+    font-weight: bold;
+    color: var(--bs-primary);
+}
+
+.text-warning-bold {
+    font-weight: bold;
+    color: var(--bs-warning);
+}
+
+.user-select-disabled {
+    user-select: none;
+}

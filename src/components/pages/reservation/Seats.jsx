@@ -24,7 +24,11 @@ export const Seats = React.forwardRef(({
 }, seatsRef) => {
 
     if (!activeTrip?.seats) {
-        return (<span id="seat-selector-wrapper">{textObject.tripSelectorPrompt[language]}</span>)
+        return (
+            <span id="seat-selector-wrapper" className="text-warning-bold user-select-disabled">
+                {textObject.tripSelectorPrompt[language]}
+            </span>
+    )
     }
 
     return (
@@ -118,10 +122,16 @@ export const Seats = React.forwardRef(({
         </div>
 
         :
-        <span ref={seatsRef} id="seat-selector-wrapper">
-            {textObject.noSeatsSupported[language]}
-        </span>
-    )
+        <>
+            <span ref={seatsRef} id="seat-selector-wrapper" className="text-warning-bold user-select-disabled">
+                {textObject.noSeatsSupported[language]}
+            </span>
+            <br></br>
+            <span className="user-select-disabled">
+                {textObject.noSeatsSupportedPrompt[language]}
+            </span>
+        </>
+        )
 });
 
 Seats.propTypes = {

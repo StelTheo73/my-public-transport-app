@@ -30,7 +30,7 @@ const PassengerSeats = ({ language, passenger, allSubTrips }) => {
           const vehicleType = subTrip.trainId.startsWith("B") ? "bus" : "train";
 
           return (
-            (passengerSeat?.seatNumber !== "0" && (
+
               <div
                 key={`passenger-seat-${passengerId}-${passengerSeat?.tripId}-${passengerSeat?.wagonId}-${passengerSeat?.seatNumber}`}
                 className="d-flex align-items-center"
@@ -42,11 +42,11 @@ const PassengerSeats = ({ language, passenger, allSubTrips }) => {
                 </span>
                 &nbsp;
                 <span className="passenger-seat">
-                  {passengerSeat?.wagonId}/
-                  {passengerSeat?.seatNumber}
+                  {(passengerSeat?.seatNumber !== "0" && (
+                    <>{passengerSeat?.wagonId}/{passengerSeat?.seatNumber}</>
+                  )) || "-"}
                 </span>
               </div>
-            )) || "-"
           );
         })}
       </div>

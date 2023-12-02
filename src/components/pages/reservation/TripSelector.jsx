@@ -72,10 +72,10 @@ export const TripSelector = ({
 
     return (!loading && !error && subTrips &&
         <div
-            className="row d-flex justify-content-start mt-2"
+            className="row d-flex justify-content-start mt-1"
             id={id}
         >
-            <div className="col-12 my-2">{header}</div>
+            <div className="col-12 my-2 text-primary-bold user-select-disabled">{header}</div>
 
             {subTrips.map((subTrip) => (
                 <div

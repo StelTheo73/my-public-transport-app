@@ -276,7 +276,7 @@ export const Reservation = ({
                     {/* Trip selector header */}
                     <div className="row d-flex justify-content-center">
                         <div className="col-12 d-flex">
-                            <span className="flex-fill">
+                            <span className="flex-fill text-primary-bold user-select-disabled">
                                 {textObject.tripSelectorHeader[language]}
                             </span>
                             <span
@@ -337,7 +337,7 @@ export const Reservation = ({
                     {/* Seat selector header */}
                     <div className="row d-flex justify-content-center">
                         <div className="col-12 d-flex">
-                            <span className="flex-fill">
+                            <span className="flex-fill text-primary-bold user-select-disabled">
                                 {textObject.seatSelectorHeader[language]}
                             </span>
                             <span
