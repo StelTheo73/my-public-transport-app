@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/my-public-transport-app/static/css/main.9f210992.css",
+    "main.js": "/my-public-transport-app/static/js/main.40cb18cc.js",
+    "static/media/GR_2.svg": "/my-public-transport-app/static/media/GR_2.aad9bd3ac225927ea53626dfb87aee3c.svg",
+    "static/media/EN_2.svg": "/my-public-transport-app/static/media/EN_2.8c2eb361bed47800ea8d4f83c4b480a1.svg",
+    "static/media/GR_4.svg": "/my-public-transport-app/static/media/GR_4.d103ecf52c7d64fddd3878d047b52f6c.svg",
+    "static/media/GR_3.svg": "/my-public-transport-app/static/media/GR_3.bc4ab1c8a67da62a51436bdbe23cfff8.svg",
+    "static/media/EN_4.svg": "/my-public-transport-app/static/media/EN_4.86b012c1b8621bc9f81348380e4b4122.svg",
+    "static/media/EN_3.svg": "/my-public-transport-app/static/media/EN_3.31f86127a9a4b21b4e5e3fafae9ce38d.svg",
+    "static/media/GR_1.svg": "/my-public-transport-app/static/media/GR_1.2e1910f0099a572a1157e4efaf0a23d1.svg",
+    "static/media/EN_1.svg": "/my-public-transport-app/static/media/EN_1.6ad34a9d5f7c11f096c993eadce63e72.svg",
+    "static/media/TRIPS_GR_1.svg": "/my-public-transport-app/static/media/TRIPS_GR_1.1fc445bc27affae2f168ee81a1b82383.svg",
+    "static/media/TRIPS_EN_1.svg": "/my-public-transport-app/static/media/TRIPS_EN_1.609e87ed439b146681b6e3a72cc40303.svg",
+    "static/media/creditCard.png": "/my-public-transport-app/static/media/creditCard.2a8527fbedcf12840e1a.png",
+    "static/media/TRIPS_GR_5.svg": "/my-public-transport-app/static/media/TRIPS_GR_5.d3d14e26459810efe92e8d86a68e7c22.svg",
+    "static/media/TRIPS_EN_2.svg": "/my-public-transport-app/static/media/TRIPS_EN_2.12672e865dca97a2f5b9685a64f91b5d.svg",
+    "static/media/TRIPS_EN_5.svg": "/my-public-transport-app/static/media/TRIPS_EN_5.d2a73168b5a9728d2b086cc73feeea88.svg",
+    "static/media/TRIPS_GR_2.svg": "/my-public-transport-app/static/media/TRIPS_GR_2.a20c6e038cf0da96a46fca795f6abead.svg",
+    "static/media/TRIPS_EN_4.svg": "/my-public-transport-app/static/media/TRIPS_EN_4.4067e407cb758d3499c7abdc26243b27.svg",
+    "static/media/TRIPS_GR_4.svg": "/my-public-transport-app/static/media/TRIPS_GR_4.6609ad3d25f9e41e977e39ca15156141.svg",
+    "static/media/TRIPS_GR_3.svg": "/my-public-transport-app/static/media/TRIPS_GR_3.0b0f13e84132e98a8c0d7bda1b3434fa.svg",
+    "static/media/TRIPS_EN_3.svg": "/my-public-transport-app/static/media/TRIPS_EN_3.8f0505dbdc75e457d3e3de5bb41d435e.svg",
+    "static/media/coupon.jpg": "/my-public-transport-app/static/media/coupon.f94f5e200751aef7d689.jpg",
+    "static/media/payPal.png": "/my-public-transport-app/static/media/payPal.b7871e3fc68e954bbb9c.png",
+    "static/media/logo.png": "/my-public-transport-app/static/media/logo.d748fd6b39afbdbae947.png",
+    "static/media/user.svg": "/my-public-transport-app/static/media/user.c12dd35f23b28c290a6cf482cdb29410.svg",
+    "index.html": "/my-public-transport-app/index.html",
+    "main.9f210992.css.map": "/my-public-transport-app/static/css/main.9f210992.css.map",
+    "main.40cb18cc.js.map": "/my-public-transport-app/static/js/main.40cb18cc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9f210992.css",
+    "static/js/main.40cb18cc.js"
+  ]
+}
