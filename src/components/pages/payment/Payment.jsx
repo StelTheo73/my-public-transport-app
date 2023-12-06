@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 import "./Payment.css"
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaPaypal, FaTicketAlt } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
@@ -31,6 +32,7 @@ const checkPhone = phone=> /^(2\d|69)\d{8}$/.test(phone);
 export const Payment = ({language}) =>{
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);
+    const continueButtonRef =  useRef(null);
 
     useEffect(()=> {
         payOptions = document.querySelectorAll(".payment-option");
@@ -66,6 +68,7 @@ export const Payment = ({language}) =>{
                     </div>
                     <div className="col-12 col-sm-6 d-flex justify-content-end">
                         <button
+                            ref={continueButtonRef}
                             id="reservation-btn"
                             className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                             type="submit"
@@ -113,6 +116,13 @@ export const Payment = ({language}) =>{
             <ContactForm language={language} textObject={textObject}/>
 
         </form>
+
+        <span
+            className=""
+            tabIndex={0}
+            onFocus={()=> continueButtonRef.current.focus()}
+        >
+        </span>
     </main>
 };
 
