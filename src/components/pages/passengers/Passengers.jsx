@@ -459,6 +459,10 @@ export const Passengers = ({
 
     }
 
+    if (Object.keys(passengers).length === 0) {
+      formIsValid = false;
+    }
+
     if (formIsValid) {
       navigate("/payment");
     }
