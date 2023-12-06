@@ -7,7 +7,7 @@ export const Footer = ({language}) => {
     <footer>
         <hr></hr>
 
-        <div className="row">
+        {/* <div className="row">
 
           <div className="col-12 col-md-6">
             <div>info here</div>
@@ -20,7 +20,7 @@ export const Footer = ({language}) => {
 
         </div>
 
-        <hr></hr>
+        <hr></hr> */}
 
         <div className="row">
           <CreatorInfo
