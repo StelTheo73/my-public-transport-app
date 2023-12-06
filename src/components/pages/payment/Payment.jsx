@@ -15,15 +15,6 @@ import { ErrorAlert } from "../../ErrorAlert";
 
 
 let payOptions;
-let choseOption = false;
-
-const handlePaymentOption = (elmt)=> {
-    payOptions.forEach(opt=> {
-        if (opt.classList.contains("active")) opt.classList.remove("active");
-    });
-    payOptions[elmt].classList.add("active");
-    choseOption = true;
-}
 
 const checkEmail = email=> /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 const checkPhone = phone=> /^(2\d|69)\d{8}$/.test(phone);
@@ -31,11 +22,22 @@ const checkPhone = phone=> /^(2\d|69)\d{8}$/.test(phone);
 export const Payment = ({language}) =>{
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);
+    let choseOption = false;
 
     useEffect(()=> {
         payOptions = document.querySelectorAll(".payment-option");
     }, []);
 
+    const handlePaymentOption = (elmt=null)=> {
+        payOptions.forEach(opt=> {
+            if (opt.classList.contains("active")) opt.classList.remove("active");
+        });
+        if(elmt!==null) {
+            payOptions[elmt].classList.add("active");
+            choseOption = true;
+        }
+        else choseOption = false;
+    }
 
     const validateForm = (e) => {
         e.preventDefault();
@@ -43,12 +45,13 @@ export const Payment = ({language}) =>{
         if(!choseOption) setShowError(true);
         else {
             setShowError(false);
+            handlePaymentOption();
             navigate("#");
         }
     };
 
     return <main>
-        <form className="payment" onSubmit={validateForm}>
+        <form className="payment" onSubmit={validateForm} onKeyDown={(e)=> {if(e.key=="enter") validateForm();}}>
             {/* Navigation buttons */}
             <div className="container-fluid sticky-container">
                 <div className="row">
@@ -100,7 +103,6 @@ export const Payment = ({language}) =>{
                 </div>
                 <div className="payment-option" onClick={e=> handlePaymentOption(2)}>
                     <img className="hide-small" src={coupons} alt="coupons"/>
-                    <i class="pi-ticket"></i>
                     <FaTicketAlt className="show-small" />
                     {textObject.couponsPayment[language]}
                 </div>
