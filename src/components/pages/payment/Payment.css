@@ -26,17 +26,20 @@
     max-width: 100%;
 }
 
-@media (max-width:450px) {
+@media (max-width: 576px) {
     .payment-wrapper {
         flex-direction: column;
         align-items: center;
         gap: 1em;
     }
     .payment-option {
+        flex-direction: row;
+        justify-content: space-evenly;
+        gap: 10px;
         margin: unset;
         width: 10em;
     }
-    .payment-option img {
+    /* .payment-option img {
         display: none;
-    }
+    } */
 }

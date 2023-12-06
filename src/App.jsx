@@ -33,27 +33,17 @@ function App() {
   // Hide elements when screen is small
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= BS_SMALL) {
-        document.querySelectorAll(".hide-small").forEach(element => {
-          element.classList.add("hide");
-        });
-      }
-      else {
-        document.querySelectorAll(".hide-small").forEach(element => {
-          element.classList.remove("hide");
-        });
-      }
+        document.querySelectorAll(".hide-small").forEach(elmt =>
+          window.innerWidth <= BS_SMALL? elmt.classList.add("hide"): elmt.classList.remove("hide"));
 
-      if (window.innerWidth <= BS_MEDIUM) {
-        document.querySelectorAll(".hide-medium").forEach(element => {
-          element.classList.add("hide");
-        });
-      }
-      else {
-        document.querySelectorAll(".hide-medium").forEach(element => {
-          element.classList.remove("hide");
-        });
-      }
+        document.querySelectorAll(".hide-medium").forEach(elmt =>
+          window.innerWidth <= BS_MEDIUM? elmt.classList.add("hide"): elmt.classList.remove("hide"));
+
+        document.querySelectorAll(".show-small").forEach(elmt =>
+          window.innerWidth <= BS_SMALL? elmt.classList.remove("hide"): elmt.classList.add("hide"));
+
+        document.querySelectorAll(".show-medium").forEach(elmt =>
+          window.innerWidth <= BS_MEDIUM? elmt.classList.remove("hide"): elmt.classList.add("hide"));
 
     };
 

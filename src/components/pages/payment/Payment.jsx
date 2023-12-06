@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import "./Payment.css"
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaPaypal, FaTicketAlt } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 import { ContactForm } from "./ContactForm";
 import textObject from "../../../assets/language/payment.json";
@@ -89,15 +89,19 @@ export const Payment = ({language}) =>{
 
             <div className="payment-wrapper">
                 <div className="payment-option" onClick={e=> handlePaymentOption(0)}>
-                    <img src={creditCard} alt="Card"/>
+                    <img className="hide-small" src={creditCard} alt="Card"/>
+                    <MdPayment className="show-small" />
                     {textObject.cardPayment[language]}
                 </div>
                 <div className="payment-option" onClick={e=> handlePaymentOption(1)}>
-                    <img src={payPal} alt="PayPal"/>
+                    <img className="hide-small" src={payPal} alt="PayPal"/>
+                    <FaPaypal className="show-small" />
                     {textObject.PayPalPayment[language]}
                 </div>
                 <div className="payment-option" onClick={e=> handlePaymentOption(2)}>
-                    <img src={coupons} alt="coupons"/>
+                    <img className="hide-small" src={coupons} alt="coupons"/>
+                    <i class="pi-ticket"></i>
+                    <FaTicketAlt className="show-small" />
                     {textObject.couponsPayment[language]}
                 </div>
             </div>
