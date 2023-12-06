@@ -23,6 +23,7 @@ const checkPhone = phone=> /^(2\d|69)\d{8}$/.test(phone);
 export const Payment = ({language}) =>{
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);
+    const continueButtonRef = useRef(null);
     let choseOption = false;
 
     useEffect(()=> {
