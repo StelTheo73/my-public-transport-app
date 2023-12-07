@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import Select from 'react-select'
 
-// import textObject from "../../../assets/language/payment.json";
+import countries from "../../../assets/language/countries.json";
 
 export const ContactForm = ({language, textObject}) => {
     return (
@@ -111,13 +112,18 @@ export const ContactForm = ({language, textObject}) => {
                 htmlFor="contactCountry"
                 >{textObject.contactCountry[language]}
             </label>
-            <input
+            <select
                 id="contactCountry"
                 className="form-control required"
                 required
-                type="text"
                 autoComplete="country-name"
-                ></input>
+                >
+                {countries[language].map(i=>
+                        <option>{i}</option>
+                )}
+                </select>
+            {/* <Select value={"countries[language][0]"}
+                options={countries[language].map(country=> {return { value: country, label: country }})} /> */}
             </div>
         </div>
 
