@@ -267,6 +267,7 @@ export const Home = ({
                                                       onChange={e => setStart(e)}
                                                       filterOption={filterOptions}
                                                       ref={selectStartRef}
+                                                      autoFocus
                                                 />
                                           </div>
                                           {/* End start select */}
