@@ -10,7 +10,7 @@ export const BusSeats = ({
     const tripId = activeTrip.tripId;
     const [constructedSeats, setConstructedSeats] = useState([]);
 
-    const getSeatClass = (seatNo) => {
+    const getSeatClass = seatNo => {
         const seat = seats[seatNo];
 
         if (activeTrip.selectedSeats[wagonId].includes(seatNo.toString())) {
@@ -28,7 +28,7 @@ export const BusSeats = ({
         else {
             return "seat-disabled";
         }
-    }
+    };
 
     const markSeatSelected = (event) => {
         event.stopPropagation();
@@ -40,9 +40,9 @@ export const BusSeats = ({
             if (target.classList.contains("seat-user-selected")) {
                 target.classList.remove("seat-user-selected");
                 target.classList.add("seat-free");
-                _activeTrip.selectedSeats[wagonId] = _activeTrip.selectedSeats[wagonId].filter((seatNo) => {
-                    return seatNo !== target.innerText;
-                });
+                _activeTrip.selectedSeats[wagonId] = _activeTrip.selectedSeats[wagonId].filter(seatNo =>
+                    seatNo !== target.innerText
+                );
             }
             else if (classList.contains("seat-free")) {
                 target.classList.add("seat-user-selected");
@@ -56,9 +56,9 @@ export const BusSeats = ({
         }
 
         setActiveTrip(_activeTrip);
-    }
+    };
 
-    const constructSeatsRow = (seatNo) => {
+    const constructSeatsRow = seatNo => {
 
         return (
             <div
@@ -94,18 +94,51 @@ export const BusSeats = ({
                     </span>
                 </div>
             </div>
-        )
-    }
+        );
+    };
+
+    const constructSingleColumnSeatRow = seatNo => {
+        return (
+            <div
+                key={`div-${tripId}-${wagonId}-${seatNo}`}
+                className="d-flex mt-2 justify-content-between"
+            >
+                <div
+                    className="px-0 d-flex justify-content-between"
+                >
+                    <span
+                        className={`seat-span text-center me-1 ${getSeatClass(seatNo)}`}
+                        onClick={(event) => markSeatSelected(event)}
+                    >{seatNo}
+                    </span>
+                    <span
+                        className={`seat-span text-center ${getSeatClass(seatNo+1)}`}
+                        onClick={(event) => markSeatSelected(event)}
+                    >{seatNo+1}
+                    </span>
+                </div>
+            </div>
+        );
+    };
 
     const constructSeats = () => {
+        const LastRowSeats = 5;
+        const BackDoorSeat = 21;
         const seatsLength = Object.keys(seats).length;
 
-        let seatsRows = [];
-        for (let seatNo=1; seatNo<=seatsLength-5; seatNo+=4) {
-            seatsRows.push(constructSeatsRow(seatNo));
+        const seatsRows = [];
+        for (let seatNo=1; seatNo<=seatsLength-LastRowSeats; seatNo+=4) {
+            if (seatNo === BackDoorSeat) {
+                // Case: Seats next to back door
+                seatsRows.push(constructSingleColumnSeatRow(seatNo));
+                seatsRows.push(constructSingleColumnSeatRow(seatNo+2));
+            }
+            else {
+                seatsRows.push(constructSeatsRow(seatNo));
+            }
         }
 
-        // Add 5 last seats
+        // Add last 5 seats
         seatsRows.push((
             <div className="d-flex my-2" key={`div-${tripId}-${wagonId}-${seatsLength-4}`}>
                 <div className="px-0 d-flex justify-content-between">
@@ -136,10 +169,10 @@ export const BusSeats = ({
                     </span>
                 </div>
             </div>
-        ))
+        ));
 
         return seatsRows;
-    }
+    };
 
     useEffect(() => {
         setConstructedSeats(constructSeats());
@@ -155,8 +188,8 @@ export const BusSeats = ({
             ))}
 
         </div>
-  )
-}
+  );
+;}
 
 BusSeats.propTypes = {
     wagonId: PropTypes.string.isRequired,
@@ -164,4 +197,4 @@ BusSeats.propTypes = {
     wagonClass: PropTypes.string.isRequired,
     activeTrip: PropTypes.object.isRequired,
     setActiveTrip: PropTypes.func.isRequired
-}
+};
