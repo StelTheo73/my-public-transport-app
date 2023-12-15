@@ -59,5 +59,9 @@
     "help": {
         "EN": "Help",
         "GR": "Βοήθεια"
+    },
+    "tripsErrorMessage": {
+        "EN": "The departure time for the return journey cannot be earlier than the arrival time at the destination!",
+        "GR": "Η ώρα αναχώρησης για το ταξίδι επιστροφής δεν μπορεί να είναι πριν την ώρα άφιξης στον προορισμό!"
     }
 }

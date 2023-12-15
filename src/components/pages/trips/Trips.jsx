@@ -10,6 +10,7 @@ import { FaRightLeft } from "react-icons/fa6";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 
 import { HelpCarousel } from "../../help/HelpCarousel.jsx";
+import { ErrorPopup } from "./ErrorPopup.jsx";
 import { Trip } from "./Trip.jsx";
 
 import { useFetch } from "../../../hooks/useFetch.jsx";
@@ -36,7 +37,53 @@ export const Trips = ({
     const { data: trips, loading, error } = useFetch(url);
     const { data: returnTrips, loading: returnLoading, error: returnError } = useFetch(returnUrl);
     const [help, setHelp] = useState(false);
+    const [errorMessage, setErrorMessage] = useState({});
     const seatsButtonRef = useRef(null);
+
+    const tripsTransition = tripsToShow => {
+        if (tripsToShow === "trips" && showReturnTrips === true) {
+            setHide(true);
+            setShowReturnTrips(false);
+            setTimeout(() => {
+                setHide(false);
+            }, DEFAULT_TRANSITION_TIMEOUT);
+        }
+        else if (tripsToShow === "returnTrips" && showReturnTrips === false) {
+            setHide(true);
+            setShowReturnTrips(true);
+            setTimeout(() => {
+                setHide(false);
+            }, DEFAULT_TRANSITION_TIMEOUT);
+        }
+    };
+
+    const validateTrips = () => {
+        // Case: Trip with return
+        const conditionReturningTrip =
+            selectedTrip?.tripId && selectedReturnTrip?.tripId &&
+            searchParameters?.tripType?.value === "returningTrip";
+        // Case: Onward trip
+        const conditionOneWayTrip =
+            selectedTrip?.tripId &&
+            searchParameters?.tripType?.value === "oneWayTrip";
+
+        // Case: Returning trip
+        if (conditionReturningTrip) {
+            const arrivalFullDate = new Date(`${searchParameters.date}T${selectedTrip.arrivalTime}Z`);
+            const returnFullDate = new Date(`${searchParameters.returnDate}T${selectedReturnTrip.startTime}Z`);
+
+            if (arrivalFullDate >= returnFullDate) {
+                setErrorMessage(textObject.tripsErrorMessage);
+            }
+            else {
+                navigate("/reservation");
+            }
+        }
+        // Case: onward trip
+        else if (conditionOneWayTrip) {
+            navigate("/reservation");
+        }
+    };
 
     // Navigate to home page is search has not been performed
     useEffect(() => {
@@ -56,7 +103,7 @@ export const Trips = ({
             if (searchParameters?.tripType?.value === "returningTrip") {
             setReturnUrl("/fetch/trips/" +
                 searchParameters.destination.english + searchParameters.start.english);
-        }
+            }
         }
     }, [navigate, searchParameters]);
 
@@ -75,23 +122,6 @@ export const Trips = ({
 
     }, [selectedTrip, selectedReturnTrip, searchParameters?.tripType?.value]);
 
-    const tripsTransition = tripsToShow => {
-        if (tripsToShow === "trips" && showReturnTrips === true) {
-            setHide(true);
-            setShowReturnTrips(false);
-            setTimeout(() => {
-                setHide(false);
-            }, DEFAULT_TRANSITION_TIMEOUT);
-        }
-        else if (tripsToShow === "returnTrips" && showReturnTrips === false) {
-            setHide(true);
-            setShowReturnTrips(true);
-            setTimeout(() => {
-                setHide(false);
-            }, DEFAULT_TRANSITION_TIMEOUT);
-        }
-    };
-
     if (help)  {
         return (
             <HelpCarousel
@@ -104,6 +134,14 @@ export const Trips = ({
     else {
         return (
             <main>
+                {/* Error message popup */}
+                <ErrorPopup
+                    language={language}
+                    errorMessage={errorMessage}
+                    setErrorMessage={setErrorMessage}
+                />
+                {/* End error message popup */}
+
                 {/* Navigation buttons */}
                 <div className="container-fluid sticky-container">
                     <div className="row">
@@ -129,16 +167,7 @@ export const Trips = ({
                                 ref={seatsButtonRef}
                                 id="reservation-btn"
                                 className="btn btn-success mt-2 mt-sm-1 full-width-xs"
-                                onClick={() => {
-                                    if ((selectedTrip?.tripId
-                                            && searchParameters?.tripType?.value === "oneWayTrip"
-                                        ) ||
-                                        (selectedTrip?.tripId && selectedReturnTrip?.tripId
-                                            && searchParameters?.tripType?.value === "returningTrip"
-                                        )) {
-                                        navigate("/reservation");
-                                    }
-                                }}
+                                onClick={() => validateTrips()}
                             >
                             <MdAirlineSeatReclineExtra className="mb-1 me-2"/>
                             <span>

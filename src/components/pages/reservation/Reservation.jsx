@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import { FaPersonHalfDress } from "react-icons/fa6";
 
-import { Error } from "./Error.jsx";
+import { ErrorPopup } from "./ErrorPopup.jsx";
 import { HelpCarousel } from "../../help/HelpCarousel.jsx";
 import { Seats } from "./Seats.jsx";
 import { TripSelector } from "./TripSelector.jsx";
@@ -206,7 +206,7 @@ export const Reservation = ({
         return (
             <main>
                 {/* Error message popup */}
-                <Error
+                <ErrorPopup
                     language={language}
                     errorDescription={errorDescription}
                     errorMessage={errorMessage}

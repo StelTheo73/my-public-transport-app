@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 
 import { FaRegWindowClose } from "react-icons/fa";
 
-export const Error = ({
+import "./ErrorPopup.css";
+
+export const ErrorPopup = ({
     language, errorDescription,
     errorMessage, setErrorMessage
 }) => {
