@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import Select from 'react-select'
-
 import countries from "../../../assets/language/countries.json";
 
 export const ContactForm = ({language, textObject}) => {
@@ -119,7 +117,7 @@ export const ContactForm = ({language, textObject}) => {
                 autoComplete="country-name"
                 >
                 {countries[language].map(i=>
-                        <option>{i}</option>
+                        <option key={`country-option-${countries.EN}`}>{i}</option>
                 )}
                 </select>
             {/* <Select value={"countries[language][0]"}
@@ -128,8 +126,8 @@ export const ContactForm = ({language, textObject}) => {
         </div>
 
     </div>
-    )
-}
+    );
+};
 
 ContactForm.propTypes = {
     language: PropTypes.string.isRequired,
