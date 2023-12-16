@@ -51,7 +51,7 @@ export const ContactForm = ({language, nameFieldRef}) => {
     };
 
     return (
-        <div className="container-fluid passenger-contact-wrapper contact-form p-3">
+        <div className="container-fluid passenger-contact-wrapper contact-form p-3 w-75">
             <div className="row">
                 <div className="col-12 col-sm-6 mt-1">
                     <label

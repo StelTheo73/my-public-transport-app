@@ -53,6 +53,8 @@ main {
 .hide {
     display: none;
     visibility: hidden;
+    height: 0px;
+    width: 0px;
 }
 
 @media screen and (max-width: 360px) {

@@ -4,7 +4,7 @@ import { useEffect, useState , useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-  FaArrowLeft, FaArrowRight,
+  FaArrowLeft, FaArrowRight, FaPlus,
 } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 
@@ -531,7 +531,7 @@ export const Passengers = ({
                     <MdAirlineSeatReclineExtra className="ms-2"/>
                     </button>
                 </div>
-                <div className="col-12 col-sm-6 d-flex justify-content-end">
+                <div className="col-12 col-sm-6 d-flex justify-content-end hide-small">
                     <button
                         ref={paymentButtonRef}
                         id="reservation-btn"
@@ -575,7 +575,7 @@ export const Passengers = ({
                   setNoOfSeats(noOfSeats + 1);
                 }
               }}
-            >{textObject.addPassenger[language]}
+            ><FaPlus className="mb-1"/> {textObject.addPassenger[language]}
             </button>
           </div>
         }
@@ -600,6 +600,22 @@ export const Passengers = ({
             {passengersDiv && passengersDiv.map(passengersDiv => (passengersDiv))}
           </div>
         }
+
+        {/* Next page button */}
+        <div className="container-fluid d-flex align-items-center justify-content-end">
+            <button
+                id="next-page-btn"
+                className="btn btn-success mt-3 full-width-xs default-shadow"
+                onClick={() => validateForm()}
+            >
+                <MdPayment className="mb-1 me-2"/>
+                <span>
+                    {textObject.nextPage[language]}
+                </span>
+                <FaArrowRight className="ms-2"/>
+            </button>
+        </div>
+        {/* End next page button */}
 
         <span
           className=""

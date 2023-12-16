@@ -110,13 +110,16 @@ export const Trips = ({
     useEffect(() => {
         if (!selectedTrip?.tripId) {
             disableElement("reservation-btn");
+            disableElement("next-page-btn");
         }
         else if (!selectedReturnTrip?.tripId &&
                 searchParameters?.tripType?.value === "returningTrip") {
             disableElement("reservation-btn");
+            disableElement("next-page-btn");
         }
         else {
             enableElement("reservation-btn");
+            enableElement("next-page-btn");
         }
 
 
@@ -287,6 +290,22 @@ export const Trips = ({
 
                 </div>
                 {/* End trips */}
+
+                {/* Next page button */}
+                <div className="container-fluid d-flex align-items-center justify-content-end">
+                    <button
+                        id="next-page-btn"
+                        className="btn btn-success mt-3 full-width-xs default-shadow"
+                        onClick={() => validateTrips()}
+                        >
+                        <MdAirlineSeatReclineExtra className="mb-1 me-2"/>
+                        <span>
+                            {textObject.nextPage[language]}
+                        </span>
+                        <FaArrowRight className="ms-2"/>
+                    </button>
+                </div>
+                {/* End next page button */}
 
                 <span
                     className=""

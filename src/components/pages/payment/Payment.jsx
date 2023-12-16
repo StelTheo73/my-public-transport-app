@@ -129,10 +129,10 @@ export const Payment = ({language, totalPrice}) =>{
                         <MdAirlineSeatReclineExtra className="ms-2"/>
                         </button>
                     </div>
-                    <div className="col-12 col-sm-6 d-flex justify-content-end">
+                    <div className="col-12 col-sm-6 d-flex justify-content-end hide-small">
                         <button
                             ref={continueButtonRef}
-                            id="reservation-btn"
+                            id="pay-btn"
                             className="btn btn-success mt-2 mt-sm-1 full-width-xs"
                             onClick={event => validateForm(event)}
                         >
@@ -169,7 +169,7 @@ export const Payment = ({language, totalPrice}) =>{
             </div>
             <ErrorAlert show={showError} error={errorText.payment[language]} />
 
-            <div className="payment-wrapper">
+            <div className="container payment-wrapper w-75">
                 <div
                     className="payment-option"
                     onClick={() => handlePaymentOption(0)}
@@ -214,6 +214,22 @@ export const Payment = ({language, totalPrice}) =>{
                 </div>
             </div>
             {/* End payment options */}
+
+            {/* Next page button */}
+            <div className="container-fluid d-flex align-items-center justify-content-end">
+                <button
+                    id="next-page-btn"
+                    className="btn btn-success mt-3 full-width-xs default-shadow"
+                    onClick={event => validateForm(event)}
+                >
+                    <MdPayment className="mb-1 me-2"/>
+                    <span>
+                        {textObject.nextPage[language]}
+                    </span>
+                    <FaArrowRight className="ms-2"/>
+                </button>
+            </div>
+            {/* End next page button */}
 
             <span
                 className=""

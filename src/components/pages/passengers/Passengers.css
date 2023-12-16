@@ -1,6 +1,6 @@
 main .passenger-wrapper {
     width: 100%;
-    min-width: 20em;
+    /* min-width: 20em; */
     max-width: 25em;
     box-shadow: var(--default-box-shadow);
     border-radius: 1em;

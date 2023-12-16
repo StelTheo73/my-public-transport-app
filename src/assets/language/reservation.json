@@ -7,6 +7,14 @@
         "EN": "Trips",
         "GR": "Δρομολόγια"
     },
+    "passengers": {
+        "EN": "Passengers",
+        "GR": "Επιβάτες"
+    },
+    "nextPage": {
+        "EN": "Passenger details",
+        "GR": "Στοιχεία επιβατών"
+    },
     "onwardTrip": {
         "EN": "Onward trip",
         "GR": "Ταξίδι μετάβασης"
@@ -14,10 +22,6 @@
     "returnTrip": {
         "EN": "Return trip",
         "GR": "Ταξίδι επιστροφής"
-    },
-    "passengers": {
-        "EN": "Passengers",
-        "GR": "Επιβάτες"
     },
     "bus": {
         "EN": "Bus",

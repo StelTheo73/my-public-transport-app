@@ -11,6 +11,10 @@
         "EN": "Seats",
         "GR": "Θέσεις"
     },
+    "nextPage": {
+        "EN": "Select your seats",
+        "GR": "Επιλογή θέσεων"
+    },
     "id1": {
         "EN": "ID1",
         "GR": "Κωδικός Οχήματος"

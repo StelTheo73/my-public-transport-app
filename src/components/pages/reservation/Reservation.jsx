@@ -231,7 +231,7 @@ export const Reservation = ({
                                 <FaTrain className="ms-2"/>
                             </button>
                         </div>
-                        <div className="col-12 col-sm-6 d-flex justify-content-end">
+                        <div className="col-12 col-sm-6 d-flex justify-content-end hide-small">
                             <button
                                 id="reservation-btn"
                                 className="btn btn-success mt-2 mt-sm-1 full-width-xs"
@@ -367,6 +367,25 @@ export const Reservation = ({
                     />
                 </div>
                 {/* End seat selector */}
+
+                {/* Next page button */}
+                <div className="container-fluid d-flex align-items-center justify-content-end">
+                    <button
+                        id="next-page-btn"
+                        className="btn btn-success mt-3 full-width-xs default-shadow"
+                        onClick={() => {
+                            validateSelectedSeats();
+                        }}
+                    >
+                        <FaPersonHalfDress className="mb-1 me-2"/>
+                        <span>
+                            {textObject.nextPage[language]}
+                        </span>
+                        <FaArrowRight className="ms-2"/>
+                    </button>
+                </div>
+                {/* End next page button */}
+
 
             </main>
       );

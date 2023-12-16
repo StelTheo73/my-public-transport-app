@@ -11,6 +11,10 @@
         "EN": "Continue",
         "GR": "Συνέχεια"
     },
+    "nextPage": {
+        "EN": "Complete Payment",
+        "GR": "Ολοκλήρωση Πληρωμής"
+    },
     "cardPayment": {
         "EN":"by card",
         "GR":"με κάρτα"
