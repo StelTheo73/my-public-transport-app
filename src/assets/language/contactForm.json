@@ -1,0 +1,86 @@
+{
+    "contactInfo": {
+        "EN": "Contact Info",
+        "GR": "Στοιχεία Επικοινωνίας"
+    },
+    "contactName": {
+        "EN": "Name",
+        "GR": "Όνομα"
+    },
+    "contactPhone": {
+        "EN": "Phone",
+        "GR": "Τηλέφωνο"
+    },
+    "contactEmail": {
+        "EN": "Email",
+        "GR": "Email"
+    },
+    "contactAddress": {
+        "EN": "Address",
+        "GR": "Διεύθυνση"
+    },
+    "contactCity": {
+        "EN": "City",
+        "GR": "Πόλη"
+    },
+    "contactZip": {
+        "EN": "Zip Code",
+        "GR": "Ταχ. Κώδικας"
+    },
+    "contactCountry": {
+        "EN": "Country",
+        "GR": "Χώρα"
+    },
+    "contactAgreement": {
+        "text1": {
+            "EN": "I agree to the ",
+            "GR": "Συμφωνώ με τους "
+        },
+        "termsAndConditions": {
+            "EN": "Terms of Transport",
+            "GR": "Όρους Μεταφοράς"
+        },
+        "text2": {
+            "EN": " and the ",
+            "GR": " και την "
+        },
+        "privacyPolicy": {
+            "EN": "Privacy Policy",
+            "GR": "Πολιτική Απορρήτου"
+        }
+    },
+    "formValidation": {
+        "name": {
+            "EN": "Please enter your name",
+            "GR": "Παρακαλώ εισάγετε το όνομά σας"
+        },
+        "phone": {
+            "EN": "Please enter a valid phone number with 10 digits",
+            "GR": "Παρακαλώ εισάγετε έναν έγκυρο αριθμό τηλεφώνου με 10 ψηφία"
+        },
+        "email": {
+            "EN": "Please enter a valid email examl",
+            "GR": "Παρακαλώ εισάγετε ένα έγκυρο email"
+        },
+        "address": {
+            "EN": "Please enter your address",
+            "GR": "Παρακαλώ εισάγετε τη διεύθυνσή σας"
+        },
+        "city": {
+            "EN": "Please enter your city",
+            "GR": "Παρακαλώ εισάγετε την πόλη σας"
+        },
+        "zip": {
+            "EN": "Please enter your zip code",
+            "GR": "Παρακαλώ εισάγετε τον ταχ. κώδικά σας"
+        },
+        "country": {
+            "EN": "Please enter your country",
+            "GR": "Παρακαλώ εισάγετε τη χώρα σας"
+        },
+        "agreement": {
+            "EN": "Please agree to the terms of transport and the privacy policy",
+            "GR": "Παρακαλώ συμφωνήστε με τους όρους μεταφοράς και την πολιτική απορρήτου"
+        }
+    }
+}

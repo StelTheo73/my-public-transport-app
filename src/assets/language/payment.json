@@ -1,11 +1,11 @@
 {
     "paymentOptions": {
-        "EN": "Pyment Options",
+        "EN": "Payment Options",
         "GR": "Δυνατότητες Πληρωμής"
     },
     "details": {
-        "EN": "Details",
-        "GR": "Στοιχεία"
+        "EN": "Contact Details",
+        "GR": "Στοιχεία Επικοινωνίας"
     },
     "continue": {
         "EN": "Continue",
@@ -23,7 +23,6 @@
         "EN":"only with coupons",
         "GR":"μόνο με κουπόνια"
     },
-
     "passenger": {
         "EN": "Passenger",
         "GR": "Επιβάτης"
@@ -35,53 +34,5 @@
     "payment": {
         "EN": "Payment",
         "GR": "Πληρωμή"
-    },
-    "header": {
-        "EN": "Passengers Info",
-        "GR": "Στοιχεία Επιβατών"
-    },
-    "passengerName": {
-        "EN": "Passenger Name",
-        "GR": "Όνομα Επιβάτη"
-    },
-    "ticketType": {
-        "EN": "Ticket Type",
-        "GR": "Τύπος Εισιτηρίου"
-    },
-    "reservation": {
-        "EN": "Seats",
-        "GR": "Θέσεις"
-    },
-    "contactInfo": {
-        "EN": "Contact Info",
-        "GR": "Στοιχεία Επικοινωνίας"
-    },
-    "contactName": {
-        "EN": "Name",
-        "GR": "Όνομα"
-    },
-    "contactPhone": {
-        "EN": "Phone",
-        "GR": "Τηλέφωνο"
-    },
-    "contactEmail": {
-        "EN": "Email",
-        "GR": "Email"
-    },
-    "contactAddress": {
-        "EN": "Address",
-        "GR": "Διεύθυνση"
-    },
-    "contactCity": {
-        "EN": "City",
-        "GR": "Πόλη"
-    },
-    "contactZip": {
-        "EN": "Zip Code",
-        "GR": "Ταχ. Κώδικας"
-    },
-    "contactCountry": {
-        "EN": "Country",
-        "GR": "Χώρα"
     }
 }

@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { BS_SMALL, BS_MEDIUM } from "./env/constants";
 
 import "./App.css";
+import UnderConstruction from "./assets/images/under-construction.jpg";
 
 import { Contact } from "./components/pages/contact/Contact.jsx";
 import { Footer } from "./components/footer/Footer.jsx";
@@ -27,6 +28,7 @@ function App() {
   const [returnSubTrips, setReturnSubTrips] = useState([]);
   const [passengers, setPassengers] = useState({});
   const [noOfSeats, setNoOfSeats] = useState(-1);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const location = useLocation();
 
@@ -119,16 +121,25 @@ function App() {
                 setPassengers={setPassengers}
                 noOfSeats={noOfSeats}
                 setNoOfSeats={setNoOfSeats}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
                 />
             }  />
             <Route path="payment" element={
                 <Payment
                   language={language}
                   passengers={passengers}
+                  totalPrice={totalPrice}
                 />
             } />
             <Route path="contact" element={
                 <Contact language={language}/>
+            } />
+            <Route path="pay" element={
+                <main className="under-construction d-flex justify-content-center align-items-center">
+                  {/* <h1>Under Construction...</h1> */}
+                  <img src={UnderConstruction} alt="Under Construction..."/>
+                </main>
             } />
 
             <Route path="/*" element={<Navigate to='/' />} />

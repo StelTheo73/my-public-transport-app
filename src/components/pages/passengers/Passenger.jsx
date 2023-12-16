@@ -150,7 +150,6 @@ export const Passenger = ({
           invalidId={`passenger-name-${passengerId}-invalid`}
           text={textObject.formValidation.passengerNameInvalid[language]}
         />
-
         {/* End passenger name */}
 
         {/* Ticket type select */}
@@ -179,7 +178,6 @@ export const Passenger = ({
           invalidId={`ticket-type-${passengerId}-invalid`}
           text={textObject.formValidation.ticketTypeInvalid[language]}
         />
-
         {/* End ticket type select */}
 
         {/* Passenger seats */}

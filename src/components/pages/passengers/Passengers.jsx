@@ -18,7 +18,8 @@ export const Passengers = ({
   subTrips, setSubTrips,
   returnSubTrips, setReturnSubTrips,
   passengers, setPassengers,
-  noOfSeats, setNoOfSeats
+  noOfSeats, setNoOfSeats,
+  totalPrice, setTotalPrice
 }) => {
   const navigate = useNavigate();
   const [allSubTrips, setAllSubTrips] = useState([...subTrips, ...returnSubTrips]);
@@ -26,7 +27,6 @@ export const Passengers = ({
   const [allowAddPassengers, setAllowAddPassengers] = useState(false);
   const [blockAddDelete, setBlockAddDelete] = useState(false);
   const [passengersAfterDeletion, setPassengersAfterDeletion] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
   const paymentButtonRef = useRef(null);
 
   /**
