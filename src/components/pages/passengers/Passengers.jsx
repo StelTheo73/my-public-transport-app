@@ -551,19 +551,19 @@ export const Passengers = ({
         </div>
         {/* End navigation buttons */}
 
-        {/* Header */}
-        <div className="container d-flex align-items-center justify-content-center mt-3">
-            <h3 id="page-header">{textObject.header[language]}</h3>
-        </div>
-        {/* End header */}
-
         {/* Total price */}
-
-        <div className="container d-flex align-items-center justify-content-end">
+        <div className="container d-flex align-items-center justify-content-end mt-3">
             <span className="h5 user-select-disabled">{textObject.totalCost[language]}:&nbsp;
               <span className="h3 text-primary-bold user-select-disabled">{totalPrice} €</span>
             </span>
-          </div>
+        </div>
+        {/* End total price */}
+
+        {/* Header */}
+        <div className="container d-flex align-items-center justify-content-center">
+            <h3 id="page-header">{textObject.header[language]}</h3>
+        </div>
+        {/* End header */}
 
         {/* Add passenger */}
         {allowAddPassengers &&
@@ -571,10 +571,9 @@ export const Passengers = ({
             <button
               className="btn btn-outline-primary mt-1"
               onClick={() => {
-                while (blockAddDelete) {
-                  continue;
+                if (!blockAddDelete) {
+                  setNoOfSeats(noOfSeats + 1);
                 }
-                setNoOfSeats(noOfSeats + 1);
               }}
             >{textObject.addPassenger[language]}
             </button>

@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 
-import "./Payment.css"
+import "./Payment.css";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaPaypal, FaTicketAlt } from "react-icons/fa";
 import { MdPayment, MdAirlineSeatReclineExtra } from "react-icons/md";
 import { ContactForm } from "./ContactForm";
 import textObject from "../../../assets/language/payment.json";
 import errorText from "../../../assets/language/error.json";
-import creditCard from "../../../assets/images/paymentOptions/creditCard.png"
-import payPal from "../../../assets/images/paymentOptions/payPal.png"
-import coupons from "../../../assets/images/paymentOptions/coupon.jpg"
+import creditCard from "../../../assets/images/paymentOptions/creditCard.png";
+import payPal from "../../../assets/images/paymentOptions/payPal.png";
+import coupons from "../../../assets/images/paymentOptions/coupon.jpg";
 import { useEffect, useState, useRef } from "react";
 import { ErrorAlert } from "../../ErrorAlert";
 
@@ -38,7 +38,9 @@ export const Payment = ({language, totalPrice}) =>{
 
     const handlePaymentOption = (optionNumber=null)=> {
         payOptions.forEach(opt=> {
-            if (opt.classList.contains("active")) opt.classList.remove("active");
+            if (opt.classList.contains("active")) {
+                opt.classList.remove("active");
+            }
         });
         if (optionNumber !== null) {
             payOptions[optionNumber].classList.add("active");
@@ -46,9 +48,9 @@ export const Payment = ({language, totalPrice}) =>{
             tempFormData.paymentOption = optionNumber;
             setFormData(tempFormData);
         }
-    }
+    };
 
-    const validateForm = (event) => {
+    const validateForm = event => {
         event.preventDefault();
         let formIsValid = true;
         const tempFormData = {...formData};
@@ -96,7 +98,6 @@ export const Payment = ({language, totalPrice}) =>{
         formData.paymentOption === undefined ? setShowError(true) : setShowError(false);
 
         if (formIsValid && formData.paymentOption !== undefined) {
-            // handlePaymentOption();
             navigate("/pay");
         }
     };
@@ -111,7 +112,8 @@ export const Payment = ({language, totalPrice}) =>{
         }
     }, [navigate]);
 
-    return <main>
+    return (
+        <main>
             {/* Navigation buttons */}
             <div className="container-fluid sticky-container">
                 <div className="row">
@@ -145,47 +147,85 @@ export const Payment = ({language, totalPrice}) =>{
             </div>
             {/* End navigation buttons */}
 
-            <div className="container d-flex align-items-center justify-content-center mt-3 text-center">
+            {/* Total price */}
+            <div className="container d-flex align-items-center justify-content-end mt-3">
+                <span className="h5 user-select-disabled">{textObject.totalCost[language]}:&nbsp;
+                <span className="h3 text-primary-bold user-select-disabled">{totalPrice} €</span>
+                </span>
+            </div>
+            {/* End total price */}
+
+
+            {/* Contact form */}
+            <div className="container d-flex align-items-center justify-content-center">
+                <h3 id="page-header">{textObject.details[language]}</h3>
+            </div>
+            <ContactForm language={language} textObject={textObject} nameFieldRef={nameFieldRef}/>
+            {/* End contact form */}
+
+            {/* Payment options */}
+            <div className="container d-flex align-items-center justify-content-center text-center mt-3">
                 <h3 id="page-header">{textObject.paymentOptions[language]}</h3>
             </div>
+            <ErrorAlert show={showError} error={errorText.payment[language]} />
 
             <div className="payment-wrapper">
-                <div className="payment-option" onClick={e=> handlePaymentOption(0)}>
+                <div
+                    className="payment-option"
+                    onClick={() => handlePaymentOption(0)}
+                    tabIndex={0}
+                    onKeyDown={event => {
+                        if (event.key === " " || event.key === "Enter") {
+                            handlePaymentOption(0);
+                        }
+                    }}
+                    >
                     <img className="hide-small" src={creditCard} alt="Card"/>
                     <MdPayment className="show-small" />
                     {textObject.cardPayment[language]}
                 </div>
-                <div className="payment-option" onClick={e=> handlePaymentOption(1)}>
+                <div
+                    className="payment-option"
+                    onClick={() => handlePaymentOption(1)}
+                    tabIndex={0}
+                    onKeyDown={event => {
+                        if (event.key === " " || event.key === "Enter") {
+                            handlePaymentOption(1);
+                        }
+                    }}
+                >
                     <img className="hide-small" src={payPal} alt="PayPal"/>
                     <FaPaypal className="show-small" />
                     {textObject.PayPalPayment[language]}
                 </div>
-                <div className="payment-option" onClick={e=> handlePaymentOption(2)}>
+                <div
+                    className="payment-option"
+                    onClick={() => handlePaymentOption(2)}
+                    tabIndex={0}
+                    onKeyDown={event => {
+                        if (event.key === " " || event.key === "Enter") {
+                            handlePaymentOption(2);
+                        }
+                    }}
+                >
                     <img className="hide-small" src={coupons} alt="coupons"/>
                     <FaTicketAlt className="show-small" />
                     {textObject.couponsPayment[language]}
                 </div>
             </div>
+            {/* End payment options */}
 
-            <ErrorAlert show={showError} error={errorText.payment[language]} />
-
-            <div className="container d-flex align-items-center justify-content-center mt-3">
-                <h3 id="page-header">{textObject.details[language]}</h3>
-            </div>
-
-            <ContactForm language={language} textObject={textObject} nameFieldRef={nameFieldRef}/>
-
-        <span
-            className=""
-            tabIndex={0}
-            onFocus={()=> continueButtonRef.current.focus()}
-        >
-        </span>
-    </main>
+            <span
+                className=""
+                tabIndex={0}
+                onFocus={()=> continueButtonRef.current.focus()}
+            >
+            </span>
+        </main>
+    );
 };
 
 Payment.propTypes = {
     language: PropTypes.string.isRequired,
-    totalPrice: PropTypes.number.isRequired,
-    passengers: PropTypes.object.isRequired
+    totalPrice: PropTypes.number.isRequired
 };
