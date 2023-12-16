@@ -120,7 +120,7 @@ export const Trips = ({
         }
 
 
-    }, [selectedTrip, selectedReturnTrip, searchParameters?.tripType?.value]);
+    }, [selectedTrip, selectedReturnTrip, searchParameters?.tripType?.value, help]);
 
     if (help)  {
         return (
