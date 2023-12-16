@@ -87,6 +87,9 @@ export const Trips = ({
 
     // Navigate to home page is search has not been performed
     useEffect(() => {
+        setSubTrips([]);
+        setReturnSubTrips([]);
+
         if (!searchParameters?.start || !searchParameters?.destination ||
             !searchParameters?.date || !searchParameters?.returnDate ||
             !searchParameters?.tripType ||

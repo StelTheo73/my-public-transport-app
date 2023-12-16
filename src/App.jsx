@@ -75,6 +75,8 @@ function App() {
                 setSearchParameters={setSearchParameters}
                 setStations={setStations}
                 setPassengers={setPassengers}
+                setSubTrips={setSubTrips}
+                setReturnSubTrips={setReturnSubTrips}
                 />
             } />
             <Route path="trips" element={

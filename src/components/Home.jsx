@@ -53,7 +53,8 @@ const filterOptions = (option, filter) => {
 export const Home = ({
       language,
       searchParameters, setSearchParameters,
-      setStations
+      setStations,
+      setSubTrips, setReturnSubTrips
       }) => {
 
       const navigate = useNavigate();
@@ -63,6 +64,8 @@ export const Home = ({
       const { data: Stations, loading, error } = useFetch(url);
 
       useEffect(() => {
+            setSubTrips([]);
+            setReturnSubTrips([]);
             window.scrollTo(0, 0);
             setUrl("/fetch/stations");
       }, [navigate])
