@@ -27,7 +27,7 @@ const validateInput = (input, test) => {
         input.classList.add("is-invalid");
         input.classList.remove("is-valid");
     }
-}
+};
 
 export const Payment = ({language, totalPrice}) =>{
     const navigate = useNavigate();

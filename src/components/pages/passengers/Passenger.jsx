@@ -18,7 +18,7 @@ const PassengerSeats = ({ language, passenger, allSubTrips }) => {
     const { passengerId, passengerSeats } = passenger;
 
     return (
-      <div>
+      <div className="user-select-disabled">
         {textObject.seats[language]}:&nbsp;
         {passengerSeats?.map(passengerSeat => {
           const subTrip = allSubTrips.find(_subTrip => _subTrip.tripId === passengerSeat?.tripId);
@@ -33,15 +33,15 @@ const PassengerSeats = ({ language, passenger, allSubTrips }) => {
 
               <div
                 key={`passenger-seat-${passengerId}-${passengerSeat?.tripId}-${passengerSeat?.wagonId}-${passengerSeat?.seatNumber}`}
-                className="d-flex align-items-center"
+                className="d-flex align-items-center user-select-disabled"
               >
                 {vehicleType === "bus" && <FaBus className="vehicle-icon me-1"/>}
                 {vehicleType === "train" && <FaTrain className="vehicle-icon me-1"/>}
-                <span className="station-names">
+                <span className="station-names user-select-disabled">
                   {subTrip.startStation[language]} <FaArrowRight className="mx-1"/> {subTrip.arrivalStation[language]}:
                 </span>
                 &nbsp;
-                <span className="passenger-seat">
+                <span className="passenger-seat user-select-disabled">
                   {(passengerSeat?.seatNumber !== "0" && (
                     <>{passengerSeat?.wagonId}/{passengerSeat?.seatNumber}</>
                   )) || "-"}
@@ -71,14 +71,14 @@ const ValidationFields = ({validId, invalidId, text}) => {
 };
 
 const getTicketTypeFromValue = value => {
-for (const ticket of TICKET_CATEGORIES) {
-    if (value === ticket.value) {
-    return ticket;
-    }
-}
+  for (const ticket of TICKET_CATEGORIES) {
+      if (value === ticket.value) {
+      return ticket;
+      }
+  }
 
-return {}
-}
+  return {};
+};
 
 export const Passenger = ({
     language,
@@ -101,7 +101,7 @@ export const Passenger = ({
     for (const ticketType of ticketTypes) {
         ticketType.label = ticketType[language];
     }
-    let defaultTicketType = ticketTypes[0];
+    // let defaultTicketType = ticketTypes[0];
 
 
     // const defaultTicketType = passengers[passengerId] ?
@@ -114,8 +114,8 @@ export const Passenger = ({
       >
 
         <div className="d-flex justify-content-between flex-wrap">
-          <span>{textObject.passenger[language]} {passengerId+1}</span>
-          <span className="passenger-ticket-price">
+          <span className="user-select-disabled">{textObject.passenger[language]} {passengerId+1}</span>
+          <span className="passenger-ticket-price user-select-disabled">
             {textObject.ticketPrice[language]}:&nbsp;
               <span>
               {passenger?.ticketPrice &&
@@ -196,7 +196,7 @@ export const Passenger = ({
             className="btn btn-danger"
             onClick={() => handleDeletePassenger(passengerId)}
           >
-          <FaTrashAlt className="me-1"/>
+          <FaTrashAlt/>
           </button>
         </div>
 
@@ -218,4 +218,10 @@ PassengerSeats.propTypes = {
     language: PropTypes.string.isRequired,
     passenger: PropTypes.object.isRequired,
     allSubTrips: PropTypes.array.isRequired,
-  };
+};
+
+ValidationFields.propTypes = {
+    validId: PropTypes.string.isRequired,
+    invalidId: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+};

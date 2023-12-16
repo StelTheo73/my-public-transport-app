@@ -250,4 +250,10 @@ export const ContactForm = ({language, nameFieldRef}) => {
 ContactForm.propTypes = {
     language: PropTypes.string.isRequired,
     nameFieldRef: PropTypes.object
-}
+};
+
+ValidationFields.propTypes = {
+    validId: PropTypes.string.isRequired,
+    invalidId: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+};
