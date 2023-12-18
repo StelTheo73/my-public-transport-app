@@ -224,7 +224,7 @@ export const Payment = ({language, totalPrice}) =>{
                 >
                     <MdPayment className="mb-1 me-2"/>
                     <span>
-                        {textObject.nextPage[language]}
+                        {textObject.continue[language]}
                     </span>
                     <FaArrowRight className="ms-2"/>
                 </button>

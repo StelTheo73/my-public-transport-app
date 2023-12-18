@@ -303,7 +303,7 @@ export const Trips = ({
                         >
                         <MdAirlineSeatReclineExtra className="mb-1 me-2"/>
                         <span>
-                            {textObject.nextPage[language]}
+                            {textObject.reservation[language]}
                         </span>
                         <FaArrowRight className="ms-2"/>
                     </button>

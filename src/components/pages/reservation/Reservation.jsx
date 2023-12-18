@@ -379,7 +379,7 @@ export const Reservation = ({
                     >
                         <FaPersonHalfDress className="mb-1 me-2"/>
                         <span>
-                            {textObject.nextPage[language]}
+                            {textObject.passengers[language]}
                         </span>
                         <FaArrowRight className="ms-2"/>
                     </button>

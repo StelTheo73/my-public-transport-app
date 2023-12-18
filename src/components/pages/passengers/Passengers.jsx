@@ -610,7 +610,7 @@ export const Passengers = ({
             >
                 <MdPayment className="mb-1 me-2"/>
                 <span>
-                    {textObject.nextPage[language]}
+                    {textObject.payment[language]}
                 </span>
                 <FaArrowRight className="ms-2"/>
             </button>
