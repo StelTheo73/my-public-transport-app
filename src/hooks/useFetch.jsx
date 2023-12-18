@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import tripObject from '../database/trips.json';
 import stationsObject from '../database/stations.json';
 
+import { DEFAULT_FETCH_TIMEOUT } from '../env/constants';
+
 export const useFetch = (url, headers={}, _body={}) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -32,7 +34,7 @@ export const useFetch = (url, headers={}, _body={}) => {
                 await new Promise((resolve, reject) => {
                     setTimeout(() => {
                         resolve();
-                    }, 500);
+                    }, DEFAULT_FETCH_TIMEOUT);
                 });
                 if (url.includes("/fetch/stations")) {
                     // console.log("FetchStations");

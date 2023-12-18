@@ -119,8 +119,8 @@ export const Passenger = ({
             {textObject.ticketPrice[language]}:&nbsp;
               <span>
               {passenger?.ticketPrice &&
-                getTicketPrice(passenger.passengerSeats, passenger.ticketType)
-              || 0} €
+                (getTicketPrice(passenger.passengerSeats, passenger.ticketType)
+              || "0")} €
               </span>
           </span>
         </div>
