@@ -22,7 +22,7 @@ function createOptions(station, language) {
             "value": station.id,
             "label": station[language],
             "english": stationInEnglish
-      }
+      };
 }
 
 const filterOptions = (option, filter) => {
@@ -68,11 +68,11 @@ export const Home = ({
             setReturnSubTrips([]);
             window.scrollTo(0, 0);
             setUrl("/fetch/stations");
-      }, [navigate])
+      }, [navigate]);
 
       useEffect(() => {
             setStations(Stations);
-      }, [Stations, setStations])
+      }, [Stations, setStations]);
       // End fetch stations
 
       // Form state
@@ -91,6 +91,7 @@ export const Home = ({
                         "label": textObject.oneWayTrip[language]
                   }
             );
+      const [options, setOptions] = useState([]);
 
       // Create references to form elements
       const selectStartRef = useRef(null);
@@ -98,19 +99,9 @@ export const Home = ({
       const selectTripTypeRef = useRef(null);
       const divReturnDateRef = useRef(null);
 
-      // Station options
+      // Frequent stations
       const stations = Stations?.stations ? Object.values(Stations.stations) : [];
       const frequentStations = stations.filter(station => station.frequent === true);
-      const options = [
-            {
-                  "label": textObject.frequentStations[language],
-                  "options": frequentStations.map(station => createOptions(station, language))
-            },
-            {
-                  "label": textObject.allStations[language],
-                  "options": stations.map(station => createOptions(station, language))
-            }
-      ];
 
       // Trip type options
       const tripOptions = [
@@ -167,7 +158,24 @@ export const Home = ({
                   setErrorAlert(errorText.dates[language]);
             }
 
-      }, [language, Stations?.stations, navigate])
+      }, [language, Stations?.stations, navigate]);
+
+      useEffect(() => {
+            const frequentOptions = frequentStations.map(station => createOptions(station, language));
+            const allOptions = stations.map(station => createOptions(station, language));
+            frequentOptions.sort((a, b) => a.label.localeCompare(b.label));
+            allOptions.sort((a, b) => a.label.localeCompare(b.label));
+            setOptions([
+                  {
+                        "label": textObject.frequentStations[language],
+                        "options": frequentOptions
+                  },
+                  {
+                        "label": textObject.allStations[language],
+                        "options": allOptions
+                  }
+            ]);
+      }, [language, Stations?.stations, navigate]);
 
       // Hide return date selector when trip type is one way trip
       useEffect(() => {
@@ -180,25 +188,25 @@ export const Home = ({
                   divReturnDateRef.current.classList.remove("d-flex");
             }
 
-      }, [tripType])
+      }, [tripType]);
 
       // Alternate start and destination stations
-      const alternateStartDestination = (event) => {
+      const alternateStartDestination = () => {
             const temp = start;
             setStart(destination);
             setDestination(temp);
-      }
+      };
 
       // Prevent form submission when pressing enter
-      function handleKeyDown(event) {
+      const handleKeyDown = event => {
             if (event.key === "Enter") {
                   event.preventDefault();
             }
-      }
+      };
 
       const [errorAlert, setErrorAlert] = useState(false);
       // Handle form submission
-      const handleSubmit = (event) => {
+      const handleSubmit = event => {
             event.preventDefault();
 
             if (start && destination && start.value === destination.value) {
@@ -217,16 +225,14 @@ export const Home = ({
                         date: date.valueOf(),
                         returnDate: returnDate.valueOf(),
                         tripType: tripType.valueOf()
-                  })
+                  });
 
                   navigate("/trips", {
                         language: language,
                         searchParameters: searchParameters
                   });
             }
-      }
-
-
+      };
 
       // const inputs = document.querySelectorAll(".required");
       // inputs.forEach(input => {
@@ -235,7 +241,6 @@ export const Home = ({
       //                   input.scrollIntoView(false);
       //             })
       // });
-
 
       return (
             <main>
@@ -249,8 +254,8 @@ export const Home = ({
                               <form
                                     className="container"
                                     method="GET"
-                                    onKeyDown={(event) => handleKeyDown(event)}
-                                    onSubmit={(event) => handleSubmit(event)}>
+                                    onKeyDown={event => handleKeyDown(event)}
+                                    onSubmit={event => handleSubmit(event)}>
 
                                     {/* First row */}
                                     <div className="row">
@@ -326,7 +331,9 @@ export const Home = ({
                                                       name="date"
                                                       id="date"
                                                       value={date}
-                                                      onChange={e => {setDate(e.target.value); setReturnDate(e.target.value)}}
+                                                      onChange={e =>{
+                                                            setDate(e.target.value); setReturnDate(e.target.value)
+                                                      }}
                                                 />
                                           </div>
                                           {/* End date select */}
@@ -360,7 +367,7 @@ export const Home = ({
                                                 {/* <label>&nbsp;</label> */}
                                                 <button
                                                       className="btn btn-outline-primary"
-                                                      onClick={(event) => {event.preventDefault(); alternateStartDestination(event);}}
+                                                      onClick={event => {event.preventDefault(); alternateStartDestination(event);}}
                                                 ><i className="bi bi-arrow-left-right"></i>&nbsp;&nbsp;{textObject.alternate[language]}
                                                 </button>
                                           </div>
@@ -371,12 +378,14 @@ export const Home = ({
                         </div>
                   </div>
             </main>
-      )
-}
+      );
+};
 
 Home.propTypes = {
       language: PropTypes.string.isRequired,
       searchParameters: PropTypes.object.isRequired,
       setSearchParameters: PropTypes.func.isRequired,
-      setStations: PropTypes.func.isRequired
-}
+      setStations: PropTypes.func.isRequired,
+      setSubTrips: PropTypes.func.isRequired,
+      setReturnSubTrips: PropTypes.func.isRequired
+};
