@@ -108,7 +108,7 @@ export const Payment = ({language, totalPrice}) =>{
 
     useEffect(()=> {
         if (totalPrice === 0) {
-            navigate("/");
+            // navigate("/");
         }
     }, [navigate]);
 

@@ -202,15 +202,15 @@ export const ContactForm = ({language, nameFieldRef}) => {
                 autoComplete="country-name"
                 >
                 {countries[language].map(i =>
-                    <option key={Math.random()*Math.random()+Math.random()}>{i}</option>
+                    <option kew={countries[language].indexOf(i)}>{i}</option>
                 )}
                 </select>
 
-                <ValidationFields
+                {/* <ValidationFields
                     validId="contactCountry-valid"
                     invalidId="contactCountry-invalid"
                     text={textObject.formValidation.country[language]}
-                />
+                /> */}
             {/* <Select value={"countries[language][0]"}
                 options={countries[language].map(country=> {return { value: country, label: country }})} /> */}
             </div>
